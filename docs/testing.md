@@ -170,3 +170,4 @@ Use [docs/provider_strategy.md](provider_strategy.md) as the current rule:
 - Gemini should be judged on both micro raw total and macro steady-state effective total
 - a provider-specific regime win is real, but it should be labeled as such
 - when macro prompts are large but task-specific anchors are strong, prefer `targeted` compiled context over a generic focused prefix
+- when macro prompts also depend on cache reuse, prefer `layered`: shared cacheable prefix plus targeted task overlay

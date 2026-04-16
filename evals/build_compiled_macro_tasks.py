@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from sigil.context_prefix import compile_context_prefix, load_context_prefix
+from sigil.context_prefix import compile_context_layers
 from sigil.task_capsule import load_jsonl
 
 
@@ -19,7 +20,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("source", type=Path)
     parser.add_argument("prefix", type=Path)
     parser.add_argument("out", type=Path)
-    parser.add_argument("--context-style", choices=["cacheable", "focused", "targeted"], default="cacheable")
+    parser.add_argument("--context-style", choices=["cacheable", "focused", "targeted", "layered"], default="cacheable")
     parser.add_argument("--task-label", default="Task")
     args = parser.parse_args(argv)
 
@@ -29,11 +30,20 @@ def main(argv: list[str] | None = None) -> int:
     for row in source_rows:
         prompt_suffix = str(row["prompt"]).strip()
         category = str(row.get("category") or "unknown")
-        compiled_prefix = compile_context_prefix(prefix_text, category=category, style=args.context_style, task=row)
-        combined_prompt = f"{compiled_prefix}\n\n[{args.task_label}]\n{prompt_suffix}"
+        if args.context_style == "layered":
+            compiled_prefix, task_context = compile_context_layers(prefix_text, category=category, task=row)
+            combined_prompt = (
+                f"{compiled_prefix}\n\n[Task Context]\n{task_context}\n\n[{args.task_label}]\n{prompt_suffix}"
+            )
+        else:
+            compiled_prefix = compile_context_prefix(prefix_text, category=category, style=args.context_style, task=row)
+            task_context = None
+            combined_prompt = f"{compiled_prefix}\n\n[{args.task_label}]\n{prompt_suffix}"
         updated = dict(row)
         updated["prompt_suffix"] = prompt_suffix
         updated["cache_prefix"] = compiled_prefix
+        if task_context is not None:
+            updated["task_context"] = task_context
         updated["prompt"] = combined_prompt
         updated["benchmark_scale"] = f"macro-{args.context_style}"
         updated["context_style"] = args.context_style

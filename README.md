@@ -25,6 +25,7 @@ The stable architecture is:
   - `nano` capsules for ultra-cheap routes
   - typed capsule-mini contracts when `nano` throws away too much structure
   - `targeted` compiled context when macro prompts need task-aware prefix compression
+  - `layered` compiled context when you need both cache-stable shared prefixes and task-specific overlays
 
 ## Why People Pay Attention To This
 

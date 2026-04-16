@@ -310,5 +310,18 @@ def compile_context_prefix(
     return "\n".join(lines)
 
 
+def compile_context_layers(
+    text: str,
+    *,
+    category: str,
+    task: dict[str, Any] | None = None,
+    shared_style: str = "cacheable",
+    task_style: str = "targeted",
+) -> tuple[str, str]:
+    shared_prefix = compile_context_prefix(text, category="shared", style=shared_style)
+    task_context = compile_context_prefix(text, category=category, style=task_style, task=task)
+    return shared_prefix, task_context
+
+
 def load_context_prefix(path: Path) -> str:
     return path.read_text(encoding="utf-8").strip()

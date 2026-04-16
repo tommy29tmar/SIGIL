@@ -145,6 +145,62 @@ class CliTests(unittest.TestCase):
             self.assertEqual(row["context_style"], "targeted")
             self.assertIn('anchors: "x-user-id" | "401"', row["cache_prefix"])
 
+    def test_bench_build_compiled_macro_layered_command(self) -> None:
+        with tempfile.TemporaryDirectory() as tmpdir:
+            root = Path(tmpdir)
+            source = root / "tasks.jsonl"
+            prefix = ROOT / "evals" / "prefixes" / "service_context_v1.txt"
+            out = root / "macro_layered.jsonl"
+            source.write_text(
+                "\n".join(
+                    [
+                        json.dumps(
+                            {
+                                "id": "t1",
+                                "prompt": "Fix auth expiry around x-user-id and 401.",
+                                "category": "debugging",
+                                "mode": "hybrid",
+                                "exact_literals": ["x-user-id", "401"],
+                                "must_include": ["expiry", "boundary"],
+                            }
+                        ),
+                        json.dumps(
+                            {
+                                "id": "t2",
+                                "prompt": "Choose architecture for PostgreSQL shipping in 4 months.",
+                                "category": "architecture",
+                                "mode": "hybrid",
+                                "exact_literals": ["PostgreSQL", "4 months"],
+                                "must_include": ["modular monolith", "low ops"],
+                            }
+                        ),
+                    ]
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            buffer = io.StringIO()
+            with redirect_stdout(buffer):
+                exit_code = main(
+                    [
+                        "bench",
+                        "build-compiled-macro",
+                        str(source),
+                        str(prefix),
+                        str(out),
+                        "--context-style",
+                        "layered",
+                    ]
+                )
+            self.assertEqual(exit_code, 0)
+            rows = [json.loads(line) for line in out.read_text(encoding="utf-8").splitlines()]
+            self.assertEqual(rows[0]["benchmark_scale"], "macro-layered")
+            self.assertEqual(rows[0]["context_style"], "layered")
+            self.assertEqual(rows[0]["cache_prefix"], rows[1]["cache_prefix"])
+            self.assertIn("[Task Context]", rows[0]["prompt"])
+            self.assertIn("[ctx targeted debugging]", rows[0]["task_context"])
+            self.assertIn("[ctx targeted architecture]", rows[1]["task_context"])
+
     def test_bench_build_capsules_command(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
             root = Path(tmpdir)

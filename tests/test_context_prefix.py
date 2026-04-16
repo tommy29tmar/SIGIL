@@ -3,7 +3,7 @@ from __future__ import annotations
 import unittest
 from pathlib import Path
 
-from sigil.context_prefix import compile_context_prefix, parse_handbook_sections
+from sigil.context_prefix import compile_context_layers, compile_context_prefix, parse_handbook_sections
 from sigil.metrics import approx_token_count
 
 
@@ -65,6 +65,30 @@ class ContextPrefixTests(unittest.TestCase):
         self.assertIn('"PostgreSQL"', targeted)
         self.assertIn('"4 months"', targeted)
         self.assertIn("PostgreSQL is the default SoR.", targeted)
+
+    def test_context_layers_keep_shared_prefix_and_task_overlay(self) -> None:
+        source = (ROOT / "evals" / "prefixes" / "service_context_v1.txt").read_text(encoding="utf-8")
+        debug_task = {
+            "id": "t1",
+            "category": "debugging",
+            "prompt": "Fix auth expiry bug around x-user-id and 401 boundary.",
+            "exact_literals": ["x-user-id", "401"],
+            "must_include": ["auth", "expiry"],
+        }
+        architecture_task = {
+            "id": "a1",
+            "category": "architecture",
+            "prompt": "Choose architecture with PostgreSQL and 4 months deadline.",
+            "exact_literals": ["PostgreSQL", "4 months"],
+            "must_include": ["modular monolith", "low ops"],
+        }
+        debug_shared, debug_overlay = compile_context_layers(source, category="debugging", task=debug_task)
+        arch_shared, arch_overlay = compile_context_layers(source, category="architecture", task=architecture_task)
+        self.assertEqual(debug_shared, arch_shared)
+        self.assertIn("[ctx cacheable shared]", debug_shared)
+        self.assertIn("[ctx targeted debugging]", debug_overlay)
+        self.assertIn("[ctx targeted architecture]", arch_overlay)
+        self.assertNotEqual(debug_overlay, arch_overlay)
 
 
 if __name__ == "__main__":
