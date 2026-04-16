@@ -263,6 +263,8 @@ def build_cached_task_prompt(prompt_suffix: str, task_context: str | None = None
     overlay = (task_context or "").strip()
     if not overlay:
         return suffix
+    if overlay.startswith("[ctx "):
+        return f"{overlay}\n\n{suffix}"
     return f"[Task Context]\n{overlay}\n\n{suffix}"
 
 

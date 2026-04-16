@@ -78,9 +78,9 @@ class RunGeminiTests(unittest.TestCase):
             '[capsule micro debug]\nanchors: "x-user-id" | "401"',
             '[ctx targeted debugging]\nanchors: "x-user-id" | "401"\nfocus: boundary',
         )
-        self.assertIn("[Task Context]", rendered)
         self.assertIn("[ctx targeted debugging]", rendered)
         self.assertTrue(rendered.endswith('[capsule micro debug]\nanchors: "x-user-id" | "401"'))
+        self.assertNotIn("[Task Context]", rendered)
 
     def test_build_payload_can_disable_stop_sequences(self) -> None:
         payload = RUN_GEMINI.build_payload(

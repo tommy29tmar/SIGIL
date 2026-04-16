@@ -81,6 +81,21 @@ class ContextPrefixTests(unittest.TestCase):
         self.assertIn('anchors: "x-user-id" | "401" | "next(err)"', needle)
         self.assertLess(approx_token_count(needle), approx_token_count(targeted))
 
+    def test_delta_prefix_is_shorter_than_needle_and_keeps_anchors(self) -> None:
+        source = (ROOT / "evals" / "prefixes" / "service_context_v1.txt").read_text(encoding="utf-8")
+        task = {
+            "id": "t3",
+            "category": "debugging",
+            "prompt": "Fix auth expiry bug around x-user-id and 401 boundary with next(err).",
+            "exact_literals": ["x-user-id", "401", "next(err)"],
+            "must_include": ["auth", "expiry", "boundary"],
+        }
+        needle = compile_context_prefix(source, category="debugging", style="needle", task=task)
+        delta = compile_context_prefix(source, category="debugging", style="delta", task=task)
+        self.assertIn("[ctx delta debugging]", delta)
+        self.assertIn('anchors: "x-user-id" | "401" | "next(err)"', delta)
+        self.assertLess(approx_token_count(delta), approx_token_count(needle))
+
     def test_context_layers_keep_shared_prefix_and_task_overlay(self) -> None:
         source = (ROOT / "evals" / "prefixes" / "service_context_v1.txt").read_text(encoding="utf-8")
         debug_task = {
@@ -104,6 +119,21 @@ class ContextPrefixTests(unittest.TestCase):
         self.assertIn("[ctx targeted debugging]", debug_overlay)
         self.assertIn("[ctx targeted architecture]", arch_overlay)
         self.assertNotEqual(debug_overlay, arch_overlay)
+
+    def test_context_layers_support_delta_overlay(self) -> None:
+        source = (ROOT / "evals" / "prefixes" / "service_context_v1.txt").read_text(encoding="utf-8")
+        debug_task = {
+            "id": "t4",
+            "category": "debugging",
+            "prompt": "Fix auth expiry bug around x-user-id and 401 boundary.",
+            "exact_literals": ["x-user-id", "401"],
+            "must_include": ["auth", "expiry"],
+        }
+        shared, overlay = compile_context_layers(source, category="debugging", task=debug_task, task_style="delta")
+        self.assertIn("[ctx cacheable shared]", shared)
+        self.assertIn("[ctx delta debugging]", overlay)
+        self.assertNotIn("title:", overlay)
+        self.assertNotIn("scope:", overlay)
 
 
 if __name__ == "__main__":

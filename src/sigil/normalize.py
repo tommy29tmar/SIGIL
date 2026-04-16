@@ -7,8 +7,12 @@ AWAIT_CALL_RE = re.compile(r"\bawait\s+([A-Za-z_][A-Za-z0-9_./-]*\((?:[^()]|\".*
 AWAIT_IDENT_RE = re.compile(r"\bawait\s+([A-Za-z_][A-Za-z0-9_./-]*)\b")
 COMPARATOR_ATOM = r"(?:[A-Za-z_](?:[A-Za-z0-9_./:+-]*[A-Za-z0-9_./:+])?|[0-9]+(?:\.[0-9]+)?)"
 COMPARATOR_CALL = r"[A-Za-z_][A-Za-z0-9_./:+-]*\((?:[^()]|\".*?\"|'.*?')*\)"
+COMPARATOR_TERM = rf"(?:{COMPARATOR_CALL}|{COMPARATOR_ATOM}|\([^()]+\))"
 COMPARATOR_RE = re.compile(
-    rf"(?P<left>(?:{COMPARATOR_CALL}|{COMPARATOR_ATOM}))\s*(?P<op><=|>=|<|>)\s*(?P<right>{COMPARATOR_ATOM})"
+    rf"(?P<left>{COMPARATOR_TERM})\s*(?P<op><=|>=|==|!=|<|>)\s*(?P<right>{COMPARATOR_TERM})"
+)
+COMPARATOR_ARROW_RE = re.compile(
+    rf"(?P<left>{COMPARATOR_TERM})\s*(?P<op><=|>=|==|!=|<|>)\s*(?P<right>{COMPARATOR_TERM})\s*(?P<arrow>=>|->|→|⇒)\s*(?P<tail>{COMPARATOR_TERM})"
 )
 COMPACT_FRAGMENT_RE = re.compile(r'^[A-Za-z0-9_./:+\-<>=\[\]]+(?:\((?:[^()"\'\s]+|".*?"|\'.*?\')?\))?$')
 UNICODE_REPLACEMENTS = {
@@ -52,6 +56,9 @@ ARCHITECTURE_DELIVER_ASSIGNMENT_RE = re.compile(r"\bdeliver\s*=\s*([A-Za-z0-9_./
 ARCHITECTURE_DELIVER_RE = re.compile(r"\bdeliver\s+([A-Za-z0-9_./+-]+(?:\s+[A-Za-z0-9_./+-]+)*)")
 ARCHITECTURE_JOINED_DELIVER_RE = re.compile(r"\bdeliver\s*∧\s*([A-Za-z0-9_./+-]+(?:\s*∧\s*[A-Za-z0-9_./+-]+)*)")
 ARCHITECTURE_DURATION_RE = re.compile(r"\b[0-9]+\s+(?:hours?|days?|weeks?|months?)\b")
+ARCHITECTURE_WHY_RE = re.compile(r"\bwhy:\s*(.+)$")
+DEBUG_EDGE_ARROW_RE = re.compile(r"edge\(((?:[^()]|\([^()]*\))+?)\s*(?:=>|->|→|⇒)\s*([A-Za-z0-9_./:+-]+)\)")
+DEBUG_OUTCOME_SUFFIX_RE = re.compile(r"((?:eq\([^()]*\)|[A-Za-z0-9_./:+-]+(?:\([^()]*\))?))_(pass|fail)")
 
 
 def _has_balanced_delimiters(expr: str) -> bool:
@@ -105,10 +112,17 @@ def normalize_expression_text(expr: str) -> str:
 
 
 def _rewrite_comparators(expr: str) -> str:
-    operator_map = {"<": "lt", ">": "gt", "<=": "le", ">=": "ge"}
+    operator_map = {"<": "lt", ">": "gt", "<=": "le", ">=": "ge", "==": "eq", "!=": "ne"}
     previous = None
     while previous != expr:
         previous = expr
+        expr = COMPARATOR_ARROW_RE.sub(
+            lambda match: (
+                f"{operator_map[match.group('op')]}({match.group('left')},{match.group('right')})"
+                f" {match.group('arrow')} {match.group('tail')}"
+            ),
+            expr,
+        )
         expr = COMPARATOR_RE.sub(
             lambda match: f"{operator_map[match.group('op')]}({match.group('left')},{match.group('right')})",
             expr,
@@ -271,6 +285,21 @@ def _replace_top_level_delimiters(expr: str) -> str:
 
 
 def _normalize_architecture_capsule_text(expr: str) -> str:
+    def compact_reason(text: str) -> str:
+        words = re.findall(r"[A-Za-z0-9]+", text.lower())
+        if not words:
+            return "short_why"
+        normalized: list[str] = []
+        for word in words:
+            if word in {"the", "a", "an", "and", "or", "with", "for", "that", "this", "keeps", "keep"}:
+                continue
+            normalized.append(word)
+            if len(normalized) >= 8:
+                break
+        if not normalized:
+            normalized = words[:4]
+        return "_".join(normalized)
+
     def replace_anchors(match: re.Match[str]) -> str:
         raw = match.group(1)
         parts = [part.strip().strip('"').strip("'") for part in raw.split("|")]
@@ -295,6 +324,7 @@ def _normalize_architecture_capsule_text(expr: str) -> str:
     expr = ARCHITECTURE_DELIVER_ASSIGNMENT_RE.sub(lambda m: f"deliver({m.group(1).strip().replace(' ', '_')})", expr)
     expr = ARCHITECTURE_DELIVER_RE.sub(lambda m: f"deliver({m.group(1).strip().replace(' ', '_')})", expr)
     expr = ARCHITECTURE_JOINED_DELIVER_RE.sub(lambda m: f'deliver({m.group(1).replace("∧", "_").replace(" ", "").strip("_")})', expr)
+    expr = ARCHITECTURE_WHY_RE.sub(lambda m: f" ∧ why({compact_reason(m.group(1))})", expr)
     return expr
 
 
@@ -308,6 +338,12 @@ def _normalize_refactor_capsule_text(expr: str) -> str:
     return expr
 
 
+def _normalize_debugging_capsule_text(expr: str) -> str:
+    expr = DEBUG_EDGE_ARROW_RE.sub(lambda m: f"edge({m.group(1).strip()},{m.group(2).strip()})", expr)
+    expr = DEBUG_OUTCOME_SUFFIX_RE.sub(lambda m: f"edge({m.group(1)},{m.group(2)})", expr)
+    return expr
+
+
 def normalize_direct_expression_text(expr: str) -> str:
     expr = _replace_unicode_operators(normalize_expression_text(expr)).strip()
     expr = expr.replace("`", "")
@@ -318,6 +354,9 @@ def normalize_direct_expression_text(expr: str) -> str:
     fragments = _split_top_level_fragments(expr)
     if len(fragments) > 1 and fragments[0] in {"!", "?"} and all(_is_joinable_fragment(fragment) for fragment in fragments[1:]):
         return f"{fragments[0]} {' ∧ '.join(fragments[1:])}"
+    if len(fragments) > 2 and fragments[0] in {"!", "?"} and any(fragment in BINARY_OPERATOR_TOKENS for fragment in fragments[1:]):
+        tail = normalize_direct_expression_text(" ".join(fragments[1:]))
+        return f"{fragments[0]} {tail}".strip()
     if len(fragments) > 1 and all(_is_joinable_fragment(fragment) for fragment in fragments):
         return " ∧ ".join(fragments)
     if len(fragments) > 1 and any(fragment in BINARY_OPERATOR_TOKENS for fragment in fragments):
@@ -456,6 +495,8 @@ def repair_direct_sigil_text(text: str, category: str | None = None) -> str:
             raw_expr = _trim_dangling_binary(stripped[2:].strip())
             if category == "architecture":
                 raw_expr = _normalize_architecture_capsule_text(raw_expr)
+            if category == "debugging":
+                raw_expr = _normalize_debugging_capsule_text(raw_expr)
             if category == "refactoring":
                 raw_expr = _normalize_refactor_capsule_text(raw_expr)
                 if tag == "G":

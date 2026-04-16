@@ -344,6 +344,25 @@ class RunOpenAITests(unittest.TestCase):
         self.assertIn("C: team(small) ∧ deadline(tight) ∧ low_ops -> fast_ship ∧ priority", content)
         parse_document(content)
 
+    def test_decode_variant_output_repairs_comparator_arrow_chain(self) -> None:
+        variant = RUN_OPENAI.parse_variant("sigil-debug-claude-nano@sigil=prompts/debug_direct_sigil_claude_nano.txt")
+        response = {
+            "output_text": "G: webhook_ts_reject∧valid_request∧edge_boundary\nC: abs(now-ts)>300→401∧clock_drift\nP: encode_grace"
+        }
+        content, _ = RUN_OPENAI.decode_variant_output(variant, response)
+        self.assertIn("gt(abs(now-ts),300) → 401", content)
+        parse_document(content)
+
+    def test_decode_variant_output_repairs_debug_delta_prose(self) -> None:
+        variant = RUN_OPENAI.parse_variant("sigil-debug-gemini-nano@sigil=prompts/debug_direct_sigil_gemini_nano.txt")
+        response = {
+            "output_text": "@sigil v0 hybrid\nG: webhook_ts_validator rejects valid requests at abs(now-ts)==300\nC: rule_is_strict_gt_not_gte ∧ intended_budget_is_300s ∧ provider_skew_hits_boundary\nP: change abs(now-ts)>300 to abs(now-ts)>=301 OR abs(now-ts)>SKEW_BUDGET where SKEW_BUDGET=300\nV: edge(abs==300→200) ∧ edge(abs==301→401)\nA: keep_300s_budget ∧ fix_boundary_to_strict_gt"
+        }
+        content, _ = RUN_OPENAI.decode_variant_output(variant, response)
+        self.assertIn("eq(abs(now-ts),300)", content)
+        self.assertIn("[AUDIT]", content)
+        parse_document(content)
+
     def test_decode_variant_output_repairs_architecture_capsule_phrases(self) -> None:
         variant = RUN_OPENAI.parse_variant("sigil-arch-openai-gemini-nano@sigil=prompts/architecture_direct_sigil_gemini_nano.txt")
         response = {
@@ -363,6 +382,15 @@ class RunOpenAITests(unittest.TestCase):
         self.assertIn('store("BigQuery")', content)
         self.assertIn("deliver(default_arch)", content)
         self.assertIn("P: mod_monolith", content)
+        parse_document(content)
+
+    def test_decode_variant_output_repairs_architecture_why_tail(self) -> None:
+        variant = RUN_OPENAI.parse_variant("sigil-arch-openai-gemini-nano@sigil=prompts/architecture_direct_sigil_gemini_nano.txt")
+        response = {
+            "output_text": 'G: mod_monolith\nC: team(9)∧ddl("12 weeks")\nP: store("PostgreSQL")∧shared_pg\nV: compliance_ready∧platform_plus_sec\nA: split(post_release)∧mod_boundaries_now∧PostgreSQL_single_SoR∧why: 9-person team + 12-week window makes distributed-systems overhead net-negative'
+        }
+        content, _ = RUN_OPENAI.decode_variant_output(variant, response)
+        self.assertIn("why(9_person_team_12_week_window_makes_distributed)", content)
         parse_document(content)
 
     def test_decode_variant_output_repairs_architecture_broken_pipe_plan(self) -> None:

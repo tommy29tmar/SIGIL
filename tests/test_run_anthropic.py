@@ -66,9 +66,9 @@ class RunAnthropicTests(unittest.TestCase):
             '[capsule micro architecture]\nstore: "PostgreSQL"',
             '[ctx targeted architecture]\nstore: "PostgreSQL"\ndeadline: "4 months"',
         )
-        self.assertIn("[Task Context]", rendered)
         self.assertIn("[ctx targeted architecture]", rendered)
         self.assertTrue(rendered.endswith('[capsule micro architecture]\nstore: "PostgreSQL"'))
+        self.assertNotIn("[Task Context]", rendered)
 
     def test_build_payload_with_stop_sequences(self) -> None:
         payload = RUN_ANTHROPIC.build_payload(

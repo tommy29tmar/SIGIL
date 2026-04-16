@@ -61,7 +61,7 @@ def _build_parser() -> argparse.ArgumentParser:
     bench_compiled_macro_parser.add_argument("out", type=Path)
     bench_compiled_macro_parser.add_argument(
         "--context-style",
-        choices=["cacheable", "focused", "targeted", "needle", "layered", "layered-needle"],
+        choices=["cacheable", "focused", "targeted", "needle", "delta", "layered", "layered-needle", "layered-delta"],
         default="cacheable",
     )
     bench_compiled_macro_parser.add_argument("--task-label", default="Task")

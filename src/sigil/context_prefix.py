@@ -117,6 +117,26 @@ NEEDLE_SECTIONS = {
     ),
 }
 
+DELTA_SECTIONS = {
+    "debugging": (
+        "authentication and session rules",
+        "token and expiry rules",
+        "testing heuristics",
+    ),
+    "architecture": (
+        "architecture heuristics",
+        "operational posture",
+    ),
+    "code_review": (
+        "security review heuristics",
+        "authentication and session rules",
+    ),
+    "refactoring": (
+        "refactor heuristics",
+        "testing heuristics",
+    ),
+}
+
 PHRASE_REPLACEMENTS = (
     ("public API gateway", "public_gateway"),
     ("Node.js and TypeScript", "Node.js+TypeScript"),
@@ -290,6 +310,19 @@ def _render_needle_section(
     return _render_section(selected[:limit], label=LABELS.get(section_name, section_name), tight=True)
 
 
+def _render_delta_section(
+    section_name: str,
+    items: list[str],
+    *,
+    anchors: list[str],
+    terms: set[str],
+) -> str | None:
+    selected = _select_targeted_items(section_name, items, anchors=anchors, terms=terms)
+    if not selected:
+        return None
+    return _render_section(selected[:1], label=LABELS.get(section_name, section_name), tight=True)
+
+
 def compile_context_prefix(
     text: str,
     *,
@@ -297,32 +330,39 @@ def compile_context_prefix(
     style: str = "cacheable",
     task: dict[str, Any] | None = None,
 ) -> str:
-    if style not in {"cacheable", "focused", "targeted", "needle"}:
+    if style not in {"cacheable", "focused", "targeted", "needle", "delta"}:
         raise ValueError(f"Unsupported context style: {style}")
     sections = parse_handbook_sections(text)
     preamble = [_collapse(item) for item in sections.get("preamble", []) if item.strip()]
     title = preamble[0] if preamble else "Project handbook"
     intro = preamble[1] if len(preamble) > 1 else "Shared durable project context."
     anchors, terms = _extract_task_terms(task)
-    lines = [
-        f"[ctx {style} {category}]",
-        f"title: {title}",
-        f"scope: {intro}",
-        f"focus: {category}",
-    ]
-    if style in {"targeted", "needle"} and anchors:
+    if style == "delta":
+        lines = [f"[ctx {style} {category}]"]
+    else:
+        lines = [
+            f"[ctx {style} {category}]",
+            f"title: {title}",
+            f"scope: {intro}",
+            f"focus: {category}",
+        ]
+    if style in {"targeted", "needle", "delta"} and anchors:
         encoded = " | ".join(f'"{anchor}"' for anchor in anchors[:4])
         lines.append(f"anchors: {encoded}")
-    tight = style in {"focused", "targeted", "needle"}
+    tight = style in {"focused", "targeted", "needle", "delta"}
     if style == "needle":
         keys = NEEDLE_SECTIONS.get(category, FOCUSED_SECTIONS.get(category, SECTION_ORDER[:4]))
+    elif style == "delta":
+        keys = DELTA_SECTIONS.get(category, NEEDLE_SECTIONS.get(category, SECTION_ORDER[:2]))
     else:
-        keys = _section_keys_for(category, "focused" if style in {"targeted", "needle"} else style)
+        keys = _section_keys_for(category, "focused" if style in {"targeted", "needle", "delta"} else style)
     for key in keys:
         if style == "targeted":
             rendered = _render_targeted_section(key, sections.get(key, []), anchors=anchors, terms=terms)
         elif style == "needle":
             rendered = _render_needle_section(key, sections.get(key, []), anchors=anchors, terms=terms)
+        elif style == "delta":
+            rendered = _render_delta_section(key, sections.get(key, []), anchors=anchors, terms=terms)
         else:
             rendered = _render_section(sections.get(key, []), label=LABELS.get(key, key), tight=tight)
         if rendered:
@@ -363,6 +403,18 @@ def compile_context_prefix(
                 if section_line:
                     compact_lines.append(section_line)
                 if approx_token_count("\n".join(compact_lines)) >= 150:
+                    break
+            lines = compact_lines
+    if style == "delta":
+        token_count = approx_token_count(rendered)
+        anchor_line_count = 2 if anchors else 1
+        if token_count > 120:
+            compact_lines = lines[:anchor_line_count]
+            for key in keys:
+                section_line = _render_delta_section(key, sections.get(key, []), anchors=anchors, terms=terms)
+                if section_line:
+                    compact_lines.append(section_line)
+                if approx_token_count("\n".join(compact_lines)) >= 100:
                     break
             lines = compact_lines
     return "\n".join(lines)
