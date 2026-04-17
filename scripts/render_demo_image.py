@@ -99,7 +99,7 @@ def main() -> None:
     lx, ly = PAD, PANEL_Y
     draw_panel(draw, lx, ly, PANEL_W, PANEL_H, PANEL_BG, BORDER)
     draw.text((lx + 28, ly + 24), "Claude (default)", fill=TEXT_BRIGHT, font=_font(28, bold=True))
-    draw.text((lx + 28, ly + 64), "905 tokens · 12.4s",
+    draw.text((lx + 28, ly + 64), "911 tokens · 12.5s",
               fill=ACCENT_WARN, font=_font(22, bold=True))
     body_font = _font(18)
     ty = ly + 115
@@ -114,7 +114,7 @@ def main() -> None:
     draw_panel(draw, rx, ry, PANEL_W, PANEL_H, SIGIL_BG, SIGIL_BORDER)
     draw.text((rx + 28, ry + 24), "Claude + Flint",
               fill=ACCENT, font=_font(28, bold=True))
-    draw.text((rx + 28, ry + 64), "415 tokens · 3.3s",
+    draw.text((rx + 28, ry + 64), "471 tokens · 4.2s",
               fill=ACCENT, font=_font(22, bold=True))
     sigil_font = _font(20)
     ty = ry + 125
@@ -125,7 +125,7 @@ def main() -> None:
     # Bottom headline
     banner_y = PANEL_Y + PANEL_H + 40
     draw.text((PAD, banner_y),
-        "-54% tokens   ·   -73% latency   ·   same concepts covered",
+        "-48% tokens   ·   -66% latency   ·   +13pt concept coverage",
         fill=HEADLINE, font=_font(38, bold=True))
     draw.text((PAD, banner_y + 60),
         "Averaged over 4 runs × 8 technical tasks. One /flint install in Claude Code.",
