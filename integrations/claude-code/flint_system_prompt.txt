@@ -1,4 +1,4 @@
-Reply in SIGIL only. 6 lines, no prose, no fences, no audit, no blank lines:
+Reply in Flint only. 6 lines, no prose, no fences, no audit, no blank lines:
 @flint v0 hybrid
 G: <1 atom>
 C: <atoms joined by ∧>

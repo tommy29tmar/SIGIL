@@ -2,11 +2,11 @@
 name: flint
 description: |
   Compresses Claude's answer into Flint, a compact symbolic IR.
-  On Claude Opus 4.7, saves ~54% tokens and ~73% latency vs verbose
-  Claude with concept coverage statistically tied to the full prose
-  answer (measured on an 8-task holdout, 4 runs per cell). Good for
-  debugging rules, architecture sketches, code-review risks, and
-  refactor specs. Works best on well-scoped technical questions.
+  On Claude Opus 4.7 with long-context workloads (codebases, CLAUDE.md,
+  RAG), saves ~75% output tokens and ~65% latency vs verbose Claude,
+  and +9pt concept coverage (measured on 10 tasks × 4 runs). Good for
+  debugging, architecture sketches, code-review risks, and refactor
+  specs. Works best on well-scoped technical questions.
 allowed-tools: []
 ---
 

@@ -4,7 +4,7 @@
 
 On realistic coding workloads — codebases, CLAUDE.md loaded, RAG context — Claude writes answers **4× shorter, 3× faster, covering 9 more concept points** than verbose Claude. And it beats "Caveman prompting" on every column too. Measured on 40 samples (10 long-context tasks × 4 runs) on Opus 4.7 with prompt cache active.
 
-![demo](assets/launch/demo.png)
+![Flint](assets/launch/hero.jpg)
 
 ## Install
 
@@ -58,45 +58,7 @@ Concept coverage is measured against must-cover keywords picked from each task's
 
 Real output from the benchmark. Task: *"review this rate-limiter diff for a bypass vulnerability."* Same model, same context, same question.
 
-**Verbose Claude (523 output tokens):**
-
-```
-finding: `X-Forwarded-For` trusted without proxy validation ⇒ spoofable rate-limit key
-
-exploit:
-- attacker sends `X-Forwarded-For: <random>` per request → distinct keys → limiter bypassed
-- attacker pins victim IP → exhausts victim's bucket → DoS / lockout
-
-mitigation:
-- derive client IP from trusted proxy chain only (e.g. Express `trust proxy` + `req.ip`)
-- never read raw `x-forwarded-for` at public boundary
-- key on validated IP; fall back to `req.socket.remoteAddress` if no trusted proxy
-- also add `INCR` + `EXPIRE` atomically (current code leaks keys, no TTL)
-
-verify:
-- spoof test: 100 req with rotating `X-Forwarded-For`, same socket → single bucket
-- victim-pin test: forged XFF=victim.ip → victim's own requests still counted correctly
-- TTL test: `TTL rl:<ip>` returns >0 after first hit
-  ... (continues for another 200 tokens)
-```
-
-**Flint (167 output tokens):**
-
-```
-@flint v0 hybrid
-G: fix(rl_spoof)
-C: trust_boundary ∧ "X-Forwarded-For" ∧ "Redis"
-P: drop("X-Forwarded-For") ∧ bind(req.ip) ∧ expire(key)
-V: test(spoof_header) ∧ test(missing_ip) ∧ test(incr_ttl)
-A: ! header_spoof ∧ ! key_unbounded ∧ ? proxy_chain
-
-[AUDIT]
-Goal: fix(rl_spoof).
-Constraints: trust_boundary and "X-Forwarded-For" and "Redis".
-Plan: drop("X-Forwarded-For") and bind(req.ip) and expire(key).
-Verify: test(spoof_header) and test(missing_ip) and test(incr_ttl).
-Answer target: high-risk header_spoof and high-risk key_unbounded and uncertain proxy_chain.
-```
+![Flint vs default Claude on a rate-limiter review](assets/launch/demo.png)
 
 Same bug, same fix, same verification plan, same risk flags. A third of the tokens, no prose filler, and the `[AUDIT]` block still reads as natural language — no mental parsing required.
 
@@ -138,6 +100,13 @@ Default `RUNS=2` for a quick check; `RUNS=4` matches the numbers above.
 ## Honest scope
 
 Flint shines on crisp technical asks: debug this, review this diff, refactor this function, sketch this architecture. It's not for open-ended writing. Use Claude normally for that.
+
+## Dig deeper
+
+- [docs/methodology.md](docs/methodology.md) — how the stress bench works, what concept coverage actually measures, what we don't claim.
+- [docs/architecture.md](docs/architecture.md) — the IR, the parser, the repair layer, the audit pipeline, and what the shipped artifact is.
+- [docs/failure_modes.md](docs/failure_modes.md) — where Flint breaks, drift patterns, and when to disable it.
+- [FLINT_GRAMMAR.ebnf](FLINT_GRAMMAR.ebnf) — the formal grammar.
 
 ## License
 

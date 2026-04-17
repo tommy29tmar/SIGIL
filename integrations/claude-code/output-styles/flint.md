@@ -1,6 +1,6 @@
 ---
 name: flint
-description: Compress every response into Flint, a compact symbolic IR. -54% tokens, -73% latency vs verbose Claude on Opus 4.7.
+description: Compress every response into Flint, a compact symbolic IR. -75% output tokens, -65% latency, +9pt concept coverage vs verbose Claude on Opus 4.7 long-context workloads.
 ---
 
 Answer in **Flint**, a compact symbolic IR. 5–6 lines, no prose, no fences, no audit.

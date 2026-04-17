@@ -1,0 +1,199 @@
+# Failure modes
+
+Where Flint breaks, what the breakage looks like, and what you can do about
+it. This doc is the companion to the README's "Honest scope" section —
+written for people who want to use Flint in production and need to know
+what they're signing up for.
+
+## Tasks Flint is not for
+
+Flint's structural contract assumes the answer *has* a G/C/P/V/A shape. Many
+tasks don't. In order of bluntness:
+
+- **Open-ended writing.** "Write me a blog post about X." Flint will
+  produce a 6-line skeleton, which is not what you asked for.
+- **Conversational back-and-forth.** "What do you think?" There's nothing
+  to fill the Plan slot with.
+- **Pure summarization.** "Summarize this paper." The audit slot exists for
+  prose, but you're better off just asking Claude normally — you're paying
+  for the Flint prompt without benefiting from the IR.
+- **Creative ideation.** "Brainstorm 20 names for my startup." Flint forces
+  structure where divergent thinking wants the opposite.
+- **Long-form explanation.** "Explain how TLS works." Flint will give you
+  the atoms, but you wanted the prose.
+
+**Rule of thumb:** if the task has a crisp technical goal and a verifiable
+endpoint, Flint fits. If the task is "think out loud with me", turn Flint
+off (`/output-style default`).
+
+## Drift patterns
+
+The model sometimes drifts off the IR contract. The normalizer catches the
+common cases; these are the ones you'll see.
+
+### 1. Whitespace and casing drift (repairable, common)
+
+```
+@FLINT V0 HYBRID
+g: fix_auth
+c : trust_boundary  ∧   "X-Forwarded-For"
+```
+
+`flint repair` fixes this silently. No action needed, but `flint audit
+--explain` will show the normalization.
+
+### 2. Unicode operator drift (repairable)
+
+The model emits `&` instead of `∧`, or `->` instead of `→`. The normalizer
+swaps them using the table in [`grammar/flint_ascii.md`](../grammar/flint_ascii.md).
+Also fine.
+
+### 3. Missing slot (schema error)
+
+```
+@flint v0 hybrid
+G: fix_auth
+C: trust_boundary ∧ "X-Forwarded-For"
+P: drop_header ∧ bind(req.ip)
+A: ! header_spoof
+```
+
+No `V:` slot. The parser returns `schema_error: missing verification clause`.
+The shipped skill rarely does this on Opus 4.7 (< 2% of 40 samples in the
+stress bench), but it happens. The drop-in move is to call Claude again with
+the same prompt — Flint's determinism comes from the system prompt being
+small and load-bearing, so retry variance is low.
+
+### 4. Prose leak (content error)
+
+```
+@flint v0 hybrid
+G: fix_auth
+Here's a breakdown of the fix:
+C: trust_boundary ∧ "X-Forwarded-For"
+...
+```
+
+The model tries to be helpful and adds a sentence. The normalizer strips
+leading "Here's a breakdown:" / "Certainly!" / "Let me think about this."
+preambles. Anything the normalizer can't pattern-match becomes a
+`content_error`.
+
+### 5. Anchor miss (silent failure)
+
+The model writes the right idea with a different atom:
+
+```
+V: check(ip_binding)      # Correct but the must_include stem expected `bind`
+```
+
+This is the failure mode you should actually worry about. It won't trip the
+parser or the verifier unless you passed explicit `--anchor` arguments. On
+the stress bench the must_include stemmer catches most of these
+(`bind` matches both `bind(req.ip)` and `ip_binding`), but on your own
+data the stems are yours to choose.
+
+If you need hard anchor checking, use:
+
+```bash
+flint audit --explain response.flint --anchor "X-Forwarded-For" --anchor 401
+```
+
+The verifier will fail loudly if either anchor is missing.
+
+## Prompt/model combinations that misbehave
+
+### Short prompts with no context
+
+On tasks under ~300 input tokens with no `cache_prefix`, Flint's output is
+similar in size to a plain "be concise" baseline, because there isn't enough
+work to compress. Flint's edge kicks in when the context is meaty (agent
+loops, RAG, loaded CLAUDE.md). For one-shot Q&A with short prompts, you're
+paying ~90 tokens of Flint system prompt for marginal output savings.
+
+**If your usage is one-shot short Q&A, Flint is probably not worth it.**
+The README's numbers come from long-context usage because that's the shape
+that matters for Claude Code / agent loops / RAG.
+
+### Models other than Opus 4.7
+
+The shipped prompt was tuned on Opus 4.7. Earlier data (pre-cleanup) showed
+Flint still winning on Sonnet 4.6 (-24% tokens, -52% latency, +8pt concept
+coverage) and on Opus 4.6 (-47% tokens, -68% latency, -6pt concept
+coverage — the only cell where Flint lost on coverage). Sonnet 4 posted
+modest token gains (-3%) but large latency gains (-44%) and a big coverage
+improvement.
+
+If you're on a different model, the bench runs in 5 minutes — try it and
+open a PR with your numbers.
+
+### Non-Anthropic providers
+
+Flint is provider-agnostic in principle but has only been validated on the
+Anthropic Messages API. The prompt cache behavior is Anthropic-specific;
+OpenAI and Google have different cache semantics that the `eff_total`
+column in `stress_table.py` doesn't model correctly.
+
+**Rule of thumb:** Flint will work on any frontier LLM that respects a
+system prompt; the *exact* numbers won't transfer. Treat claims outside
+Opus 4.7 + Anthropic as untested until you run the bench yourself.
+
+## What `flint audit --explain` tells you
+
+Pipe any suspicious response through it. You get:
+
+```
+==> INPUT
+(raw response as received)
+
+==> NORMALIZED
+(post-normalize.py — whitespace, case, unicode, preamble strip)
+
+==> PARSED
+(syntax tree — slots, atoms, operators)
+
+==> VERIFICATION
+(schema OK / error)
+(anchors matched / missed)
+(drift detected / none)
+
+==> RENDERED
+(prose rerender of the parsed tree — what a human would read)
+```
+
+If you're debugging a bad answer, this is the one tool you need. It shows
+exactly where the failure happened in the pipeline so you know whether to
+retry, adjust the prompt, or eat the loss.
+
+## When to disable Flint mid-session
+
+If you're chatting with Claude Code and you hit a question Flint is
+obviously bad at (explanation-heavy, creative, back-and-forth), flip back:
+
+```
+/output-style default
+```
+
+Then flip forward again when you're back on a technical ask:
+
+```
+/output-style flint
+```
+
+The skill is designed to be toggled. Don't try to force every turn through
+it.
+
+## Reporting a new failure mode
+
+If you find a case where Flint produces a wrong or misleading answer — not
+just a syntactic drift, but actually gets the technical content wrong —
+please open an issue with:
+
+- the exact prompt
+- the model and date
+- the response (raw)
+- what you expected vs what you got
+
+Tag it `failure-mode`. These are the reports that move the methodology
+forward; style drift is easy to fix, semantic failure is the thing worth
+tracking.
