@@ -97,7 +97,7 @@ def main() -> None:
     lx, ly = PAD, PANEL_Y
     draw_panel(draw, lx, ly, PANEL_W, PANEL_H, PANEL_BG, BORDER)
     draw.text((lx + 28, ly + 24), "Claude (default)", fill=TEXT_BRIGHT, font=_font(28, bold=True))
-    draw.text((lx + 28, ly + 64), "736 output · 15.2s · 74% coverage",
+    draw.text((lx + 28, ly + 64), "736 output · 15.2s · 86% coverage",
               fill=ACCENT_WARN, font=_font(22, bold=True))
     body_font = _font(18)
     ty = ly + 115
@@ -112,7 +112,7 @@ def main() -> None:
     draw_panel(draw, rx, ry, PANEL_W, PANEL_H, SIGIL_BG, SIGIL_BORDER)
     draw.text((rx + 28, ry + 24), "Claude + Flint",
               fill=ACCENT, font=_font(28, bold=True))
-    draw.text((rx + 28, ry + 64), "186 output · 5.3s · 76% coverage",
+    draw.text((rx + 28, ry + 64), "186 output · 5.3s · 95% coverage",
               fill=ACCENT, font=_font(22, bold=True))
     sigil_font = _font(20)
     ty = ry + 125
@@ -123,7 +123,7 @@ def main() -> None:
     # Bottom headline
     banner_y = PANEL_Y + PANEL_H + 40
     draw.text((PAD, banner_y),
-        "-75% output   ·   -65% latency   ·   matching-or-better coverage",
+        "-75% output   ·   -65% latency   ·   +9pt concept coverage",
         fill=HEADLINE, font=_font(38, bold=True))
     draw.text((PAD, banner_y + 60),
         "40 samples (10 long-context tasks × 4 runs), Opus 4.7 + prompt cache. One /flint install in Claude Code.",

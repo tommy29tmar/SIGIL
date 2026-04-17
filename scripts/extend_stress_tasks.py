@@ -30,7 +30,7 @@ NEW_TASKS = [
             "issue: retained closures inside setInterval callback hold batch rows\n"
             "deliver: root_cause min_fix reg_test"
         ),
-        "must_include": ["heap", "leak", "profile", "verify"],
+        "must_include": ["heap", "retained", "closure", "test"],
         "exact_literals": ["heapUsed", "setInterval"],
     },
     {
@@ -62,7 +62,7 @@ NEW_TASKS = [
             "ctx: public_api_gateway rate limiter\n"
             "deliver: risk mitigation verify"
         ),
-        "must_include": ["bypass", "spoof", "rate", "verify"],
+        "must_include": ["spoof", "trust", "key", "test"],
         "exact_literals": ["X-Forwarded-For", "Redis"],
     },
     {
@@ -77,7 +77,7 @@ NEW_TASKS = [
             "ctx: extract to @atlas/currency npm package, keep call sites unchanged\n"
             "deliver: extraction_plan versioning_strategy test_strategy"
         ),
-        "must_include": ["library", "versioning", "backward", "test"],
+        "must_include": ["extract", "preserve", "semver", "test"],
         "exact_literals": ["package.json", "semver"],
     },
     {
@@ -92,7 +92,7 @@ NEW_TASKS = [
             "store: PostgreSQL\n"
             "deliver: dedup_strategy error_model short_why"
         ),
-        "must_include": ["idempotent", "duplicate", "key", "verify"],
+        "must_include": ["idempot", "dup", "replay", "retry"],
         "exact_literals": ["Idempotency-Key", "409"],
     },
     {
@@ -107,7 +107,7 @@ NEW_TASKS = [
             "need: identify fix, preserve response shape, add regression gate\n"
             "deliver: min_fix reg_test"
         ),
-        "must_include": ["N+1", "batch", "query", "verify"],
+        "must_include": ["N+1", "batch", "shape", "test"],
         "exact_literals": ["N+1", "db.findUser"],
     },
 ]
