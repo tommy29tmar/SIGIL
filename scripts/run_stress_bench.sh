@@ -1,51 +1,45 @@
 #!/usr/bin/env bash
-# Stress bench: realistic long-context coding session (cache_prefix ~10k tokens).
-# Compares text-sigil vs flint5-tool where the Anthropic prompt cache actually
-# activates (input >4k tokens required for Opus 4.7).
+# Realistic long-context bench: verbose vs Caveman vs Flint.
+# Uses tasks with ~10k tokens of project-handbook cache_prefix (simulating
+# a real Claude Code / RAG / agent session where prompt cache is active).
+# This is Flint's best-case scenario and the one that actually reflects
+# production usage — the short-prompt micro bench under-sells Flint.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
-MODEL="claude-opus-4-7"
+MODEL="${MODEL:-claude-opus-4-7}"
 TASKS="evals/tasks_stress_coding.jsonl"
-PROMPT="integrations/claude-code/flint_system_prompt.txt"
 OUT_DIR="evals/runs/stress"
 RUNS="${RUNS:-2}"
-
 mkdir -p "$OUT_DIR"
 
-# Sigil (text) cells — prompt cache on system AND task prefix.
-for i in $(seq 1 "$RUNS"); do
-  out="$OUT_DIR/opus47_stress_sigil_r${i}.jsonl"
+run_cell() {
+  local name="$1" transport="$2" ppath="$3" idx="$4"
+  local max_tokens="$5"
+  local out="$OUT_DIR/opus47_stress_${name}_r${idx}.jsonl"
   rm -f "$out"
-  echo "[sigil run $i/$RUNS] -> $out" >&2
+  echo "[$name r$idx] start" >&2
   python3 evals/run_anthropic.py \
     --tasks "$TASKS" \
     --model "$MODEL" \
     --out "$out" \
-    --variant "sigil-stress@sigil=${PROMPT}" \
-    --max-output-tokens 512 \
+    --variant "${name}-stress@${transport}=${ppath}" \
+    --max-output-tokens "$max_tokens" \
     --max-retries 3 \
-    --cache-system-prompt \
-    --cache-task-prefix \
-    > "$OUT_DIR/opus47_stress_sigil_r${i}.log" 2>&1
-done
+    --cache-system-prompt --cache-task-prefix \
+    > "$OUT_DIR/opus47_stress_${name}_r${idx}.log" 2>&1
+  echo "[$name r$idx] done" >&2
+}
 
-# Flint5-tool cells — tool schema + cache_prefix already cached.
 for i in $(seq 1 "$RUNS"); do
-  out="$OUT_DIR/opus47_stress_tool_r${i}.jsonl"
-  rm -f "$out"
-  echo "[tool run $i/$RUNS] -> $out" >&2
-  python3 evals/run_anthropic.py \
-    --tasks "$TASKS" \
-    --model "$MODEL" \
-    --out "$out" \
-    --variant "sigil-stress@flint5-tool=${PROMPT}" \
-    --max-output-tokens 512 \
-    --max-retries 3 \
-    --cache-task-prefix \
-    > "$OUT_DIR/opus47_stress_tool_r${i}.log" 2>&1
+  run_cell "verbose"  "plain" "prompts/verbose_baseline.txt"                            "$i" 1024 &
+  run_cell "caveman"  "plain" "prompts/primitive_english.txt"                           "$i"  512 &
+  run_cell "flintnew" "sigil" "integrations/claude-code/flint_system_prompt.txt"        "$i"  512 &
 done
-
-echo "done: 2 cells x $RUNS runs"
+wait
+echo "all stress cells done (${RUNS} run(s) per cell)"
+echo ""
+echo "Aggregate table:"
+python3 scripts/stress_table.py

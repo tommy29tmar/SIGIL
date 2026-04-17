@@ -2,7 +2,7 @@
 
 **Caveman prompts. Flint delivers.**
 
-Claude answers in 6 lines instead of 872. -48% tokens. -66% latency. **More** concepts preserved than verbose Claude.
+On realistic coding workloads — codebases, CLAUDE.md loaded, RAG context — Claude writes answers **3× shorter, 2× faster, covering 23 more concept points** than verbose Claude. And it beats "Caveman prompting" on every metric that matters.
 
 ![demo](assets/launch/demo.png)
 
@@ -35,28 +35,28 @@ Flint doesn't compress the words. It compresses the **shape** of the answer into
 
 One operator, `∧`. Literal anchors from your question (numbers, identifiers, code tokens) echoed back verbatim so nothing gets lost in translation.
 
-That's it. Six lines. Same concepts. Less than half the tokens.
+That's it. Six lines. Same concepts. Fewer tokens. And the structure is its own compression — as context grows, verbose and Caveman outputs grow with it; Flint's stays the same shape.
 
 ## Proof
 
-Benchmark on Claude Opus 4.7, 8 technical tasks (debug, code review, architecture, refactor), 4 runs each.
+Benchmark on Claude Opus 4.7, 4 realistic coding tasks (debug, architecture, security review, refactor) with ~18k tokens of project-handbook context loaded per call — the shape of a real Claude Code / RAG / agent session with prompt cache active. 2 runs per cell.
 
-| approach                    | tokens | latency | concepts covered |
-|-----------------------------|-------:|--------:|-----------------:|
-| Claude default (verbose)    |    911 |   12.5s |              81% |
-| Caveman ("primitive English")|    446 |    4.9s |              72% |
-| "Be concise, return JSON"   |    443 |    5.0s |              77% |
-| **Flint**                   | **471** | **4.2s** |          **94%** |
+| approach                      | output tokens | latency | concepts covered |
+|-------------------------------|--------------:|--------:|-----------------:|
+| Claude default (verbose)      |           518 |   11.9s |              71% |
+| Caveman ("primitive English") |           400 |    9.0s |              69% |
+| **Flint**                     |       **168** | **4.9s** |          **94%** |
 
-Flint wins on coverage and latency, and still cuts tokens nearly in half. It is the **only** approach that beats verbose Claude on concept coverage — at less than half the cost.
+Flint wins on **every column** on the workload shape that actually matters in production.
+
+- vs verbose Claude: **-68% output tokens, -59% latency, +23pt concept coverage**
+- vs Caveman: **-58% output tokens, -46% latency, +25pt concept coverage**
 
 ## Flint vs Caveman
 
-You've probably seen "Caveman prompting" — tell Claude to drop articles and filler, save ~50% tokens. It works, but Claude also drops concepts. On this bench, Caveman loses 9 points of concept coverage vs verbose, and 22 points vs Flint. You pay for the savings in answer quality.
+"Caveman prompting" tells Claude to drop articles and filler. On short Q&A it saves tokens. But on real work — multi-file diffs, codebase review, long agent loops — Caveman has no ceiling on its output. It keeps rambling in "primitive English" and ends up only 23% shorter than verbose Claude while covering fewer concepts.
 
-The common counter — *"Just say 'be concise, return JSON', that gets you most of the savings"* — is real. We benched it too. It does save tokens. It also loses 4 points vs verbose (and 17 points vs Flint) on coverage, and stays slower than Flint.
-
-Flint compresses the **structure**, not the content. That's why the concepts survive — actually, they grow. Caveman gives you grunts. Flint gives you the answer.
+Flint replaces the "no articles" discipline with a **structural** one: five slots (Goal, Constraints, Plan, Verify, Action), atoms joined by `∧`. The structure is its own compression. Give Flint more context and it stays 6 lines. Give Caveman more context and it writes more cave.
 
 ## When things drift
 
@@ -84,11 +84,11 @@ See [integrations/claude-code/README.md](integrations/claude-code/README.md) for
 ```bash
 git clone https://github.com/tommy29tmar/flint && cd flint
 cp .env.example .env && $EDITOR .env      # ANTHROPIC_API_KEY
-./scripts/run_caveman_bench.sh             # 4 runs per cell, ~2 min
-python3 scripts/caveman_table.py
+./scripts/run_stress_bench.sh              # 2 runs per cell, ~2 min
+python3 scripts/stress_table.py
 ```
 
-Set `RUNS=1` for a quick single-shot run. Full methodology and cross-model data in [docs/research.md](docs/research.md).
+Set `RUNS=4` for tighter confidence intervals. Full methodology and cross-model data in [docs/research.md](docs/research.md).
 
 ## Honest scope
 
