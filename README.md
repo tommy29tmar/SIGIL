@@ -15,10 +15,13 @@ curl -fsSL https://raw.githubusercontent.com/tommy29tmar/flint/main/integrations
 Then in Claude Code:
 
 ```
-/flint <your technical question>     # one-shot
+/flint <your technical question>     # one-shot: answer this one in Flint
+/flint-on                              # from now on, every response in Flint
+/flint-off                             # back to normal prose
+/flint-audit <file|paste>             # decode a Flint document back to prose
 ```
 
-To make Flint the output style for every response, run `/config` and pick **Output style → flint** — or add `"outputStyle": "flint"` to `~/.claude/settings.json`. Turn it off by selecting `default` from the same menu, or remove the field.
+For **cross-session** persistence (every new Claude Code session boots into Flint), run `/config` and pick **Output style → flint**, or add `"outputStyle": "flint"` to `~/.claude/settings.json`. Turn it off by selecting `default` from the same menu, or remove the field. `/flint-on`/`off` only affects the current conversation.
 
 ## Why it works
 

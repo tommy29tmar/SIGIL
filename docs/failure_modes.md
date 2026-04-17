@@ -169,15 +169,15 @@ retry, adjust the prompt, or eat the loss.
 ## When to disable Flint mid-session
 
 If you're chatting with Claude Code and you hit a question Flint is
-obviously bad at (explanation-heavy, creative, back-and-forth), flip back:
+obviously bad at (explanation-heavy, creative, back-and-forth), you have
+three ways to flip back depending on how permanent you want it:
 
-- `/config` → **Output style** → pick `default`, **or**
-- remove the `"outputStyle": "flint"` line from `~/.claude/settings.json`.
-
-Flip forward again the same way (pick `flint`, or put the field back) when
-you're back on a technical ask. For a single one-off technical question
-without flipping at all, use `/flint <question>` — that's one-shot and
-doesn't touch the session output style.
+- **For this conversation only**: type `/flint-off`. Flip forward with
+  `/flint-on`. Doesn't touch settings.
+- **For all future sessions**: `/config` → Output style → `default`, or
+  remove `"outputStyle": "flint"` from `~/.claude/settings.json`.
+- **For one-off questions without flipping at all**: use
+  `/flint <question>` (one-shot) even if the session is in prose mode.
 
 The skill is designed to be toggled. Don't try to force every turn through
 it.

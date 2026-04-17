@@ -15,7 +15,7 @@ Relevant docs:
 
 ## Install
 
-See the top-level [README](../../README.md) for the one-liner install and the `/flint` (one-shot) + output-style persistent workflow.
+See the top-level [README](../../README.md) for the one-liner install and the four slash commands (`/flint`, `/flint-on`, `/flint-off`, `/flint-audit`) plus the cross-session output-style workflow.
 
 ## Usage model
 

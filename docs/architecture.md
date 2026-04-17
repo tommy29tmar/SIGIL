@@ -17,6 +17,27 @@ That's it. Everything else in this repo — the parser, the verifier, the
 `flint audit --explain` CLI, the tests, the bench — exists to validate,
 measure, and repair what comes back.
 
+## The four slash commands
+
+The installer also drops four Claude Code skills under `~/.claude/skills/`:
+
+| command | scope | file |
+| --- | --- | --- |
+| `/flint <question>` | one turn | `skills/flint/SKILL.md` |
+| `/flint-on` | rest of this conversation | `skills/flint-on/SKILL.md` |
+| `/flint-off` | return to prose for this conversation | `skills/flint-off/SKILL.md` |
+| `/flint-audit <file\|paste>` | decode a Flint doc to prose | `skills/flint-audit/SKILL.md` |
+
+The first three are prompt-level — they instruct the model to emit (or
+stop emitting) Flint for the specified scope. The fourth invokes the
+`flint audit --explain` CLI under the hood, so it works on any saved
+Flint document.
+
+Cross-session persistence (every new Claude Code session starts in Flint)
+is handled separately by the Output Style system — see the section above.
+The `/flint-on`/`off` pair is a per-conversation convenience; it doesn't
+touch `settings.json`.
+
 ## The IR
 
 Flint is a compact symbolic IR (intermediate representation) with five
