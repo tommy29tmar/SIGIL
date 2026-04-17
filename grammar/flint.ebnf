@@ -1,4 +1,4 @@
-# SIGIL structured-document grammar.
+# Flint structured-document grammar.
 # This grammar covers symbolic outputs (`draft`, `hybrid`, `memory`, `compile`).
 # Pure audit-only natural-language replies are intentionally out of scope.
 

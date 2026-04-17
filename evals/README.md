@@ -1,6 +1,6 @@
 # Evals
 
-This directory gives you a minimal protocol to test whether SIGIL is doing useful work rather than merely producing exotic-looking output.
+This directory gives you a minimal protocol to test whether Flint is doing useful work rather than merely producing exotic-looking output.
 
 ## Files
 
@@ -55,11 +55,11 @@ sigil bench build-capsules \
 
 ## Run A Real Test
 
-1. Pick one baseline and one SIGIL variant.
+1. Pick one baseline and one Flint variant.
 
 Recommended:
 - baseline: a plain concise prompt
-- SIGIL: `prompts/hybrid_strict.txt`, `prompts/memory_strict.txt`, or `prompts/compile_strict.txt`
+- Flint: `prompts/hybrid_strict.txt`, `prompts/memory_strict.txt`, or `prompts/compile_strict.txt`
 
 2. Prefer running one mode-specific task file at a time:
 
@@ -146,7 +146,7 @@ python3 evals/calibrate_gemini_model.py \
   --overwrite
 ```
 
-If you want a policy where SIGIL is used only when it beats the terse baseline for that category, add:
+If you want a policy where Flint is used only when it beats the terse baseline for that category, add:
 
 ```bash
 --allow-plain-candidates
@@ -168,7 +168,7 @@ The generated report is the shortest route to the current cross-provider picture
 
 ## Run Schema-First Benchmarks
 
-Structured Outputs is useful when you want the model to fill a typed transport object and let the local runtime render valid SIGIL text.
+Structured Outputs is useful when you want the model to fill a typed transport object and let the local runtime render valid Flint text.
 
 Example:
 
@@ -185,13 +185,13 @@ This uses:
 - [schemas/hybrid_schema.json](../schemas/hybrid_schema.json)
 - [prompts/hybrid_schema.txt](../prompts/hybrid_schema.txt)
 
-The model produces JSON under the schema; the runner renders that JSON into SIGIL text before measurement.
+The model produces JSON under the schema; the runner renders that JSON into Flint text before measurement.
 
 ## Run `draft2schema` Benchmarks
 
 The runner also supports a two-stage lane:
 
-1. a free SIGIL draft
+1. a free Flint draft
 2. a schema-constrained final transport conditioned on that draft
 
 Example:
@@ -338,7 +338,7 @@ This keeps the original `usage` and `structured_data` but refreshes `content` wi
 
 ## Cache-Aware Benchmarks
 
-For repeated runs over the same SIGIL prefix, you can also pass:
+For repeated runs over the same Flint prefix, you can also pass:
 
 ```bash
 --prompt-cache-key sigil-hybrid-v1 --prompt-cache-retention 24h
@@ -397,7 +397,7 @@ The skill is working only if most of these hold at the same time:
 
 ## Minimum Success Bar
 
-For an early prompt-only SIGIL test, a reasonable target is:
+For an early prompt-only Flint test, a reasonable target is:
 
 - `parse_rate >= 0.9`
 - `mode_match_rate >= 0.9`

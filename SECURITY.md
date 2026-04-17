@@ -1,6 +1,6 @@
 # Security Policy
 
-SIGIL is primarily a research and tooling repository, not a hosted service, but
+Flint is primarily a research and tooling repository, not a hosted service, but
 security issues still matter.
 
 ## Reporting a vulnerability

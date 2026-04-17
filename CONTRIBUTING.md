@@ -1,6 +1,6 @@
-# Contributing to SIGIL
+# Contributing to Flint
 
-SIGIL is trying to answer one concrete question:
+Flint is trying to answer one concrete question:
 
 > Can we compile LLM work into tighter contracts that reduce token use without
 > sacrificing quality?

@@ -57,7 +57,7 @@ Full generated numbers live in [docs/results.md](docs/results.md).
 
 This repository now contains both:
 
-- the long-form project framing in [README_SIGIL.md](README_SIGIL.md)
+- the long-form project framing in [README_Flint.md](README_Flint.md)
 - a minimal executable prototype for parsing, validating, and auditing Flint drafts
 
 ## What Is In This Repo
@@ -470,4 +470,4 @@ The main framing stays the same:
 - Caveman is a useful baseline for surface compression
 - the serious claim is compiler-first task compression plus typed transport plus local rendering plus routing, not magic token savings
 
-The full rationale, benchmark plan, scientific basis, and references remain in [README_SIGIL.md](README_SIGIL.md).
+The full rationale, benchmark plan, scientific basis, and references remain in [README_Flint.md](README_Flint.md).

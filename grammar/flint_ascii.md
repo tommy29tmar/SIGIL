@@ -1,4 +1,4 @@
-# SIGIL ASCII Fallback
+# Flint ASCII Fallback
 
 Use these aliases on models or transports that do not behave well with Unicode operators.
 

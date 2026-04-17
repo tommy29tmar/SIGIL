@@ -35,4 +35,4 @@ body:
     id: interpretation
     attributes:
       label: Interpretation
-      description: What should change in SIGIL because of this result?
+      description: What should change in Flint because of this result?

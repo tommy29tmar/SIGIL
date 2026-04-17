@@ -6,7 +6,7 @@ Use the right channel for the right kind of request.
 
 Use GitHub Discussions for:
 
-- questions about using SIGIL
+- questions about using Flint
 - open-ended research ideas
 - provider strategy conversations
 - benchmark interpretation
@@ -21,6 +21,6 @@ Use GitHub Issues for:
 
 ## Scope
 
-SIGIL is still a research-heavy project. Support is best-effort, and the most
+Flint is still a research-heavy project. Support is best-effort, and the most
 useful requests are the ones that include concrete commands, models, corpora,
 and artifact links.

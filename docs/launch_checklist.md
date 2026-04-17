@@ -33,7 +33,7 @@ You asked whether to laser-focus this release on Opus 4.7 only and ignore the ot
 
 - `README.md` — new landing-page README (the old one moved to `docs/research.md`)
 - `docs/research.md` — the full research README (preserved)
-- `docs/manifesto.md` — the old README_SIGIL (preserved)
+- `docs/manifesto.md` — the old README_Flint (preserved)
 - `docs/launch_opus47.md` — launch post draft (600-800 words, HN-ready)
 - `docs/launch_benchmark_table.md` — machine-generated benchmark table
 - `integrations/claude-code/skill/SKILL.md` — the `/flint` Claude Code skill
