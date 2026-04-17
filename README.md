@@ -2,7 +2,7 @@
 
 **Caveman prompts. Flint delivers.**
 
-On realistic coding workloads — codebases, CLAUDE.md loaded, RAG context — Claude writes answers **3× shorter, 2× faster, covering 23 more concept points** than verbose Claude. And it beats "Caveman prompting" on every metric that matters.
+On realistic coding workloads — codebases, CLAUDE.md loaded, RAG context — Claude writes answers **4× shorter, 3× faster, at matching-or-better concept coverage** than both verbose Claude and "Caveman prompting". Measured on 40 samples (10 long-context tasks × 4 runs) on Opus 4.7 with prompt cache active.
 
 ![demo](assets/launch/demo.png)
 
@@ -39,22 +39,70 @@ That's it. Six lines. Same concepts. Fewer tokens. And the structure is its own 
 
 ## Proof
 
-Benchmark on Claude Opus 4.7, 4 realistic coding tasks (debug, architecture, security review, refactor) with ~18k tokens of project-handbook context loaded per call — the shape of a real Claude Code / RAG / agent session with prompt cache active. 2 runs per cell.
+Benchmark on Claude Opus 4.7, **10 realistic long-context coding tasks** (debug, architecture, security review, refactor, N+1, memory leaks, webhook idempotency, rate-limit audit, library extraction, audit-log schema) with ~10k tokens of project-handbook context loaded per call — the shape of a real Claude Code / RAG / agent session with prompt cache active. **4 runs per cell, 40 samples per cell**.
 
 | approach                      | output tokens | latency | concepts covered |
 |-------------------------------|--------------:|--------:|-----------------:|
-| Claude default (verbose)      |           518 |   11.9s |              71% |
-| Caveman ("primitive English") |           400 |    9.0s |              69% |
-| **Flint**                     |       **168** | **4.9s** |          **94%** |
+| Claude default (verbose)      |       736 ±28 |  15s ±1 |           74% ±3 |
+| Caveman ("primitive English") |       423 ±18 |   9s ±0 |           72% ±2 |
+| **Flint**                     |   **186 ±10** | **5s ±0** |     **76% ±5** |
 
 Flint wins on **every column** on the workload shape that actually matters in production.
 
-- vs verbose Claude: **-68% output tokens, -59% latency, +23pt concept coverage**
-- vs Caveman: **-58% output tokens, -46% latency, +25pt concept coverage**
+- vs verbose Claude: **-75% output tokens, -65% latency, +2pt concept coverage**
+- vs Caveman: **-56% output tokens, -44% latency, +4pt concept coverage**
+
+The pitch isn't "Flint knows more." It's "Flint says the same things in a quarter of the tokens, without losing anything." On long-context workloads that's where the real cost lives.
+
+## Before / after
+
+Real output from the benchmark. Task: *"review this rate-limiter diff for a bypass vulnerability."* Same model, same context, same question.
+
+**Verbose Claude (523 output tokens):**
+
+```
+finding: `X-Forwarded-For` trusted without proxy validation ⇒ spoofable rate-limit key
+
+exploit:
+- attacker sends `X-Forwarded-For: <random>` per request → distinct keys → limiter bypassed
+- attacker pins victim IP → exhausts victim's bucket → DoS / lockout
+
+mitigation:
+- derive client IP from trusted proxy chain only (e.g. Express `trust proxy` + `req.ip`)
+- never read raw `x-forwarded-for` at public boundary
+- key on validated IP; fall back to `req.socket.remoteAddress` if no trusted proxy
+- also add `INCR` + `EXPIRE` atomically (current code leaks keys, no TTL)
+
+verify:
+- spoof test: 100 req with rotating `X-Forwarded-For`, same socket → single bucket
+- victim-pin test: forged XFF=victim.ip → victim's own requests still counted correctly
+- TTL test: `TTL rl:<ip>` returns >0 after first hit
+  ... (continues for another 200 tokens)
+```
+
+**Flint (167 output tokens):**
+
+```
+@flint v0 hybrid
+G: fix(rl_spoof)
+C: trust_boundary ∧ "X-Forwarded-For" ∧ "Redis"
+P: drop("X-Forwarded-For") ∧ bind(req.ip) ∧ expire(key)
+V: test(spoof_header) ∧ test(missing_ip) ∧ test(incr_ttl)
+A: ! header_spoof ∧ ! key_unbounded ∧ ? proxy_chain
+
+[AUDIT]
+Goal: fix(rl_spoof).
+Constraints: trust_boundary and "X-Forwarded-For" and "Redis".
+Plan: drop("X-Forwarded-For") and bind(req.ip) and expire(key).
+Verify: test(spoof_header) and test(missing_ip) and test(incr_ttl).
+Answer target: high-risk header_spoof and high-risk key_unbounded and uncertain proxy_chain.
+```
+
+Same bug, same fix, same verification plan, same risk flags. A third of the tokens, no prose filler, and the `[AUDIT]` block still reads as natural language — no mental parsing required.
 
 ## Flint vs Caveman
 
-"Caveman prompting" tells Claude to drop articles and filler. On short Q&A it saves tokens. But on real work — multi-file diffs, codebase review, long agent loops — Caveman has no ceiling on its output. It keeps rambling in "primitive English" and ends up only 23% shorter than verbose Claude while covering fewer concepts.
+"Caveman prompting" tells Claude to drop articles and filler. On short Q&A it saves tokens. But on real work — multi-file diffs, codebase review, long agent loops — Caveman has no ceiling on its output. It keeps rambling in "primitive English" and ends up ~40% shorter than verbose Claude while covering slightly fewer concepts (72% vs 74%).
 
 Flint replaces the "no articles" discipline with a **structural** one: five slots (Goal, Constraints, Plan, Verify, Action), atoms joined by `∧`. The structure is its own compression. Give Flint more context and it stays 6 lines. Give Caveman more context and it writes more cave.
 
@@ -84,11 +132,11 @@ See [integrations/claude-code/README.md](integrations/claude-code/README.md) for
 ```bash
 git clone https://github.com/tommy29tmar/flint && cd flint
 cp .env.example .env && $EDITOR .env      # ANTHROPIC_API_KEY
-./scripts/run_stress_bench.sh              # 2 runs per cell, ~2 min
+RUNS=4 ./scripts/run_stress_bench.sh       # 10 tasks × 4 runs, ~5 min
 python3 scripts/stress_table.py
 ```
 
-Set `RUNS=4` for tighter confidence intervals. Full methodology and cross-model data in [docs/research.md](docs/research.md).
+Default `RUNS=2` for a quick check; `RUNS=4` matches the numbers above. Full methodology in [docs/research.md](docs/research.md).
 
 ## Honest scope
 

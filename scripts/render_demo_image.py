@@ -32,36 +32,34 @@ PANEL_Y = 180
 PANEL_H = 520
 PANEL_W = (W - 2 * PAD - GAP) // 2
 
-VERBOSE_BODY = """# Webhook Timestamp Skew Fix
+VERBOSE_BODY = """finding: X-Forwarded-For trusted without
+proxy validation ⇒ spoofable rate-limit key
 
-## Diagnosis
-Symmetric window `abs(now-ts) > 300` rejects
-valid webhooks when the provider clock is
-slightly ahead OR when edge node drifts.
-Need asymmetric tolerance: generous for past
-(network/retry delay), tight for future
-(replay protection).
+exploit:
+- attacker sends rotating XFF header →
+  distinct keys → limiter bypassed
+- attacker pins victim IP → exhausts
+  victim's bucket → DoS / lockout
 
-## Min Fix
+mitigation:
+- derive client IP from trusted proxy
+  chain only (Express trust proxy + req.ip)
+- never read raw x-forwarded-for at
+  public boundary
+- also add INCR + EXPIRE atomically
+  (current code leaks keys, no TTL)
 
-```python
-MAX_AGE = 300   # up to 5 min old
-MAX_SKEW = 60   # provider clock ahead
-delta = now - ts
-if delta > MAX_AGE or delta < -MAX_SKEW:
-    return 401
-```
-
-## Regression Test
-
-  (...continues for 600+ more tokens)"""
+verify:
+- spoof test: rotating XFF, same socket
+  → single bucket increments
+  (...continues for 300+ more tokens)"""
 
 SIGIL_BODY = """@flint v0 hybrid
-G: fix_skew
-C: webhook_verify ∧ "300" ∧ "401" ∧ edge_reject
-P: widen_window ∧ provider_skew_only ∧ reg_test
-V: valid_webhook_passes ∧ stale_still_401
-A: patch_tolerance ∧ add_reg_test"""
+G: fix(rl_spoof)
+C: trust_boundary ∧ "X-Forwarded-For" ∧ "Redis"
+P: drop("X-Forwarded-For") ∧ bind(req.ip) ∧ expire(key)
+V: test(spoof_header) ∧ test(incr_ttl)
+A: ! header_spoof ∧ ! key_unbounded ∧ ? proxy_chain"""
 
 
 def _font(size: int, bold: bool = False) -> ImageFont.FreeTypeFont:
@@ -92,14 +90,14 @@ def main() -> None:
         "Flint vs default Claude — same question, Opus 4.7",
         fill=HEADLINE, font=_font(40, bold=True))
     draw.text((PAD, 110),
-        "Fix a webhook that rejects valid events when abs(now-ts) > 300 returns 401.",
+        "Review this rate-limiter diff for a bypass vulnerability (~10k-tok project context loaded).",
         fill=TEXT_DIM, font=_font(22))
 
     # Left panel — verbose default
     lx, ly = PAD, PANEL_Y
     draw_panel(draw, lx, ly, PANEL_W, PANEL_H, PANEL_BG, BORDER)
     draw.text((lx + 28, ly + 24), "Claude (default)", fill=TEXT_BRIGHT, font=_font(28, bold=True))
-    draw.text((lx + 28, ly + 64), "518 output · 11.9s",
+    draw.text((lx + 28, ly + 64), "736 output · 15.2s · 74% coverage",
               fill=ACCENT_WARN, font=_font(22, bold=True))
     body_font = _font(18)
     ty = ly + 115
@@ -114,7 +112,7 @@ def main() -> None:
     draw_panel(draw, rx, ry, PANEL_W, PANEL_H, SIGIL_BG, SIGIL_BORDER)
     draw.text((rx + 28, ry + 24), "Claude + Flint",
               fill=ACCENT, font=_font(28, bold=True))
-    draw.text((rx + 28, ry + 64), "168 output · 4.9s",
+    draw.text((rx + 28, ry + 64), "186 output · 5.3s · 76% coverage",
               fill=ACCENT, font=_font(22, bold=True))
     sigil_font = _font(20)
     ty = ry + 125
@@ -125,10 +123,10 @@ def main() -> None:
     # Bottom headline
     banner_y = PANEL_Y + PANEL_H + 40
     draw.text((PAD, banner_y),
-        "-68% output   ·   -59% latency   ·   +23pt concept coverage",
+        "-75% output   ·   -65% latency   ·   matching-or-better coverage",
         fill=HEADLINE, font=_font(38, bold=True))
     draw.text((PAD, banner_y + 60),
-        "Realistic long-context workload, Opus 4.7 with prompt cache. One /flint install in Claude Code.",
+        "40 samples (10 long-context tasks × 4 runs), Opus 4.7 + prompt cache. One /flint install in Claude Code.",
         fill=TEXT_DIM, font=_font(20))
 
     img.save(OUT, "PNG", optimize=True)
