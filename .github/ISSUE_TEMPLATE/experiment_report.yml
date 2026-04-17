@@ -21,7 +21,7 @@ body:
     id: corpus
     attributes:
       label: Corpus or task set
-      placeholder: evals/tasks_hybrid_micro_extended.jsonl
+      placeholder: evals/tasks_stress_coding.jsonl
     validations:
       required: true
   - type: textarea

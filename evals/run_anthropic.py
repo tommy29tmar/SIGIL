@@ -130,7 +130,7 @@ def extract_usage(response: dict[str, Any]) -> dict[str, Any]:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Run Flint eval prompts against the Anthropic Messages API.")
-    parser.add_argument("--tasks", type=Path, default=ROOT / "evals" / "tasks.jsonl")
+    parser.add_argument("--tasks", type=Path, default=ROOT / "evals" / "tasks_stress_coding.jsonl")
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--model", required=True)
     parser.add_argument("--variant", dest="variants", action="append", type=parse_variant, required=True)

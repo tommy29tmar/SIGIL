@@ -117,9 +117,6 @@ flint audit --explain response.flint --anchor 300 --anchor 401
 ## More CLI tools
 
 ```bash
-# Look up which variant a calibration profile recommends for a task or category
-flint routing recommend --profile profiles/<profile>.json --category debugging
-
 # Per-file CLAUDE.md audit — structurally-safe compression preview (read-only)
 flint claude-code inventory path/to/CLAUDE.md
 flint claude-code diff path/to/CLAUDE.md
@@ -136,7 +133,7 @@ RUNS=4 ./scripts/run_stress_bench.sh       # 10 tasks × 4 runs, ~5 min
 python3 scripts/stress_table.py
 ```
 
-Default `RUNS=2` for a quick check; `RUNS=4` matches the numbers above. Full methodology in [docs/research.md](docs/research.md).
+Default `RUNS=2` for a quick check; `RUNS=4` matches the numbers above.
 
 ## Honest scope
 

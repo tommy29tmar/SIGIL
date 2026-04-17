@@ -42,7 +42,6 @@ python -m unittest discover -s tests -q
 - do not overwrite published benchmark rows casually
 - prefer new named directories under `evals/runs/` for publishable results
 - keep scratch runs out of the repo; `tmp_*.jsonl` and `*smoke*.jsonl` are ignored
-- update `evals/benchmark_matrix.json` when a result becomes part of the public benchmark surface
 
 ## Pull requests
 
