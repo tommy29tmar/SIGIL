@@ -51,7 +51,7 @@ def rerendered_run_path(path: Path) -> Path:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Calibrate a provider-aware multi-IR SIGIL profile on the extended corpus.")
+    parser = argparse.ArgumentParser(description="Calibrate a provider-aware multi-IR Flint profile on the extended corpus.")
     parser.add_argument("--provider", choices=["openai", "anthropic", "gemini"], required=True)
     parser.add_argument("--model", required=True)
     parser.add_argument("--objective", choices=["efficiency", "balanced", "quality"], default="efficiency")

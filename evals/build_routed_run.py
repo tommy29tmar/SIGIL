@@ -27,7 +27,7 @@ def append_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Compose a routed SIGIL benchmark run from multiple source run files.")
+    parser = argparse.ArgumentParser(description="Compose a routed Flint benchmark run from multiple source run files.")
     parser.add_argument("tasks", type=Path, help="Task JSONL file.")
     parser.add_argument("profile", type=Path, help="Routing profile JSON file.")
     parser.add_argument("out", type=Path, help="Output JSONL path.")

@@ -340,7 +340,7 @@ def _run_audit_explain(path: Path, anchors: list[str], category: str) -> int:
         prose = generate_audit(document)
     except FlintParseError as exc:
         parse_state = f"FAIL: {exc}"
-        prose = "(unparseable — showing repaired SIGIL only)"
+        prose = "(unparseable — showing repaired Flint only)"
 
     def _panel(title: str, body: str) -> None:
         print(f"=== {title} ===")

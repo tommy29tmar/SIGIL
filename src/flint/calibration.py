@@ -722,7 +722,7 @@ def default_gemini_multi_ir_extended_jobs() -> tuple[CalibrationJob, ...]:
 def render_claude_code_md(*, profile: dict[str, Any], model: str, provider: str = "anthropic") -> str:
     categories = profile.get("categories") or {}
     lines = [
-        "# SIGIL Calibration",
+        "# Flint Calibration",
         "",
         f"- Provider: `{provider}`",
         f"- Model: `{model}`",
@@ -731,8 +731,8 @@ def render_claude_code_md(*, profile: dict[str, Any], model: str, provider: str 
         "## Policy",
         "",
         "- Use normal human-language answers by default.",
-        "- Use raw SIGIL only when the caller explicitly asks for SIGIL, compact capsules, or benchmark-style symbolic output.",
-        "- When generating raw SIGIL, follow the calibrated transport family for the task category below.",
+        "- Use raw Flint only when the caller explicitly asks for Flint, compact capsules, or benchmark-style symbolic output.",
+        "- When generating raw Flint, follow the calibrated transport family for the task category below.",
         "- Prefer compact atoms and local repairability over explanatory prose inside clauses.",
         "",
         "## Category Routing",
@@ -744,7 +744,7 @@ def render_claude_code_md(*, profile: dict[str, Any], model: str, provider: str 
     lines.extend(
         [
             "",
-            "## Raw SIGIL Rules",
+            "## Raw Flint Rules",
             "",
             "- Start with `@flint v0 hybrid`.",
             "- Keep one clause per line.",

@@ -7,7 +7,7 @@ from flint.task_capsule import build_capsule_task_row, dump_jsonl, load_jsonl
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Build deterministic local task capsules for SIGIL evals.")
+    parser = argparse.ArgumentParser(description="Build deterministic local task capsules for Flint evals.")
     parser.add_argument("source", type=Path)
     parser.add_argument("out", type=Path)
     parser.add_argument("--style", choices=["v1", "micro", "nano", "bridge"], default="v1")

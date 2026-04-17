@@ -26,13 +26,13 @@ def run_command(args: list[str]) -> None:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Calibrate SIGIL transport for a specific Anthropic model.")
+    parser = argparse.ArgumentParser(description="Calibrate Flint transport for a specific Anthropic model.")
     parser.add_argument("--model", required=True)
     parser.add_argument("--objective", choices=["efficiency", "balanced", "quality"], default="efficiency")
     parser.add_argument(
         "--allow-plain-candidates",
         action="store_true",
-        help="Allow non-SIGIL baseline variants to compete during routing.",
+        help="Allow non-Flint baseline variants to compete during routing.",
     )
     parser.add_argument("--run-dir", type=Path, default=ROOT / "evals" / "runs")
     parser.add_argument("--profile-dir", type=Path, default=ROOT / "profiles")

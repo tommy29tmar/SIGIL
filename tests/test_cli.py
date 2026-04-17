@@ -608,7 +608,7 @@ class CliTests(unittest.TestCase):
                 exit_code = main(["bench", "portability-report", str(tasks), str(run), "--out", str(out)])
             self.assertEqual(exit_code, 0)
             report = out.read_text(encoding="utf-8")
-            self.assertIn("SIGIL Contract Portability", report)
+            self.assertIn("Flint Contract Portability", report)
             self.assertIn("gemini-nano", report)
             self.assertIn("openai", report)
 

@@ -1,0 +1,11 @@
+[bench_cell] attempt 1: max_output_tokens=512
+$ /usr/bin/python3 /home/tommaso/dev/playground/SIGIL/evals/run_anthropic.py --tasks evals/tasks_top_tier_holdout.jsonl --model claude-opus-4-7 --out evals/runs/skill_ab/opus47_v2_scope.jsonl --variant sigil-v2_scope@sigil=prompts/skill_ab/v2_out_of_scope.txt --max-output-tokens 512 --max-retries 3
+[1/8] debug-webhook-ts-skew :: sigil-v2_scope
+[2/8] debug-billing-grace-edge :: sigil-v2_scope
+[3/8] arch-audit-heavy-fintech :: sigil-v2_scope
+[4/8] arch-ml-enrichment-pipeline :: sigil-v2_scope
+[5/8] security-review-path-traversal :: sigil-v2_scope
+[6/8] security-review-orderby-sql :: sigil-v2_scope
+[7/8] refactor-reconcile-batch :: sigil-v2_scope
+[8/8] refactor-gateway-user-load :: sigil-v2_scope
+[bench_cell] cell clean: evals/runs/skill_ab/opus47_v2_scope.jsonl

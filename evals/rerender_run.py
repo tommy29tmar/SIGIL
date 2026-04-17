@@ -59,7 +59,7 @@ def rerender_row(row: dict[str, Any]) -> dict[str, Any]:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Re-render structured SIGIL run rows with the current local renderer.")
+    parser = argparse.ArgumentParser(description="Re-render structured Flint run rows with the current local renderer.")
     parser.add_argument("source", type=Path)
     parser.add_argument("out", type=Path)
     args = parser.parse_args(argv)

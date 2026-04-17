@@ -263,7 +263,7 @@ def measure_run(tasks_path: Path, run_path: Path, baseline: str | None = None) -
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Measure SIGIL evaluation runs.")
+    parser = argparse.ArgumentParser(description="Measure Flint evaluation runs.")
     parser.add_argument("tasks", type=Path)
     parser.add_argument("run", type=Path)
     parser.add_argument("--baseline", default=None, help="Variant name to use as compression baseline.")

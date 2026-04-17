@@ -181,7 +181,7 @@ def extract_usage(response: dict[str, Any]) -> dict[str, Any]:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Run SIGIL eval prompts against the Gemini generateContent API.")
+    parser = argparse.ArgumentParser(description="Run Flint eval prompts against the Gemini generateContent API.")
     parser.add_argument("--tasks", type=Path, default=ROOT / "evals" / "tasks.jsonl")
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--model", required=True)

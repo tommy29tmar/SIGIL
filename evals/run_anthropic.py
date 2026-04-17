@@ -129,7 +129,7 @@ def extract_usage(response: dict[str, Any]) -> dict[str, Any]:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Run SIGIL eval prompts against the Anthropic Messages API.")
+    parser = argparse.ArgumentParser(description="Run Flint eval prompts against the Anthropic Messages API.")
     parser.add_argument("--tasks", type=Path, default=ROOT / "evals" / "tasks.jsonl")
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--model", required=True)
@@ -158,7 +158,7 @@ def main(argv: list[str] | None = None) -> int:
     for variant in args.variants:
         if variant.transport not in {"plain", "sigil"}:
             raise SystemExit(
-                f"Anthropic runner currently supports only plain or direct SIGIL variants; got {variant.transport}."
+                f"Anthropic runner currently supports only plain or direct Flint variants; got {variant.transport}."
             )
 
     tasks = load_jsonl(args.tasks)

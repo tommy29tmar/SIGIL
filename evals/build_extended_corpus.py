@@ -495,7 +495,7 @@ def write_jsonl(path: Path, rows: list[dict[str, object]]) -> None:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Build a larger realistic SIGIL micro benchmark corpus.")
+    parser = argparse.ArgumentParser(description="Build a larger realistic Flint micro benchmark corpus.")
     parser.add_argument("--out-dir", type=Path, default=Path("evals"))
     args = parser.parse_args(argv)
 

@@ -140,7 +140,7 @@ def extract_usage(response: dict[str, Any]) -> dict[str, Any]:
     }
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Run SIGIL eval prompts against the OpenAI Responses API.")
+    parser = argparse.ArgumentParser(description="Run Flint eval prompts against the OpenAI Responses API.")
     parser.add_argument("--tasks", type=Path, default=ROOT / "evals" / "tasks.jsonl")
     parser.add_argument("--out", type=Path, required=True, help="JSONL file to append run rows to.")
     parser.add_argument("--model", required=True, help="Model id, for example gpt-5.2 or gpt-5.2-mini.")

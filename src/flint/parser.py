@@ -290,7 +290,7 @@ def parse_document(source: str | Path) -> Document:
 
 def validate_document(document: Document) -> None:
     if not document.clauses:
-        raise FlintParseError("A SIGIL document must contain at least one clause")
+        raise FlintParseError("A Flint document must contain at least one clause")
 
     mode = document.header.mode if document.header else None
     if mode == "memory" and any(clause.tag != "M" for clause in document.clauses):

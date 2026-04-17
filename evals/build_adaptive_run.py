@@ -55,7 +55,7 @@ def load_candidate_tiers(
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Build an adaptive SIGIL run using verifier-gated fallback selection.")
+    parser = argparse.ArgumentParser(description="Build an adaptive Flint run using verifier-gated fallback selection.")
     parser.add_argument("tasks", type=Path)
     parser.add_argument("out", type=Path)
     parser.add_argument("--candidate-run", dest="candidate_runs", action="append", type=Path, default=None)

@@ -314,14 +314,14 @@ def build_profile(
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Suggest a SIGIL routing profile from benchmark runs.")
+    parser = argparse.ArgumentParser(description="Suggest a Flint routing profile from benchmark runs.")
     parser.add_argument("tasks", type=Path)
     parser.add_argument("out", type=Path)
     parser.add_argument("--name", default=None, help="Optional profile name. Defaults to the output filename stem.")
     parser.add_argument("--objective", choices=["quality", "efficiency", "balanced"], default="efficiency")
     parser.add_argument("--granularity", choices=["category", "task"], default="category")
     parser.add_argument("--run", dest="runs", action="append", type=Path, required=True, help="Run JSONL to include. Repeatable.")
-    parser.add_argument("--allow-plain-candidates", action="store_true", help="Let non-SIGIL baseline variants compete in profile selection.")
+    parser.add_argument("--allow-plain-candidates", action="store_true", help="Let non-Flint baseline variants compete in profile selection.")
     args = parser.parse_args(argv)
 
     rows = evaluate_rows(args.tasks, args.runs)
