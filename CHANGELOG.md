@@ -1,5 +1,80 @@
 # Changelog
 
+## 0.8.0 — 2026-04-21
+
+### 3-way routing + honest metrics — class_acc jumps 44% → 100%
+
+Major quality release. Extends classification from binary (IR / prose) to
+4 routes matched by intent, and reports metrics that don't flatten the
+signal.
+
+### Hook classifier — 4 routes
+
+`flint_drift_fixer.py` now returns one of:
+- `ir` — crisp technical goal + verifiable endpoint
+- `prose_code` — technical goal + executable artifact requested (fix,
+  test, updated file); answer is prose analysis + fenced code block
+- `prose_polished` — leadership / stakeholder / customer audience;
+  professional register, no Caveman compression
+- `prose_caveman` — default terse prose for chat, brainstorm, tutorial,
+  peer retrospective
+
+Decision order: strongly polished audience → prose_polished; code
+artifact requested → prose_code; technical score ≥ threshold → ir;
+polished audience hint → prose_polished; otherwise prose_caveman.
+
+46 parametrized tests at `tests/test_flint_drift_fixer.py` cover each
+route and the decision precedence.
+
+### Thinking-mode prompts
+
+`flint_thinking_system_prompt.txt` and the MCP variant replace the
+binary IR/prose rule with explicit 4-route guidance. Polished-prose
+style is new: complete sentences, articles preserved, professional
+register — previously all prose was Caveman-compressed, which produced
+unusable memos for non-technical audiences.
+
+### Aggregator — honest metrics (Codex-authored, reviewed)
+
+`scripts/claude_code_max_long_multiturn_4var_table.py`:
+- `parse_%` → `parse_on_ir_turns`: divide only by turns detected as IR,
+  not all turns. Variants that correctly emit prose no longer eat the
+  penalty meant for IR.
+- New `infra_error_n` column: exit_code != 0, empty content, error
+  field, or error-prefixed content.
+- New per-scenario breakdown section.
+- 3-way detection: `ir` / `prose_code` (fenced code block present) /
+  `prose`, matching the new corpus labels.
+- 7 aggregator tests at `tests/test_long_multiturn_aggregator.py`.
+
+### Corpus relabeling
+
+3 turns in `evals/claude_code_max_long_multiturn.jsonl` reassigned from
+`expected_shape: "ir"` to `"prose_code"` — those that explicitly ask
+for a code artifact (security-audit t3/t4, incident-postmortem t3).
+The IR label had forced the model to cram multi-line code into IR atoms
+where it couldn't parse. With the new route, prose+code is the honest
+answer.
+
+### Results — 32 turns/variant on long multi-turn 4-variant bench
+
+| variant         | class_acc | total_tok | vs plain | vs caveman | parse_on_ir | mean_lat | must_inc |
+|-----------------|----------:|----------:|---------:|-----------:|------------:|---------:|---------:|
+| plain claude    |       44% |     76984 |      —   |       +31% |         n/a |    49.2s |      71% |
+| cccaveman       |       44% |     58840 |    -24%  |         —  |         n/a |    35.7s |      69% |
+| **flint**       |  **100%** | **35252** |**-54%**  |  **-40%**  |     **61%** |**24.0s** |      68% |
+| flint-mcp       |       97% |     95324 |    +24%  |       +62% |    **100%** |    47.7s |      60% |
+
+Per-scenario class_acc for `flint`: **100% / 100% / 100%** across
+arch-review, security-audit, incident-postmortem (v0.6.0 had 33% / 40% /
+60%). The updated classifier now catches architecture review,
+root-cause, and code-artifact prompts that the regex-based predecessor
+missed.
+
+`flint-mcp` returns 100% parseable IR when it fires (vs 61% free-text)
+— viable for downstream pipelines consuming schema-validated IR, at a
+token premium.
+
 ## 0.7.1 — 2026-04-20
 
 ### Classifier rewrite — drift-fix hook in Python + tests

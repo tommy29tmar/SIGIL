@@ -58,20 +58,74 @@ PROSE_RULES: list[tuple[str, int]] = [
     (r"\bno\s+ir\b|\bno\s+flint\b", 5),
 ]
 
+# Signals that the user wants an executable code artifact in the answer
+# (fix diff, regression test, updated file, implementation snippet).
+# When one of these fires AND the IR score crosses threshold, the turn is
+# routed to "prose_code" instead of "ir": prose analysis wrapping a
+# fenced code block, because IR atoms break on multi-line verbatim code.
+CODE_ARTIFACT_RULES: list[str] = [
+    r"\b(?:show|display|produce|emit|provide)\s+(?:the\s+)?(?:updated|full|complete|new|final)\s+(?:code|file|method|function|class|module|source|impl\w*)",
+    r"\b(?:show|display)\s+(?:the\s+)?(?:code|config|patch|diff|snippet)",
+    r"\bwrite\s+(?:the\s+)?(?:code|tests?|snippet|function|method|patch|fix|script|implementation|regression\s+tests?|pytest|unit\s+tests?)",
+    r"\bimplement\s+(?:the|a|an)\b",
+    r"\bapply\s+the\s+(?:fix|change|patch|update)",
+    r"\bupdated\s+(?:\w+\.\w+|jwt_\w+|auth\w*|handler|service|module|file)",
+    r"\bpropose\s+the\s+fix.*(?:show|code|snippet|file)",
+]
+
+# Signals that prose should be polished/professional (memo, leadership,
+# customer-facing) rather than Caveman-compressed.
+POLISHED_AUDIENCE_RULES: list[str] = [
+    r"\bleadership\b|\bnon[- ]technical\b|\bstakeholders?\b|\bexecutive\b|\bc[- ]suite\b",
+    r"\bcustomer[- ]facing\b|\bcustomer[- ]?(?:memo|letter|update|announcement)\b",
+    r"\bmemo\b.*(?:leadership|stakeholder|customer)|\bdraft\s+a\s+(?:memo|letter|announcement)",
+    r"\bpost[- ]?mortem\b.*(?:customer|blameless|public|external)",
+    r"\bprofessional\s+tone\b|\bblameless\s+tone\b|\breassuring\b",
+    r"\b(?:2|3|4|5|two|three|four|five)\s+paragraphs?\b",
+]
+
 IR_THRESHOLD = 2
 
 
+def _matches_any(text: str, patterns: list[str]) -> bool:
+    return any(re.search(p, text, re.IGNORECASE | re.MULTILINE) for p in patterns)
+
+
 def classify(prompt: str) -> str:
-    """Return 'ir' or 'prose' for the given user prompt."""
+    """Return one of 'ir' | 'prose_code' | 'prose_polished' | 'prose_caveman'.
+
+    Decision order (first match wins):
+      1. Strongly polished audience (leadership / customer-facing + memo / paragraphs)
+         -> 'prose_polished'. Overrides everything else: a memo-for-leadership
+         that mentions bugs is still a memo.
+      2. Code artifact requested (show/write code, tests, updated file)
+         -> 'prose_code'. Verbatim code does not fit inside IR atoms.
+      3. Technical score >= IR_THRESHOLD -> 'ir'. Crisp goal + verifiable endpoint.
+      4. Any polished-audience hint -> 'prose_polished'.
+      5. Default -> 'prose_caveman' (terse, compressed prose).
+    """
     text = prompt or ""
-    score = 0
+    ir_score = 0
+    prose_score = 0
     for pattern, weight in IR_RULES:
         if re.search(pattern, text, re.IGNORECASE | re.MULTILINE):
-            score += weight
+            ir_score += weight
     for pattern, weight in PROSE_RULES:
         if re.search(pattern, text, re.IGNORECASE | re.MULTILINE):
-            score -= weight
-    return "ir" if score >= IR_THRESHOLD else "prose"
+            prose_score += weight
+
+    wants_code = _matches_any(text, CODE_ARTIFACT_RULES)
+    polished_audience = _matches_any(text, POLISHED_AUDIENCE_RULES)
+
+    if polished_audience and prose_score >= 4:
+        return "prose_polished"
+    if wants_code:
+        return "prose_code"
+    if ir_score - prose_score >= IR_THRESHOLD:
+        return "ir"
+    if polished_audience:
+        return "prose_polished"
+    return "prose_caveman"
 
 
 IR_DIRECTIVE = (
@@ -79,20 +133,47 @@ IR_DIRECTIVE = (
     "and verifiable endpoint. Respond in Flint IR: emit '@flint v0 hybrid' "
     "+ G/C/P/V/A clauses (or call the submit_flint_ir MCP tool if "
     "available). Do NOT respond in prose for this turn. Keep atoms in "
-    "lowercase_snake_case or call form f(\"x\") or quoted literals."
+    "lowercase_snake_case or call form f(\"x\") or quoted literals. "
+    "No code blocks inside atoms."
 )
 
-PROSE_DIRECTIVE = (
-    "[TURN CLASSIFICATION: prose-shape] This turn asks for writing, "
-    "explanation, brainstorming, summary, or conversation. Respond in "
-    "Caveman-compressed prose. No markdown headers (# or ##). No bold. "
-    "Drop articles (the/a/an/is/are). No filler intros or summaries. One "
-    "idea per line. Do NOT emit Flint IR or call submit_flint_ir for this turn."
+PROSE_CODE_DIRECTIVE = (
+    "[TURN CLASSIFICATION: prose+code] This turn asks for an executable "
+    "artifact (fix, test, updated file, snippet). Respond with a brief "
+    "Caveman-compressed prose analysis (2-4 lines) followed by one or "
+    "more fenced code blocks (```lang ... ```). Do NOT emit Flint IR "
+    "atoms — code must render verbatim. Keep the analysis terse: drop "
+    "articles, no filler. Code block first when the user asked to 'show' it."
 )
+
+PROSE_CAVEMAN_DIRECTIVE = (
+    "[TURN CLASSIFICATION: prose-caveman] This turn asks for casual "
+    "writing, brainstorming, quick explanation, or internal retrospective. "
+    "Respond in Caveman-compressed prose. Drop articles (the/a/an/is/are). "
+    "No markdown headers (# or ##). No bold. No filler intros or summaries. "
+    "One idea per line. Do NOT emit Flint IR or call submit_flint_ir."
+)
+
+PROSE_POLISHED_DIRECTIVE = (
+    "[TURN CLASSIFICATION: prose-polished] This turn addresses a polished "
+    "audience (leadership, stakeholders, customers, external memo). "
+    "Respond in professional, readable prose. Complete sentences with "
+    "articles preserved. No Caveman compression. No filler, no hedging, "
+    "no chatter, no bullet points unless requested. Match the tone asked "
+    "(blameless, reassuring, reflective). Do NOT emit Flint IR or call "
+    "submit_flint_ir."
+)
+
+DIRECTIVES: dict[str, str] = {
+    "ir": IR_DIRECTIVE,
+    "prose_code": PROSE_CODE_DIRECTIVE,
+    "prose_caveman": PROSE_CAVEMAN_DIRECTIVE,
+    "prose_polished": PROSE_POLISHED_DIRECTIVE,
+}
 
 
 def build_output(label: str) -> dict:
-    directive = IR_DIRECTIVE if label == "ir" else PROSE_DIRECTIVE
+    directive = DIRECTIVES.get(label, PROSE_CAVEMAN_DIRECTIVE)
     return {
         "hookSpecificOutput": {
             "hookEventName": "UserPromptSubmit",

@@ -30,7 +30,7 @@ hook = _load_hook_module()
 
 
 IR_PROMPTS = [
-    # Classic debug / review / fix
+    # Classic debug / review / fix — no code artifact asked
     "Debug this production issue: users report 502s on /checkout",
     "Review this diff for concurrency bugs",
     "Audit the JWT auth module for security vulnerabilities",
@@ -56,15 +56,27 @@ IR_PROMPTS = [
     # Italian
     "Spiega perché questo codice ha un race condition",
     "Cosa monitoro in prod dopo il deploy?",
-    # Regression tests
-    "Write regression tests (pytest) for algo=none rejection",
 ]
 
-PROSE_PROMPTS = [
-    # Leadership / memo
+PROSE_CODE_PROMPTS = [
+    # Asks for code artifact alongside a technical task
+    "Write regression tests (pytest) for algo=none rejection",
+    "Propose the fix. Show updated jwt_service.py",
+    "Show the code/config change that prevents recurrence",
+    "Implement the saga coordinator; show the full class",
+    "Write the patch that switches HS256 to RS256",
+    "Apply the fix and show the updated module",
+]
+
+PROSE_POLISHED_PROMPTS = [
+    # Leadership / memo / customer-facing
     "Write a 2-paragraph summary for non-technical leadership: what we're doing, why, risks",
     "Write a memo for leadership. Tone: professional, no code. Cover what we found",
     "Draft a customer-facing post-mortem: blameless, factual, 4-5 paragraphs, no code, no IR",
+]
+
+PROSE_CAVEMAN_PROMPTS = [
+    # Internal retrospective / reflective (not customer-facing)
     "Internal retrospective: what process changes would have caught this. Prose, reflective tone, narrative",
     # Pedagogical / tutorial
     "Explain to a junior dev how OAuth flows work",
@@ -83,17 +95,27 @@ PROSE_PROMPTS = [
 
 @pytest.mark.parametrize("prompt", IR_PROMPTS)
 def test_ir_prompts_classified_as_ir(prompt: str) -> None:
-    assert hook.classify(prompt) == "ir", f"expected IR for: {prompt!r}"
+    assert hook.classify(prompt) == "ir", f"expected 'ir' for: {prompt!r}"
 
 
-@pytest.mark.parametrize("prompt", PROSE_PROMPTS)
-def test_prose_prompts_classified_as_prose(prompt: str) -> None:
-    assert hook.classify(prompt) == "prose", f"expected prose for: {prompt!r}"
+@pytest.mark.parametrize("prompt", PROSE_CODE_PROMPTS)
+def test_prose_code_prompts_classified_as_prose_code(prompt: str) -> None:
+    assert hook.classify(prompt) == "prose_code", f"expected 'prose_code' for: {prompt!r}"
 
 
-def test_empty_prompt_is_prose() -> None:
-    assert hook.classify("") == "prose"
-    assert hook.classify(None) == "prose"
+@pytest.mark.parametrize("prompt", PROSE_POLISHED_PROMPTS)
+def test_prose_polished_prompts_classified_as_prose_polished(prompt: str) -> None:
+    assert hook.classify(prompt) == "prose_polished", f"expected 'prose_polished' for: {prompt!r}"
+
+
+@pytest.mark.parametrize("prompt", PROSE_CAVEMAN_PROMPTS)
+def test_prose_caveman_prompts_classified_as_prose_caveman(prompt: str) -> None:
+    assert hook.classify(prompt) == "prose_caveman", f"expected 'prose_caveman' for: {prompt!r}"
+
+
+def test_empty_prompt_is_prose_caveman() -> None:
+    assert hook.classify("") == "prose_caveman"
+    assert hook.classify(None) == "prose_caveman"
 
 
 def test_build_output_for_ir() -> None:
@@ -103,15 +125,33 @@ def test_build_output_for_ir() -> None:
     ctx = hso["additionalContext"]
     assert "IR-shape" in ctx
     assert "@flint v0 hybrid" in ctx
-    assert "prose" not in ctx.split("IR-shape")[0]  # no prose mention before IR label
 
 
-def test_build_output_for_prose() -> None:
-    out = hook.build_output("prose")
-    ctx = out["hookSpecificOutput"]["additionalContext"]
-    assert "prose-shape" in ctx
-    assert "Caveman" in ctx
+def test_build_output_for_prose_code() -> None:
+    ctx = hook.build_output("prose_code")["hookSpecificOutput"]["additionalContext"]
+    assert "prose+code" in ctx
+    assert "fenced code block" in ctx
     assert "Do NOT emit Flint IR" in ctx
+
+
+def test_build_output_for_prose_caveman() -> None:
+    ctx = hook.build_output("prose_caveman")["hookSpecificOutput"]["additionalContext"]
+    assert "prose-caveman" in ctx
+    assert "Caveman-compressed" in ctx
+    assert "Do NOT emit Flint IR" in ctx
+
+
+def test_build_output_for_prose_polished() -> None:
+    ctx = hook.build_output("prose_polished")["hookSpecificOutput"]["additionalContext"]
+    assert "prose-polished" in ctx
+    assert "professional" in ctx.lower()
+    assert "Caveman compression" in ctx or "No Caveman" in ctx
+    assert "Do NOT emit Flint IR" in ctx
+
+
+def test_build_output_unknown_label_falls_back_to_caveman() -> None:
+    ctx = hook.build_output("unknown")["hookSpecificOutput"]["additionalContext"]
+    assert "prose-caveman" in ctx
 
 
 def test_main_reads_stdin_and_writes_stdout(monkeypatch: pytest.MonkeyPatch) -> None:
@@ -133,14 +173,14 @@ def test_main_handles_malformed_stdin(monkeypatch: pytest.MonkeyPatch) -> None:
     rc = hook.main()
     assert rc == 0
     out = json.loads(captured.getvalue())
-    # Empty prompt -> prose default
-    assert "prose-shape" in out["hookSpecificOutput"]["additionalContext"]
+    # Empty prompt -> caveman default
+    assert "prose-caveman" in out["hookSpecificOutput"]["additionalContext"]
 
 
-def test_prose_override_wins_over_ir_signal() -> None:
+def test_polished_override_wins_over_ir_signal() -> None:
     # Has debug keywords but explicit "non-technical leadership memo"
     prompt = (
         "We had a production outage; write a memo for non-technical leadership "
         "explaining what happened. 3 paragraphs, no code."
     )
-    assert hook.classify(prompt) == "prose"
+    assert hook.classify(prompt) == "prose_polished"
