@@ -44,6 +44,7 @@ CELLS = [
     ("cccflint",         "cccflint"),
     ("plain + MCP",      "plain_mcp"),
     ("cccflint + MCP",   "cccflint_mcp"),
+    ("cccflint-mcp-pro", "cccflint_mcp_pro"),
 ]
 
 

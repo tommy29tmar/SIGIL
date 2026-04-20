@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+# cccflint-pro — cccflint + drift-fix hook (v0.6 pro lane, no MCP).
+#
+# Lighter than cccflint-mcp-pro:
+#   - Flint thinking-mode system prompt (via --append-system-prompt)
+#   - Per-turn drift-fix hook (via --settings file)
+#   - NO MCP server, so IR is emitted as FREE TEXT (no tool round-trip cost)
+#
+# Best for users who want high classification accuracy AND token savings,
+# but don't need schema-validated IR for downstream pipelines.
+
+set -euo pipefail
+
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+resolve_file() {
+  local name="$1"; shift
+  for candidate in "$@"; do
+    if [ -n "$candidate" ] && [ -f "$candidate" ]; then
+      echo "$candidate"
+      return
+    fi
+  done
+  echo "cccflint-pro: $name not found" >&2
+  for candidate in "$@"; do
+    echo "  searched: $candidate" >&2
+  done
+  return 1
+}
+
+prompt_file="$(resolve_file "thinking-mode prompt" \
+  "${FLINT_THINKING_PROMPT_FILE:-}" \
+  "$HOME/.claude/flint_thinking_system_prompt.txt" \
+  "$script_dir/../flint_thinking_system_prompt.txt")" || exit 1
+
+settings_file="$(resolve_file "drift-fix settings" \
+  "${FLINT_DRIFT_FIX_SETTINGS_FILE:-}" \
+  "$HOME/.claude/flint-drift-fix-settings.json" \
+  "$script_dir/../flint-drift-fix-settings.json")" || exit 1
+
+prompt_body="$(cat "$prompt_file")"
+exec claude \
+  --append-system-prompt "$prompt_body" \
+  --settings "$settings_file" \
+  "$@"

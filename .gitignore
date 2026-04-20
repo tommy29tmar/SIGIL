@@ -25,3 +25,4 @@ local/
 evals/runs/tmp/
 evals/runs/**/*.log
 .serena/
+.claude/

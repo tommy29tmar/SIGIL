@@ -1,5 +1,53 @@
 # Changelog
 
+## 0.6.0 — 2026-04-20
+
+### Added — cccflint-pro (drift-fix hook, free-text IR)
+
+New wrapper that combines the thinking-mode system prompt with a
+`UserPromptSubmit` hook that re-injects a per-turn classification
+directive (`[TURN CLASSIFICATION: IR-shape | prose]`) via
+`additionalContext`. Fixes the multi-turn drift where the base
+`cccflint` emitted IR only at T1 and fell back to prose at T2+.
+
+- `integrations/claude-code/bin/cccflint-pro` — wrapper
+- `integrations/claude-code/bin/cccflint-mcp-pro` — same + MCP tool
+- `integrations/claude-code/hooks/flint_drift_fixer.sh` — classifier hook
+- `integrations/claude-code/flint-drift-fix-settings.json` — hook registration
+
+### Added — cccaveman baseline
+
+`integrations/claude-code/bin/cccaveman` — wraps `claude` with
+`prompts/primitive_english.txt` (Caveman descriptive compression) as
+`--append-system-prompt`. Used to benchmark "Flint vs descriptive prose
+compression" on the same workload.
+
+### Added — long multi-turn 4-variant bench
+
+- `evals/claude_code_max_long_multiturn.jsonl` — 3 scenarios × 5-6 turns
+  (arch review, security audit, incident postmortem) mixing IR-shape
+  and prose turns.
+- `scripts/bench_long_multiturn_4variants.sh` — sequential runner.
+- `scripts/bench_long_multiturn_4variants_parallel.sh` — parallel runner
+  (scenario-level concurrency, `MAX_CONCURRENCY=8`), ~6× speedup
+  (12 min vs 75 min on 128 calls).
+- `scripts/claude_code_max_long_multiturn_4var_table.py` — aggregator.
+
+### Results — long multi-turn, 32 turns/variant, 4-variant comparison
+
+| variant            | class_acc | total_tok | vs plain | vs caveman | must_inc | mean_lat |
+|--------------------|----------:|----------:|---------:|-----------:|---------:|---------:|
+| plain claude       |       25% |     77589 |      —   |       +48% |      71% |    47.5s |
+| cccaveman          |       25% |     52298 |    -33%  |         —  |      69% |    31.9s |
+| **cccflint-pro**   |   **62%** | **37187** |**-52%**  |  **-29%**  |      66% |**26.5s** |
+| cccflint-mcp-pro   |       56% |     68484 |    -12%  |       +31% |      64% |    38.2s |
+
+**Headline:** `cccflint-pro` beats Caveman on every axis that matters:
+-29% tokens, -17% latency, **+37pt class_acc**, -3pt must_include
+(acceptable trade for IR-shape turns). MCP round-trip cost makes
+`cccflint-mcp-pro` heavier than Caveman on long sessions — pro is the
+sweet spot when schema validation isn't needed downstream.
+
 ## 0.5.1 — 2026-04-20
 
 ### Fixed — multi-turn bench metric correction
