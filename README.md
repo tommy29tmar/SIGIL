@@ -47,10 +47,25 @@ Measured on 6 mixed prompts (3 IR-shape: debug, code review, refactor · 3 prose
 
 `cccflint` emits Flint IR for every IR-shape task (0% → 100%), keeps every prose task in Caveman-style prose, cuts mean output tokens by 24%, and the IR it produces passes the strict Flint parser 89% of the time on IR-shape tasks (8 of 9 samples across 3 runs × 3 IR-shape tasks) — above the ~80% parser-pass rate of strict Flint on its own 10-task corpus. Zero marginal cost on the Claude Max plan — no Anthropic API calls.
 
+### Compression scales with context length
+
+The short-prompt corpus above measures the classification floor. A second corpus (`evals/claude_code_max_long_prompts.jsonl`) exercises realistic working-session prompts: 5 tasks of 300–700 input tokens (400-line auth module debug, 200-line security diff review, multi-file refactor plan, full-system architecture walkthrough, open-ended tradeoff discussion). 3 runs:
+
+| corpus              | plain `claude` mean out | cccflint mean out |   savings |
+|---------------------|------------------------:|------------------:|----------:|
+| short (≤100 tok in) |                 537 tok |           409 tok |      -24% |
+| **long (300-700 tok in)** |         **2799 tok** |      **1313 tok** |  **-53%** |
+
+The longer the prompt, the bigger the win. On individual IR-shape tasks the gap widens: `long-debug-auth-module` is 1886 tokens of markdown under plain `claude` versus 402 tokens of structured Flint IR under `cccflint` — **-79% on the same task, same diagnosis, same fix**. Latency drops from 47s to 30s mean (-36%).
+
+Parser-pass on IR outputs: **100% (9/9)** on long IR-shape tasks. Grammar compliance does not degrade with prompt length.
+
 Reproduce:
 ```bash
-RUNS=3 ./scripts/bench_claude_code_max.sh
+RUNS=3 ./scripts/bench_claude_code_max.sh      # short corpus (6 prompts)
+RUNS=3 ./scripts/bench_claude_code_max_long.sh # long corpus (5 prompts)
 python3 scripts/claude_code_max_table.py
+python3 scripts/claude_code_max_long_table.py
 ```
 
 ## Why it works

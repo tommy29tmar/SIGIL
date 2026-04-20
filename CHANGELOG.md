@@ -1,5 +1,33 @@
 # Changelog
 
+## 0.4.1 — 2026-04-20
+
+### Added — long-prompt benchmark
+
+- `evals/claude_code_max_long_prompts.jsonl` — 5 realistic working-session
+  prompts (300–700 input tokens each): 400-line Python auth module debug,
+  large security-diff review, multi-file callback→async refactor,
+  full-system architecture walkthrough, open-ended tradeoff discussion.
+- `scripts/bench_claude_code_max_long.sh` + `claude_code_max_long_table.py`
+  — parallel bench infra for the long corpus.
+
+### Measured — compression scales with context length
+
+| corpus                  | plain mean | cccflint mean | savings |
+|-------------------------|-----------:|--------------:|--------:|
+| short (≤100 tok input)  |    537 tok |       409 tok |    -24% |
+| **long (300-700 tok)**  | **2799 tok** |  **1313 tok** | **-53%** |
+
+- **Classification: 100%** (5/5 tasks correctly routed IR vs prose,
+  plain claude at 40%).
+- **Parser-pass on IR-shape outputs: 100% (9/9)** — grammar compliance
+  holds under long context.
+- **Latency: -36%** (47s → 30s mean).
+- Individual IR task peak: `long-debug-auth-module` from 1886 tok
+  (plain markdown) to 402 tok (Flint IR) — **-79% on the same task**.
+
+Pattern confirmed: the longer the prompt, the bigger the cccflint win.
+
 ## 0.4.0 — 2026-04-20
 
 ### Added — Claude Code Max always-on path
