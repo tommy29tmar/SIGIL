@@ -1,5 +1,70 @@
 # Changelog
 
+## 0.5.0 — 2026-04-20
+
+### Added — MCP server + `cccflint-mcp` wrapper
+
+- `src/flint/mcp_server.py` — a Model Context Protocol server exposing three
+  tools over stdio: `submit_flint_ir` (schema-enforced IR emission),
+  `validate_flint` (parse a raw Flint document), and `audit_explain`
+  (render prose from an IR). The `submit_flint_ir` input schema encodes
+  Flint atom grammar as a regex pattern, so any malformed atom is rejected
+  at the API layer before reaching the tool.
+- `integrations/claude-code/bin/cccflint-mcp` — second wrapper that
+  launches `claude --append-system-prompt <thinking-mcp-prompt> --mcp-config
+  <flint-mcp>`. The thinking-mcp system prompt instructs the model to call
+  `submit_flint_ir` for IR-shape tasks and pass the tool's rendered output
+  to the user verbatim.
+- `integrations/claude-code/flint_thinking_mcp_system_prompt.txt` — MCP
+  variant of the thinking-mode prompt.
+- `integrations/claude-code/mcp-config.json` — template config that
+  launches the Flint MCP server via `python3 -m flint.mcp_server`.
+
+### Multi-turn 4-cell bench
+
+- `evals/claude_code_max_multiturn.jsonl` — 2 scenarios × 4 turns each
+  (deep-debug-auth with 400-line Python module, mixed-security-review with
+  multi-stage IR↔prose flow).
+- `scripts/bench_claude_code_max_multiturn.sh` + `...table.py` — 2-cell
+  (plain vs cccflint) bench over multi-turn with session resumption
+  (`claude -p --resume`).
+- `scripts/bench_claude_code_max_4cell.sh` + `...4cell_table.py` — 4-cell
+  (plain, cccflint, plain+MCP, cccflint+MCP) bench with the same scenarios.
+
+### Measured (multi-turn, 2 scenarios × 4 turns, Claude Max, RUNS=1)
+
+| variant           | class_acc | ir_hit | tool_hit | total_tok | mean_lat |
+|-------------------|----------:|-------:|---------:|----------:|---------:|
+| plain claude      |       25% |     0% |       0% |     14316 |    35.9s |
+| cccflint          |   **50%** |    25% |       0% |     14692 |    37.5s |
+| plain + MCP       |       25% |     0% |       0% |     16390 |    44.4s |
+| cccflint + MCP    |   **50%** |    12% |  **25%** |     17867 |    44.9s |
+
+Findings:
+- **Multi-turn drift**: IR emission happens at turn 1 of a fresh session,
+  drifts to prose on turns 2-4 for all variants. The system prompt loses
+  against accumulated conversation context. This is Claude Code session
+  dynamics, not a Flint-specific issue.
+- **MCP tool needs system-prompt push**: plain+MCP (tool available but no
+  instruction) = same behavior as plain claude. Tool must be recommended
+  by the system prompt.
+- **MCP adds +20% token overhead** due to tool round-trip
+  (tool_use + tool_result + re-emission by the model). Trade-off: the
+  IR emitted via the tool is API-validated (100% parseable by construction).
+- **cccflint's prose (turns 2-4) still beats plain claude prose** on
+  mixed-security scenario (2856 vs 5694 cumulative, -50%) because the
+  Caveman discipline applies even when IR doesn't trigger.
+
+### Product recommendation
+
+- **Default**: `cccflint` (v0.4.1 path) — zero overhead, best token savings
+  on turn 1, Caveman prose on follow-ups.
+- **Power user with downstream tooling**: `cccflint-mcp` (v0.5 new path)
+  — schema-enforced IR at +20% token cost, 100% parseable when the tool
+  fires.
+- **Never use**: `plain + MCP` alone. The tool is unused without prompt
+  push, so it only adds cost.
+
 ## 0.4.1 — 2026-04-20
 
 ### Added — long-prompt benchmark

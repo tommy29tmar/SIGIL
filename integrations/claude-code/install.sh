@@ -60,13 +60,19 @@ fetch "output-styles/flint.md" "$CLAUDE_DIR/output-styles/flint.md" || \
 fetch "output-styles/flint-thinking.md" "$CLAUDE_DIR/output-styles/flint-thinking.md" || \
   echo "   (flint-thinking output-style install failed — not fatal)"
 
-echo "==> Installing cccflint wrapper + thinking-mode prompt"
+echo "==> Installing cccflint wrappers + thinking-mode prompts"
 BIN_DIR="${HOME}/.local/bin"
 mkdir -p "$BIN_DIR"
 fetch "bin/cccflint" "$BIN_DIR/cccflint" || echo "   (cccflint install failed — not fatal)"
 chmod +x "$BIN_DIR/cccflint" 2>/dev/null || true
+fetch "bin/cccflint-mcp" "$BIN_DIR/cccflint-mcp" || echo "   (cccflint-mcp install failed — not fatal)"
+chmod +x "$BIN_DIR/cccflint-mcp" 2>/dev/null || true
 fetch "flint_thinking_system_prompt.txt" "$CLAUDE_DIR/flint_thinking_system_prompt.txt" || \
   echo "   (thinking-mode prompt install failed — cccflint will not work until installed)"
+fetch "flint_thinking_mcp_system_prompt.txt" "$CLAUDE_DIR/flint_thinking_mcp_system_prompt.txt" || \
+  echo "   (thinking-mode-MCP prompt install failed — cccflint-mcp will not work until installed)"
+fetch "mcp-config.json" "$CLAUDE_DIR/flint-mcp-config.json" || \
+  echo "   (mcp-config install failed — cccflint-mcp requires it)"
 
 if ! echo ":$PATH:" | grep -q ":$BIN_DIR:"; then
   echo ""
@@ -99,8 +105,15 @@ echo "  flint           strict IR always (best for API, parser-strict tooling)"
 echo "  flint-thinking  dual-mode: Caveman prose + IR by task shape (Claude Code soft layer)"
 echo ""
 echo "Always-on for Claude Code Max users (recommended):"
-echo "  cccflint                   starts Claude Code with Flint thinking-mode injected at"
-echo "                             system-prompt level (does not affect the default 'claude')"
-echo "  cccflint -p \"your prompt\"  non-interactive mode"
+echo "  cccflint                    starts Claude Code with Flint thinking-mode injected at"
+echo "                              system-prompt level (does not affect the default 'claude')"
+echo "  cccflint -p \"your prompt\"   non-interactive mode"
 echo ""
-echo "The default 'claude' command remains untouched — cccflint is a separate binary."
+echo "Optional — MCP enforcement for 100% parseable IR (opt-in, +20% tokens):"
+echo "  cccflint-mcp                 cccflint + Flint MCP server (submit_flint_ir tool)"
+echo "  cccflint-mcp -p \"prompt\"     non-interactive mode"
+echo ""
+echo "Requires Python 'mcp' package:  pip install --user mcp"
+echo ""
+echo "The default 'claude' command remains untouched — both cccflint and cccflint-mcp"
+echo "are separate binaries. Opt into the level of enforcement you need."

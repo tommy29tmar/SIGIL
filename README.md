@@ -47,6 +47,23 @@ Measured on 6 mixed prompts (3 IR-shape: debug, code review, refactor · 3 prose
 
 `cccflint` emits Flint IR for every IR-shape task (0% → 100%), keeps every prose task in Caveman-style prose, cuts mean output tokens by 24%, and the IR it produces passes the strict Flint parser 89% of the time on IR-shape tasks (8 of 9 samples across 3 runs × 3 IR-shape tasks) — above the ~80% parser-pass rate of strict Flint on its own 10-task corpus. Zero marginal cost on the Claude Max plan — no Anthropic API calls.
 
+### Optional: MCP tool enforcement with `cccflint-mcp`
+
+For downstream tooling that needs API-validated parseable IR, `cccflint-mcp` wraps `claude --mcp-config <flint-server>` and instructs the model to call `submit_flint_ir` (a Flint MCP tool with a regex-enforced JSON Schema) instead of emitting free-text IR. The Anthropic API rejects malformed atoms before they reach the tool — when the tool fires, the emitted IR is parseable by construction.
+
+Trade-off: MCP adds ~20% output token overhead (tool round-trip), so `cccflint` remains the default choice for interactive use. Use `cccflint-mcp` when: you pipe Flint output into `flint audit --explain`, CI linters, or analytics that must not fail on malformed grammar.
+
+Multi-turn 4-cell bench (2 scenarios × 4 turns, deep-debug + mixed-security):
+
+| variant              | class_acc | ir_hit | tool_hit | total_tok | mean_lat |
+|----------------------|----------:|-------:|---------:|----------:|---------:|
+| plain `claude`       |       25% |     0% |       0% |     14316 |    35.9s |
+| **cccflint**         |   **50%** | **25%** |      0% |     14692 |    37.5s |
+| plain + MCP          |       25% |     0% |       0% |     16390 |    44.4s |
+| **cccflint + MCP**   |   **50%** |    12% | **25%**  |     17867 |    44.9s |
+
+The multi-turn drift (IR emits at turn 1, drifts to prose on turns 2-4) is a Claude Code session dynamics phenomenon that affects all variants. For per-turn IR enforcement on every task, open a fresh `cccflint` session per task or use the one-shot `/flint` skill.
+
 ### Compression scales with context length
 
 The short-prompt corpus above measures the classification floor. A second corpus (`evals/claude_code_max_long_prompts.jsonl`) exercises realistic working-session prompts: 5 tasks of 300–700 input tokens (400-line auth module debug, 200-line security diff review, multi-file refactor plan, full-system architecture walkthrough, open-ended tradeoff discussion). 3 runs:
