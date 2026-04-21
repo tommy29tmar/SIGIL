@@ -1,21 +1,22 @@
 # Hewn
 
+| Mode | Output tokens | Latency | Concepts covered |
+| --- | ---: | ---: | ---: |
+| Verbose Claude | 736 | 15s | 86% |
+| Caveman | 423 | 9s | 84% |
+| **Hewn** | **186** | **5s** | **95%** |
+
 why burn many token when few do job
 
 **Claude talks too much. Hewn makes it get to the point.**
 
+Same useful answer. Less token burn. More context kept.
+
 No proxy. No telemetry. Default `claude` untouched.
 
-```text
-VERBOSE CLAUDE   736 output tokens
-CAVEMAN          423 output tokens
-HEWN             186 output tokens
-```
-
-Same useful answer. Less token burn.
-
-And unlike simple voice-compression prompts, Hewn is designed to keep more of
-the useful context in the answer.
+Launch bench: 10 long-context tasks x 4 runs, prompt cache on. "Concepts
+covered" means required points from the prompt were still present in the
+answer.
 
 ## Before / After
 
@@ -68,17 +69,8 @@ Caveman makes Claude talk shorter.
 
 Hewn makes Claude waste less while keeping more context.
 
-On the current Opus 4.7 launch bench:
-
-| Mode | Output tokens | Latency | Concepts covered |
-| --- | ---: | ---: | ---: |
-| Verbose Claude | 736 | 15s | 86% |
-| Caveman | 423 | 9s | 84% |
-| **Hewn** | **186** | **5s** | **95%** |
-
-Bench shape: 10 long-context tasks x 4 runs, prompt cache on. "Concepts
-covered" means required points from the prompt were still present in the
-answer.
+The launch bench above is the short version: Caveman reduces output. Hewn
+reduces output further while covering more of what the prompt asked for.
 
 Caveman compresses voice. Hewn compresses the answer: fewer tokens, more of
 the required context preserved.
