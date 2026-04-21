@@ -1,6 +1,10 @@
 # Claude Code Integration
 
-Flint can be used from Claude Code in two practical ways:
+Hewn is the new public brand for Flint. The wire format and internal module
+names still use `flint` for compatibility, so you'll see both names during the
+transition.
+
+Hewn can be used from Claude Code in two practical ways:
 
 1. `CLAUDE.md` for interactive terminal sessions
 2. `--append-system-prompt` for `claude -p` print-mode wrappers
@@ -15,13 +19,13 @@ Relevant docs:
 
 ## Install
 
-See the top-level [README](../../README.md) for the one-liner install and the four slash commands (`/flint`, `/flint-on`, `/flint-off`, `/flint-audit`) plus the cross-session output-style workflow.
+See the top-level [README](../../README.md) for the one-liner install, the new `hewn` / `hewn-mcp` wrappers, the `hewn-ir` / `flint-ir` CLI aliases, and the current slash-command workflow (`/flint`, `/flint-on`, `/flint-off`, `/flint-audit`).
 
 ## Usage model
 
-The generated `CLAUDE.md` keeps normal human-language answers as the default and reserves raw Flint for:
+The generated `CLAUDE.md` keeps normal human-language answers as the default and reserves raw Hewn/Flint IR for:
 
-- explicit Flint requests
+- explicit Hewn / Flint requests
 - compact capsule generation
 - benchmark or tool-driven symbolic transport
 
@@ -29,19 +33,19 @@ That matches Claude Code better than forcing every terminal reply into raw symbo
 
 ## Per-file `CLAUDE.md` audit
 
-Flint ships a read-only CLI for auditing individual markdown instruction files. It is **per-file**: you point it at a specific `CLAUDE.md` (or any markdown). It does **not** walk your filesystem, does **not** enumerate or mirror Claude Code's memory-resolution rules, and never modifies the original file.
+Hewn ships a read-only CLI for auditing individual markdown instruction files. It is **per-file**: you point it at a specific `CLAUDE.md` (or any markdown). It does **not** walk your filesystem, does **not** enumerate or mirror Claude Code's memory-resolution rules, and never modifies the original file.
 
 ```bash
 # Token accounting for one or more files
-flint-ir claude-code inventory path/to/CLAUDE.md
+hewn-ir claude-code inventory path/to/CLAUDE.md
 
 # Print a structurally-safe compressed copy to stdout (preserves fenced code,
 # command lines, paths, inline-code paragraphs, headings; collapses only
 # runs of whitespace inside plain prose bullets)
-flint-ir claude-code compile path/to/CLAUDE.md
+hewn-ir claude-code compile path/to/CLAUDE.md
 
 # Unified diff of original vs compressed, plus per-segment summary
-flint-ir claude-code diff path/to/CLAUDE.md
+hewn-ir claude-code diff path/to/CLAUDE.md
 ```
 
 What the compiler refuses to touch:

@@ -1,17 +1,21 @@
 #!/usr/bin/env bash
-# Flint — Claude Code skill installer.
+# Hewn — Claude Code installer (with legacy Flint aliases retained).
 # One-line install:
 #   curl -fsSL https://raw.githubusercontent.com/tommy29tmar/flint/main/integrations/claude-code/install.sh | bash
 #
 # What this does:
 #   1. Installs four Claude Code skills: /flint, /flint-on, /flint-off, /flint-audit.
-#   2. Installs the Flint output-styles: `flint` (strict) and `flint-thinking` (dual-mode).
-#   3. Installs the `flint` CLI wrapper (recommended default): invokes `claude` with
-#      Flint thinking-mode at system-prompt level + per-turn drift-fix hook. Does NOT
-#      interfere with the default `claude` binary.
-#   4. Optionally installs `flint-mcp`: same as `flint` plus an MCP server exposing
+#   2. Installs both Hewn and Flint output-style names (`hewn`, `hewn-thinking`,
+#      `flint`, `flint-thinking`).
+#   3. Installs the `hewn` CLI wrapper (recommended default) plus the legacy
+#      `flint` alias. Both invoke `claude` with Hewn/Flint thinking-mode at
+#      system-prompt level + per-turn drift-fix hook. Does NOT interfere with the
+#      default `claude` binary.
+#   4. Optionally installs `hewn-mcp` plus the legacy `flint-mcp`: same as `hewn`
+#      plus an MCP server exposing
 #      `submit_flint_ir` for schema-validated IR (downstream pipeline use-case).
-#   5. Installs the flint-ir Python package (provides the `flint-ir` CLI for parse/rerender).
+#   5. Installs the Python package (provides both `hewn-ir` and `flint-ir` CLI aliases
+#      for parse/rerender).
 #
 # Refuses to run if ~/.claude is not present (i.e. Claude Code not installed).
 
@@ -55,19 +59,27 @@ for skill in "${SKILLS[@]}"; do
   fetch "skills/$skill/SKILL.md" "$CLAUDE_DIR/skills/$skill/SKILL.md"
 done
 
-echo "==> Installing Flint output-styles"
+echo "==> Installing Hewn / Flint output-styles"
 mkdir -p "$CLAUDE_DIR/output-styles"
+fetch "output-styles/hewn.md" "$CLAUDE_DIR/output-styles/hewn.md" || \
+  echo "   (hewn output-style install failed — legacy flint styles remain available)"
+fetch "output-styles/hewn-thinking.md" "$CLAUDE_DIR/output-styles/hewn-thinking.md" || \
+  echo "   (hewn-thinking output-style install failed — not fatal)"
 fetch "output-styles/flint.md" "$CLAUDE_DIR/output-styles/flint.md" || \
   echo "   (flint output-style install failed — skills alone are sufficient)"
 fetch "output-styles/flint-thinking.md" "$CLAUDE_DIR/output-styles/flint-thinking.md" || \
   echo "   (flint-thinking output-style install failed — not fatal)"
 
-echo "==> Installing flint CLI wrappers + thinking-mode prompts + drift-fix hook"
+echo "==> Installing Hewn / Flint CLI wrappers + thinking-mode prompts + drift-fix hook"
 BIN_DIR="${HOME}/.local/bin"
 mkdir -p "$BIN_DIR"
 mkdir -p "$CLAUDE_DIR/hooks"
+fetch "bin/hewn" "$BIN_DIR/hewn" || echo "   (hewn install failed — not fatal)"
+chmod +x "$BIN_DIR/hewn" 2>/dev/null || true
 fetch "bin/flint" "$BIN_DIR/flint" || echo "   (flint install failed — not fatal)"
 chmod +x "$BIN_DIR/flint" 2>/dev/null || true
+fetch "bin/hewn-mcp" "$BIN_DIR/hewn-mcp" || echo "   (hewn-mcp install failed — not fatal)"
+chmod +x "$BIN_DIR/hewn-mcp" 2>/dev/null || true
 fetch "bin/flint-mcp" "$BIN_DIR/flint-mcp" || echo "   (flint-mcp install failed — not fatal)"
 chmod +x "$BIN_DIR/flint-mcp" 2>/dev/null || true
 fetch "flint_thinking_system_prompt.txt" "$CLAUDE_DIR/flint_thinking_system_prompt.txt" || \
@@ -90,39 +102,48 @@ if ! echo ":$PATH:" | grep -q ":$BIN_DIR:"; then
   echo ""
 fi
 
-echo "==> Installing flint-ir Python package (optional)"
+echo "==> Installing Hewn / Flint Python CLI package (optional)"
 if command -v pipx >/dev/null 2>&1; then
   pipx install "git+${REPO_URL}" || pipx install --force "git+${REPO_URL}" || true
 elif command -v pip >/dev/null 2>&1; then
   pip install --user "git+${REPO_URL}" || true
 else
-  echo "   (skipping — install pipx or pip to get the \`flint\` CLI)"
+  echo "   (skipping — install pipx or pip to get the \`hewn-ir\` / \`flint-ir\` CLI)"
 fi
 
 echo ""
-echo "✓ Flint installed."
+echo "✓ Hewn installed."
 echo ""
-echo "Slash commands (opt-in, per turn):"
+echo "Slash commands (legacy names retained for now):"
 echo "  /flint <question>          one-shot: answer in strict Flint IR"
 echo "  /flint-on                   turn on strict Flint for this conversation"
 echo "  /flint-off                  turn off Flint mode"
 echo "  /flint-audit <file|text>   decode a Flint document into readable prose"
 echo ""
 echo "Output-styles (opt-in, per session, set via /config):"
+echo "  hewn            strict IR always"
+echo "  hewn-thinking   dual-mode: Caveman prose + IR by task shape"
 echo "  flint           strict IR always (best for API, parser-strict tooling)"
 echo "  flint-thinking  dual-mode: Caveman prose + IR by task shape (Claude Code soft layer)"
 echo ""
 echo "Always-on for Claude Code Max users (recommended):"
-echo "  flint                       starts Claude Code with Flint thinking-mode (Caveman prose +"
+echo "  hewn                        starts Claude Code with Hewn thinking-mode (Caveman prose +"
 echo "                              IR on IR-shape tasks) + per-turn drift-fix hook. Does NOT"
 echo "                              affect the default 'claude' command."
-echo "  flint -p \"your prompt\"     non-interactive mode"
+echo "  hewn -p \"your prompt\"      non-interactive mode"
+echo "  flint                       legacy alias for hewn"
 echo ""
 echo "Optional — schema-validated IR via MCP (opt-in, downstream-pipeline use-case):"
-echo "  flint-mcp                   flint + Flint MCP server (submit_flint_ir tool)"
-echo "  flint-mcp -p \"prompt\"      non-interactive mode"
+echo "  hewn-mcp                    hewn + Flint MCP server (submit_flint_ir tool)"
+echo "  hewn-mcp -p \"prompt\"       non-interactive mode"
+echo "  flint-mcp                   legacy alias for hewn-mcp"
 echo ""
 echo "Requires Python 'mcp' package:  pip install --user mcp"
 echo ""
-echo "The default 'claude' command remains untouched — both flint and flint-mcp are"
-echo "separate binaries. Opt into the level of enforcement you need."
+echo "CLI parser / audit aliases:"
+echo "  hewn-ir                     primary parser / audit command"
+echo "  flint-ir                    legacy alias"
+echo ""
+echo "The default 'claude' command remains untouched — hewn / hewn-mcp and their"
+echo "legacy flint aliases are separate binaries. Opt into the level of enforcement"
+echo "you need."

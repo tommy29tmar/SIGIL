@@ -1,5 +1,57 @@
 # Changelog
 
+## 0.8.3 — 2026-04-21
+
+### Classifier — exploratory-technical shapes + tool-use hint on prose_caveman
+
+Closes a real gap surfaced by a vibe-coding bench (8 open-ended prompts
+about the repo, plain claude vs cccaveman vs flint):
+
+- **New IR rules** for prompts that asked for a technical audit without
+  containing code keywords. Vibe shapes like "studia questa directory /
+  audit this repo / which 3 bugs would a user hit" were misclassified
+  as prose_caveman and got narrative answers when the caller clearly
+  wanted a structured diagnosis. Added bilingual EN/IT patterns:
+  `(audit|analyze|study|inspect|examine) + (repo|codebase|project)`,
+  `(what|which|quali) + N + (bugs|issues|risks|problemi)`,
+  `what's (missing|fragile|broken|risky)` / `cosa (manca|toglierei)`.
+- **prose_caveman directive extended** with a tool-use hint: when the
+  question requires facts about actual code (e.g. "should I add tool
+  X?"), use Read/Grep/Glob instead of speculating. On the same vibe
+  bench, flint previously missed that `validate_flint` already existed
+  in `mcp_server.py`; with the hint it now reads the code and gives the
+  correct "already exists, here's what it does" answer.
+
+### Brand alias — Hewn
+
+Preparatory rename keeping full backwards compatibility:
+- CLI binaries: new `hewn`, `hewn-mcp` alongside existing `flint`,
+  `flint-mcp`. Both pairs resolve to the same wrapper.
+- Python CLI entry points: `hewn-ir` added alongside `flint-ir`.
+- Output-styles: `hewn`, `hewn-thinking` added alongside `flint`,
+  `flint-thinking`.
+- Installer advertises `hewn` as primary; `flint` kept as legacy alias.
+
+No functional change — chooser's discretion which name to use.
+
+### Vibe-coding bench (8 prompts, 3 variants)
+
+New corpus at `evals/vibe_3way.jsonl` plus parallel runner and
+aggregator. Runs 3 wrappers in parallel on 8 repo-exploration prompts
+with tools enabled (vibe-coding realistic mode, not BENCH_MODE tool-free).
+
+Results (p7 excluded: all variants rate-limited):
+- plain: 32076 tok / 859s / 140 tools across 7 answered prompts
+- cccaveman: -28% tok, -30% lat, similar tool count
+- flint: -30% tok, -42% lat, **-60% tool calls**
+
+Qualitative review over 7 prompts: flint wins 5/7, ties 2/7. Unique
+insights emerged for repo naming (glyph/rune brand-coherence), README
+vibe (story order contrast), bug prediction (repair-layer silent pass).
+
+57 classifier tests passing. Vibe-corpus IR-expected prompts now
+classified correctly (p1, p2, p7 → ir; p3, p4, p5, p6, p8 → prose_caveman).
+
 ## 0.8.2 — 2026-04-21
 
 ### Fifth route — `prose_polished_code`

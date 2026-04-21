@@ -56,6 +56,13 @@ IR_PROMPTS = [
     # Italian
     "Spiega perché questo codice ha un race condition",
     "Cosa monitoro in prod dopo il deploy?",
+    # Exploratory-technical (vibe-coding shapes that v0.8.2 missed)
+    "Studia questa directory. Dimmi come potrei migliorare la flint CLI.",
+    "Fammi un audit veloce del repo: cosa è solido, cosa è fragile, cosa toglierei.",
+    "Quali sono i 3 bug più probabili che un utente incontrerà nel primo mese?",
+    "Audit this codebase and rank top issues",
+    "What 3 bugs would a user most likely hit?",
+    "Cosa è fragile in questo progetto?",
 ]
 
 PROSE_CODE_PROMPTS = [

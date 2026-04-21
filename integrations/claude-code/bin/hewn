@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# hewn — public alias for the default Flint wrapper.
+#
+# Brand-facing command name. Internally this still delegates to the
+# compatibility wrapper / protocol stack built around `flint`.
+
+set -euo pipefail
+
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+target="$script_dir/flint"
+
+if [ ! -x "$target" ]; then
+  echo "hewn: compatibility wrapper not found: $target" >&2
+  exit 1
+fi
+
+exec "$target" "$@"

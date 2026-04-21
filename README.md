@@ -1,18 +1,22 @@
-# Flint
+# Hewn
 
-**Caveman prompts. Flint delivers.**
+**Less fluff. More signal.**
+
+Hewn is the new public name for Flint.
 
 On realistic coding workloads — codebases, CLAUDE.md loaded, RAG context — Claude writes answers **4× shorter, 3× faster, covering 9 more concept points** than verbose Claude. And it beats "Caveman prompting" on every column too. Measured on 40 samples (10 long-context tasks × 4 runs) on Opus 4.7 with prompt cache active.
 
-Claude Code Max users: `flint` injects Flint thinking-mode at system-prompt level, giving 100% task classification (IR for technical, prose for human) with -22% tokens on mixed workloads. See [Claude Code Max](#claude-code-max-always-on-with-flint) below.
+Claude Code Max users: `hewn` injects Hewn thinking-mode at system-prompt level, giving 100% task classification (IR for technical, prose for human) with -22% tokens on mixed workloads. See [Claude Code Max](#claude-code-max-always-on-with-hewn) below.
 
-![Flint](assets/launch/hero.jpg)
+![Hewn](assets/launch/hero.jpg)
 
 ## Install
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/tommy29tmar/flint/main/integrations/claude-code/install.sh | bash
 ```
+
+Repository rename is pending; raw install URL still points at `tommy29tmar/flint`.
 
 The installer puts four artifacts in place:
 
@@ -23,19 +27,19 @@ The installer puts four artifacts in place:
    /flint-off                  back to normal prose
    /flint-audit <file|paste>   decode a Flint document back to prose
    ```
-2. **Output-styles** (per-session, set via `/config`): `flint` (strict IR always) and `flint-thinking` (dual-mode, opt-in via menu).
-3. **`flint` binary** (Claude Code Max always-on path): see next section.
-4. **`flint-ir` Python CLI**: for parsing, validation, audit rendering outside Claude Code.
+2. **Output-styles** (per-session, set via `/config`): `hewn`, `hewn-thinking`, plus legacy `flint`, `flint-thinking`.
+3. **`hewn` binary** (Claude Code Max always-on path): see next section. Legacy alias: `flint`.
+4. **`hewn-ir` Python CLI**: for parsing, validation, audit rendering outside Claude Code. Legacy alias: `flint-ir`.
 
-The default `claude` command is never touched — every Flint path is opt-in.
+The default `claude` command is never touched — every Hewn path is opt-in.
 
-## Claude Code Max (always-on with flint)
+## Claude Code Max (always-on with hewn)
 
-`flint` is a small wrapper that runs `claude --append-system-prompt "$FLINT_THINKING_PROMPT"`. The `--append-system-prompt` flag is the only Claude Code mechanism that reaches system-prompt level — output-styles, hooks, skills, and CLAUDE.md load as context and cannot fully override Claude Code's built-in system prompt. That's why always-on via output-style alone doesn't trigger the IR compression reliably.
+`hewn` is a small wrapper that runs `claude --append-system-prompt "$FLINT_THINKING_PROMPT"`. The `--append-system-prompt` flag is the only Claude Code mechanism that reaches system-prompt level — output-styles, hooks, skills, and CLAUDE.md load as context and cannot fully override Claude Code's built-in system prompt. That's why always-on via output-style alone doesn't trigger the IR compression reliably.
 
 ```bash
-flint                           # interactive session, Flint thinking-mode active
-flint -p "your prompt here"     # non-interactive
+hewn                            # interactive session, Hewn thinking-mode active
+hewn -p "your prompt here"      # non-interactive
 ```
 
 Measured on 6 mixed prompts (3 IR-shape: debug, code review, refactor · 3 prose-shape: explanation, brainstorm, RFC), 3 runs per cell, on Claude Opus 4.7 via Claude Max:
@@ -43,28 +47,37 @@ Measured on 6 mixed prompts (3 IR-shape: debug, code review, refactor · 3 prose
 | variant          | classification | class_ir | class_prose | mean out tokens | parser-pass (IR) |
 |------------------|---------------:|---------:|------------:|----------------:|-----------------:|
 | plain `claude`   |            50% |       0% |        100% |             537 |               0% |
-| **flint**     |       **100%** | **100%** |    **100%** |         **409** |          **89%** |
+| **hewn**      |       **100%** | **100%** |    **100%** |         **409** |          **89%** |
 
-`flint` emits Flint IR for every IR-shape task (0% → 100%), keeps every prose task in Caveman-style prose, cuts mean output tokens by 24%, and the IR it produces passes the strict Flint parser 89% of the time on IR-shape tasks (8 of 9 samples across 3 runs × 3 IR-shape tasks) — above the ~80% parser-pass rate of strict Flint on its own 10-task corpus. Zero marginal cost on the Claude Max plan — no Anthropic API calls.
+`hewn` emits Flint IR for every IR-shape task (0% → 100%), keeps every prose task in Caveman-style prose, cuts mean output tokens by 24%, and the IR it produces passes the strict parser 89% of the time on IR-shape tasks (8 of 9 samples across 3 runs × 3 IR-shape tasks) — above the ~80% parser-pass rate of strict mode on its own 10-task corpus. Zero marginal cost on the Claude Max plan — no Anthropic API calls.
 
-### Optional: MCP tool enforcement with `flint-mcp`
+### Optional: MCP tool enforcement with `hewn-mcp`
 
-For downstream tooling that needs API-validated parseable IR, `flint-mcp` wraps `claude --mcp-config <flint-server>` and instructs the model to call `submit_flint_ir` (a Flint MCP tool with a regex-enforced JSON Schema) instead of emitting free-text IR. The Anthropic API rejects malformed atoms before they reach the tool — when the tool fires, the emitted IR is parseable by construction.
+For downstream tooling that needs API-validated parseable IR, `hewn-mcp` wraps `claude --mcp-config <flint-server>` and instructs the model to call `submit_flint_ir` (an MCP tool with a regex-enforced JSON Schema) instead of emitting free-text IR. The Anthropic API rejects malformed atoms before they reach the tool — when the tool fires, the emitted IR is parseable by construction.
 
-Trade-off: MCP adds output token overhead (tool round-trip), so `flint` remains the default choice for interactive use. Use `flint-mcp` when: you pipe Flint output into `flint-ir audit --explain`, CI linters, or analytics that must not fail on malformed grammar.
+Trade-off: MCP adds output token overhead (tool round-trip), so `hewn` remains the default choice for interactive use. Use `hewn-mcp` when: you pipe Hewn output into `hewn-ir audit --explain`, CI linters, or analytics that must not fail on malformed grammar.
 
 Historical multi-turn 4-cell bench (2 scenarios × 4 turns, 3 runs = 24 samples per cell, agent-mode contamination excluded — see failure modes for methodology):
 
 | variant              | class_acc | ir_hit | tool_hit | total_tok | mean_lat |
 |----------------------|----------:|-------:|---------:|----------:|---------:|
 | plain `claude`       |       25% |     0% |       0% |     34248 |    29.4s |
-| **flint**         |   **54%** | **29%** |      0% | **27404** | **24.3s** |
-| plain + MCP          |       25% |     0% |       0% |     43384 |    34.7s |
-| flint + MCP       |       46% |    21% |  **21%** |     41304 |    31.6s |
+| **hewn**          |   **54%** | **29%** |      0% | **27404** | **24.3s** |
+| plain + MCP       |       25% |     0% |       0% |     43384 |    34.7s |
+| hewn + MCP        |       46% |    21% |  **21%** |     41304 |    31.6s |
 
-On multi-turn, `flint` saves **-20% output tokens and -17% latency** vs plain claude (per-scenario: deep-debug -12.6%, mixed-security -32.7%). Classification accuracy is 2.2× plain claude (54% vs 25%). These numbers predate the v0.8.0 routing upgrade; current `flint` adds a per-turn hook plus separate `prose_code` / `prose_polished` routes, so see the changelog for the updated long multi-turn benchmark.
+On multi-turn, `hewn` saves **-20% output tokens and -17% latency** vs plain claude (per-scenario: deep-debug -12.6%, mixed-security -32.7%). Classification accuracy is 2.2× plain claude (54% vs 25%). These numbers predate the v0.8.0 routing upgrade; current `hewn` adds a per-turn hook plus separate `prose_code` / `prose_polished` routes, so see the changelog for the updated long multi-turn benchmark.
 
-`plain + MCP` is the worst outcome: the Flint MCP tool is available but never called without a system-prompt push, so it only adds the MCP tool-catalog tax to every turn. `flint + MCP` sits at +51% tokens vs `flint` due to tool round-trip overhead; use it when parser-validated IR is required by downstream tooling, otherwise stick with plain `flint`.
+`plain + MCP` is the worst outcome: the MCP tool is available but never called without a system-prompt push, so it only adds the MCP tool-catalog tax to every turn. `hewn + MCP` sits at +51% tokens vs `hewn` due to tool round-trip overhead; use it when parser-validated IR is required by downstream tooling, otherwise stick with plain `hewn`.
+
+## Compatibility
+
+Public brand is now **Hewn**.
+
+- Primary wrapper commands: `hewn`, `hewn-mcp`
+- Primary parser / audit CLI: `hewn-ir`
+- Legacy aliases retained: `flint`, `flint-mcp`, `flint-ir`
+- Wire-format header remains `@flint v0 hybrid` for now, to avoid breaking the parser, MCP transport, benchmark corpus, and saved artifacts in one shot
 
 ### Compression scales with context length
 
@@ -128,7 +141,7 @@ Real output from the benchmark. Task: *"review this rate-limiter diff for a bypa
 
 Same bug, same fix, same verification plan, same risk flags. A third of the tokens, no prose filler, and the `[AUDIT]` block still reads as natural language — no mental parsing required.
 
-## Flint vs Caveman
+## Hewn vs Caveman
 
 "Caveman prompting" tells Claude to drop articles and filler. On short Q&A it saves tokens. But on real work — multi-file diffs, codebase review, long agent loops — Caveman has no ceiling on its output. It keeps rambling in "primitive English" and ends up ~40% shorter than verbose Claude while covering slightly fewer concepts (84% vs 86%).
 
@@ -136,18 +149,18 @@ Flint replaces the "no articles" discipline with a **structural** one: five slot
 
 ## When things drift
 
-Claude sometimes drifts off format. Flint ships with a parser, a repair layer, and `flint-ir audit --explain` that shows you exactly what came in, what was repaired, which anchors matched, and a prose rerender — so you can trust the output even on the worst cases.
+Claude sometimes drifts off format. Hewn ships with a parser, a repair layer, and `hewn-ir audit --explain` that shows you exactly what came in, what was repaired, which anchors matched, and a prose rerender — so you can trust the output even on the worst cases.
 
 ```bash
-flint-ir audit --explain response.flint --anchor 300 --anchor 401
+hewn-ir audit --explain response.flint --anchor 300 --anchor 401
 ```
 
 ## More CLI tools
 
 ```bash
 # Per-file CLAUDE.md audit — structurally-safe compression preview (read-only)
-flint-ir claude-code inventory path/to/CLAUDE.md
-flint-ir claude-code diff path/to/CLAUDE.md
+hewn-ir claude-code inventory path/to/CLAUDE.md
+hewn-ir claude-code diff path/to/CLAUDE.md
 ```
 
 See [integrations/claude-code/README.md](integrations/claude-code/README.md) for the full list of preserved segment types and caching behavior.
@@ -165,7 +178,7 @@ Default `RUNS=2` for a quick check; `RUNS=4` matches the numbers above.
 
 ## Honest scope
 
-Flint shines on crisp technical asks: debug this, review this diff, refactor this function, sketch this architecture. It's not for open-ended writing. Use Claude normally for that.
+Hewn shines on crisp technical asks: debug this, review this diff, refactor this function, sketch this architecture. It's not for open-ended writing. Use Claude normally for that.
 
 ## Dig deeper
 
@@ -176,4 +189,4 @@ Flint shines on crisp technical asks: debug this, review this diff, refactor thi
 
 ## License
 
-MIT. If you cite Flint in research, see [CITATION.cff](CITATION.cff).
+MIT. If you cite Hewn in research, see [CITATION.cff](CITATION.cff).

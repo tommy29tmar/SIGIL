@@ -45,6 +45,16 @@ IR_RULES: list[tuple[str, int]] = [
     (r"spieg[ao].*perch[eé]|cosa\s+monit|monit.*prod|cosa\s+controll|cos'?[eè]\s+che\s+non\s+va", 3),
     (r"\bsaga\b|\btwo[- ]?phase[- ]?commit\b|\b2pc\b|\bidempot|\bcompensat\w*|\bprojection\b", 2),
     (r"\bwalk[- ]through\b.*(?:trace|log|stack|error)|\bwhat\s+the\s+trace\b", 3),
+    # Exploratory-technical: "audit this repo", "study the codebase", "inspect the project"
+    (r"\b(?:audit|analy[sz]e|analy[sz]ing|study|studia|studiare|inspect|examine|assess|evaluate)\s+(?:this\s+|questa\s+|la\s+|il\s+)?(?:repo|repository|dir(?:ectory)?|code[- ]?base|codice|project|progetto|module|impl\w*)\b", 3),
+    # Bug-prediction / gap-analysis shape: "which N bugs", "top 3 risks", "3 bug più probabili"
+    (r"\b(?:which|what|quali|quanti)\s+(?:are\s+|sono\s+)?(?:the\s+|i\s+|le\s+)?(?:\d+|few|top|pochi|principali)\s+(?:bugs?|issues?|risks?|rischi|problemi|gaps?|errori)\b", 3),
+    (r"\b(?:top|first)\s+(?:\d+)\s+(?:bugs?|issues?|risks?|problemi|rischi|errori|gaps?)\b", 3),
+    (r"\b(?:what|which)\s+(?:bugs?|issues?|problems?|failures?|risks?)\s+(?:would|will|could|might|may)\s+(?:a\s+)?(?:users?|devs?|developers?|people)?\s*(?:encounter|hit|experience|face|meet)\b", 3),
+    (r"\b(?:cosa|che)\s+(?:bug|problemi|errori|rischi)\s+(?:incontr|trov|vedr|avr)\w*", 3),
+    # "what's missing / what's fragile / what would you cut": repo-assessment shape
+    (r"\bwhat(?:'s|\s+is)\s+(?:missing|fragile|solid|broken|wrong|risky)\b", 2),
+    (r"\bcosa\s+(?:manca|è\s+fragile|toglierei|togliere|tagliare|è\s+solido|è\s+rotto)", 2),
 ]
 
 PROSE_RULES: list[tuple[str, int]] = [
@@ -160,7 +170,10 @@ PROSE_CAVEMAN_DIRECTIVE = (
     "writing, brainstorming, quick explanation, or internal retrospective. "
     "Respond in Caveman-compressed prose. Drop articles (the/a/an/is/are). "
     "No markdown headers (# or ##). No bold. No filler intros or summaries. "
-    "One idea per line. Do NOT emit Flint IR or call submit_flint_ir."
+    "One idea per line. Do NOT emit Flint IR or call submit_flint_ir. "
+    "When the question requires facts about actual code/files/repo state "
+    "(e.g. \"does X exist?\", \"should I add Y?\"), USE tools (Read, Grep, "
+    "Glob) — do not speculate when evidence is one tool call away."
 )
 
 PROSE_POLISHED_DIRECTIVE = (
