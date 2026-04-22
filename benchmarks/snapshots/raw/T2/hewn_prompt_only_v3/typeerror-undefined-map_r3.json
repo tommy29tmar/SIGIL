@@ -1,0 +1,105 @@
+{
+  "track": "T2",
+  "arm": "hewn_prompt_only",
+  "prompt_id": "typeerror-undefined-map",
+  "run_index": 3,
+  "arm_order_index": 5,
+  "arm_order_full": [
+    "hewn_full",
+    "baseline",
+    "caveman_full",
+    "caveman_full_plus_ultra_directive",
+    "terse",
+    "hewn_prompt_only"
+  ],
+  "digest_hex": "b411d91d6824cb5d90e319244d1f8afae2ac980e8f9071346ea0937437d8e0db",
+  "seed": "hewn-bench-v1",
+  "timestamp": "2026-04-22T09:40:50.907947+00:00",
+  "output_tokens_tiktoken": 146,
+  "output_tokens_anthropic": 409,
+  "input_tokens_anthropic": 6,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 33869,
+  "total_input_tokens": 33875,
+  "cache_state": "warm",
+  "wallclock_ms": 15447.031086980132,
+  "duration_ms": 9012,
+  "duration_api_ms": 9917,
+  "wrapper_overhead_ms": null,
+  "stop_reason": "end_turn",
+  "num_turns": 1,
+  "session_id": "12d7e4c2-9a2a-42ca-b328-d1679159b71b",
+  "total_cost_usd": 0.0276185,
+  "model_used": "claude-haiku-4-5-20251001,claude-opus-4-7",
+  "result": "That error means you're calling `.map()` on something that's `undefined` — typically an array prop/state that hasn't loaded yet, or an API response shape that's different from what you expect.\n\nCommon causes:\n- Async data: component renders before fetch resolves. Guard with `items?.map(...)` or `(items ?? []).map(...)`.\n- Wrong path into response: e.g. `data.map(...)` when the array is actually `data.items`.\n- Destructuring a missing field: `const { users } = props` where `users` isn't passed.\n\nTo pinpoint it I need the stack trace (which file/line) or the component code. Paste the full error with the stack, or the file where it's happening.",
+  "assertion_pass": true,
+  "raw_payload": {
+    "type": "result",
+    "subtype": "success",
+    "is_error": false,
+    "api_error_status": null,
+    "duration_ms": 9012,
+    "duration_api_ms": 9917,
+    "num_turns": 1,
+    "result": "That error means you're calling `.map()` on something that's `undefined` — typically an array prop/state that hasn't loaded yet, or an API response shape that's different from what you expect.\n\nCommon causes:\n- Async data: component renders before fetch resolves. Guard with `items?.map(...)` or `(items ?? []).map(...)`.\n- Wrong path into response: e.g. `data.map(...)` when the array is actually `data.items`.\n- Destructuring a missing field: `const { users } = props` where `users` isn't passed.\n\nTo pinpoint it I need the stack trace (which file/line) or the component code. Paste the full error with the stack, or the file where it's happening.",
+    "stop_reason": "end_turn",
+    "session_id": "12d7e4c2-9a2a-42ca-b328-d1679159b71b",
+    "total_cost_usd": 0.0276185,
+    "usage": {
+      "input_tokens": 6,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 33869,
+      "output_tokens": 409,
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "",
+      "iterations": [
+        {
+          "input_tokens": 6,
+          "output_tokens": 409,
+          "cache_read_input_tokens": 33869,
+          "cache_creation_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard"
+    },
+    "modelUsage": {
+      "claude-haiku-4-5-20251001": {
+        "inputTokens": 364,
+        "outputTokens": 13,
+        "cacheReadInputTokens": 0,
+        "cacheCreationInputTokens": 0,
+        "webSearchRequests": 0,
+        "costUSD": 0.000429,
+        "contextWindow": 200000,
+        "maxOutputTokens": 32000
+      },
+      "claude-opus-4-7": {
+        "inputTokens": 6,
+        "outputTokens": 409,
+        "cacheReadInputTokens": 33869,
+        "cacheCreationInputTokens": 0,
+        "webSearchRequests": 0,
+        "costUSD": 0.027189500000000002,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "uuid": "45b61ed7-cd5c-4108-a490-488f1cac8add"
+  }
+}

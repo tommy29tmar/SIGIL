@@ -1,0 +1,105 @@
+{
+  "track": "T2",
+  "arm": "hewn_full",
+  "prompt_id": "make-website-faster",
+  "run_index": 2,
+  "arm_order_index": 4,
+  "arm_order_full": [
+    "hewn_prompt_only",
+    "terse",
+    "caveman_full",
+    "caveman_full_plus_ultra_directive",
+    "hewn_full",
+    "baseline"
+  ],
+  "digest_hex": "9caf83a97f9c70aad26c54db6edc6ff5dabd66837b4f8a8772db304b1d670fb8",
+  "seed": "hewn-bench-v1",
+  "timestamp": "2026-04-22T09:37:52.470541+00:00",
+  "output_tokens_tiktoken": 33,
+  "output_tokens_anthropic": 59,
+  "input_tokens_anthropic": 6,
+  "cache_creation_input_tokens": 18481,
+  "cache_read_input_tokens": 16805,
+  "total_input_tokens": 35292,
+  "cache_state": "warm",
+  "wallclock_ms": 9932.942444982473,
+  "duration_ms": 3540,
+  "duration_api_ms": 4258,
+  "wrapper_overhead_ms": 5674.942444982473,
+  "stop_reason": "end_turn",
+  "num_turns": 1,
+  "session_id": "4c76ef13-196c-495b-9a3e-4288110c378f",
+  "total_cost_usd": 0.12582074999999998,
+  "model_used": "claude-haiku-4-5-20251001,claude-opus-4-7",
+  "result": "Need URL or repo path. Without target, fix guesswork.\nWhat slow: load, interaction, or API?\nGot metrics (Lighthouse, devtools trace)?",
+  "assertion_pass": true,
+  "raw_payload": {
+    "type": "result",
+    "subtype": "success",
+    "is_error": false,
+    "api_error_status": null,
+    "duration_ms": 3540,
+    "duration_api_ms": 4258,
+    "num_turns": 1,
+    "result": "Need URL or repo path. Without target, fix guesswork.\nWhat slow: load, interaction, or API?\nGot metrics (Lighthouse, devtools trace)?",
+    "stop_reason": "end_turn",
+    "session_id": "4c76ef13-196c-495b-9a3e-4288110c378f",
+    "total_cost_usd": 0.12582074999999998,
+    "usage": {
+      "input_tokens": 6,
+      "cache_creation_input_tokens": 18481,
+      "cache_read_input_tokens": 16805,
+      "output_tokens": 59,
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 18481,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "",
+      "iterations": [
+        {
+          "input_tokens": 6,
+          "output_tokens": 59,
+          "cache_read_input_tokens": 16805,
+          "cache_creation_input_tokens": 18481,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 18481
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard"
+    },
+    "modelUsage": {
+      "claude-haiku-4-5-20251001": {
+        "inputTokens": 347,
+        "outputTokens": 12,
+        "cacheReadInputTokens": 0,
+        "cacheCreationInputTokens": 0,
+        "webSearchRequests": 0,
+        "costUSD": 0.00040699999999999997,
+        "contextWindow": 200000,
+        "maxOutputTokens": 32000
+      },
+      "claude-opus-4-7": {
+        "inputTokens": 6,
+        "outputTokens": 59,
+        "cacheReadInputTokens": 16805,
+        "cacheCreationInputTokens": 18481,
+        "webSearchRequests": 0,
+        "costUSD": 0.12541375,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "uuid": "f25732f3-729d-4d78-93da-84adc53f2524"
+  }
+}

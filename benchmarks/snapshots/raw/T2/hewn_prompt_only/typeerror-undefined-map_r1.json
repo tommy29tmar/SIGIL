@@ -14,61 +14,61 @@
   ],
   "digest_hex": "5b724573e058540f92f1cf0a27ec02ab3ed51a957569e6eb2a6e04a27a1062f9",
   "seed": "hewn-bench-v1",
-  "timestamp": "2026-04-22T09:36:55.500048+00:00",
-  "output_tokens_tiktoken": 150,
-  "output_tokens_anthropic": 460,
+  "timestamp": "2026-04-22T12:33:26.151081+00:00",
+  "output_tokens_tiktoken": 135,
+  "output_tokens_anthropic": 403,
   "input_tokens_anthropic": 6,
-  "cache_creation_input_tokens": 17073,
+  "cache_creation_input_tokens": 17088,
   "cache_read_input_tokens": 16796,
-  "total_input_tokens": 33875,
+  "total_input_tokens": 33890,
   "cache_state": "warm",
-  "wallclock_ms": 15537.660188012524,
-  "duration_ms": 9322,
-  "duration_api_ms": 10354,
+  "wallclock_ms": 14116.91382798017,
+  "duration_ms": 7562,
+  "duration_api_ms": 8494,
   "wrapper_overhead_ms": null,
   "stop_reason": "end_turn",
   "num_turns": 1,
-  "session_id": "1675136f-9034-4853-9ab5-35ebe4ba39e7",
-  "total_cost_usd": 0.12706825,
+  "session_id": "27935bda-1993-4995-b4f0-fdb07feb429b",
+  "total_cost_usd": 0.125737,
   "model_used": "claude-haiku-4-5-20251001,claude-opus-4-7",
-  "result": "Something you're calling `.map()` on is `undefined` when you expected an array.\n\nNeed the stack trace (file + line) to pinpoint it. Common causes:\n- API response shape changed — you're mapping `data.items` but the payload is `{ data: { items: [...] } }` (or vice versa)\n- State initialized as `undefined` instead of `[]` — first render crashes before data loads\n- Destructuring a prop/return that's missing the field\n- Async data not yet loaded (no loading guard)\n\nQuick fix while you debug: `(arr ?? []).map(...)` — but find the real cause, don't just paper over it.\n\nPaste the stack trace and the line it points to and I'll narrow it down.",
+  "result": "You're calling `.map()` on something that's `undefined`. Common causes:\n\n1. **Async data not loaded yet** — rendering before fetch resolves. Fix: `(items ?? []).map(...)` or guard with `items && items.map(...)`.\n2. **API shape mismatch** — you expect an array but got `{data: [...]}` or `null`. Check the actual response.\n3. **Destructured prop missing** — parent didn't pass it, or passed wrong key.\n4. **State initialized as `undefined`** — initialize as `[]` instead: `useState([])`.\n\nShare the stack trace line + the code around it and I'll pinpoint it.",
   "assertion_pass": true,
   "raw_payload": {
     "type": "result",
     "subtype": "success",
     "is_error": false,
     "api_error_status": null,
-    "duration_ms": 9322,
-    "duration_api_ms": 10354,
+    "duration_ms": 7562,
+    "duration_api_ms": 8494,
     "num_turns": 1,
-    "result": "Something you're calling `.map()` on is `undefined` when you expected an array.\n\nNeed the stack trace (file + line) to pinpoint it. Common causes:\n- API response shape changed — you're mapping `data.items` but the payload is `{ data: { items: [...] } }` (or vice versa)\n- State initialized as `undefined` instead of `[]` — first render crashes before data loads\n- Destructuring a prop/return that's missing the field\n- Async data not yet loaded (no loading guard)\n\nQuick fix while you debug: `(arr ?? []).map(...)` — but find the real cause, don't just paper over it.\n\nPaste the stack trace and the line it points to and I'll narrow it down.",
+    "result": "You're calling `.map()` on something that's `undefined`. Common causes:\n\n1. **Async data not loaded yet** — rendering before fetch resolves. Fix: `(items ?? []).map(...)` or guard with `items && items.map(...)`.\n2. **API shape mismatch** — you expect an array but got `{data: [...]}` or `null`. Check the actual response.\n3. **Destructured prop missing** — parent didn't pass it, or passed wrong key.\n4. **State initialized as `undefined`** — initialize as `[]` instead: `useState([])`.\n\nShare the stack trace line + the code around it and I'll pinpoint it.",
     "stop_reason": "end_turn",
-    "session_id": "1675136f-9034-4853-9ab5-35ebe4ba39e7",
-    "total_cost_usd": 0.12706825,
+    "session_id": "27935bda-1993-4995-b4f0-fdb07feb429b",
+    "total_cost_usd": 0.125737,
     "usage": {
       "input_tokens": 6,
-      "cache_creation_input_tokens": 17073,
+      "cache_creation_input_tokens": 17088,
       "cache_read_input_tokens": 16796,
-      "output_tokens": 460,
+      "output_tokens": 403,
       "server_tool_use": {
         "web_search_requests": 0,
         "web_fetch_requests": 0
       },
       "service_tier": "standard",
       "cache_creation": {
-        "ephemeral_1h_input_tokens": 17073,
+        "ephemeral_1h_input_tokens": 17088,
         "ephemeral_5m_input_tokens": 0
       },
       "inference_geo": "",
       "iterations": [
         {
           "input_tokens": 6,
-          "output_tokens": 460,
+          "output_tokens": 403,
           "cache_read_input_tokens": 16796,
-          "cache_creation_input_tokens": 17073,
+          "cache_creation_input_tokens": 17088,
           "cache_creation": {
             "ephemeral_5m_input_tokens": 0,
-            "ephemeral_1h_input_tokens": 17073
+            "ephemeral_1h_input_tokens": 17088
           },
           "type": "message"
         }
@@ -88,11 +88,11 @@
       },
       "claude-opus-4-7": {
         "inputTokens": 6,
-        "outputTokens": 460,
+        "outputTokens": 403,
         "cacheReadInputTokens": 16796,
-        "cacheCreationInputTokens": 17073,
+        "cacheCreationInputTokens": 17088,
         "webSearchRequests": 0,
-        "costUSD": 0.12663425,
+        "costUSD": 0.125303,
         "contextWindow": 1000000,
         "maxOutputTokens": 64000
       }
@@ -100,6 +100,6 @@
     "permission_denials": [],
     "terminal_reason": "completed",
     "fast_mode_state": "off",
-    "uuid": "f42b5188-a898-4383-8c00-09adf15c89d0"
+    "uuid": "545013a9-4301-4fe4-9667-cc86199158c4"
   }
 }

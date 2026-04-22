@@ -1,0 +1,105 @@
+{
+  "track": "T2",
+  "arm": "hewn_prompt_only",
+  "prompt_id": "typeerror-undefined-map",
+  "run_index": 2,
+  "arm_order_index": 2,
+  "arm_order_full": [
+    "terse",
+    "caveman_full_plus_ultra_directive",
+    "hewn_prompt_only",
+    "hewn_full",
+    "caveman_full",
+    "baseline"
+  ],
+  "digest_hex": "14bddb51c1c5866706ff2e594385e235efce8e94983a8266c26c2b19b478fcc1",
+  "seed": "hewn-bench-v1",
+  "timestamp": "2026-04-22T09:38:44.705554+00:00",
+  "output_tokens_tiktoken": 167,
+  "output_tokens_anthropic": 540,
+  "input_tokens_anthropic": 6,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 33869,
+  "total_input_tokens": 33875,
+  "cache_state": "warm",
+  "wallclock_ms": 16400.3359490016,
+  "duration_ms": 9978,
+  "duration_api_ms": 11495,
+  "wrapper_overhead_ms": null,
+  "stop_reason": "end_turn",
+  "num_turns": 1,
+  "session_id": "86ab6d07-3051-4772-bc3a-6d5d31568e80",
+  "total_cost_usd": 0.030898500000000002,
+  "model_used": "claude-haiku-4-5-20251001,claude-opus-4-7",
+  "result": "Need more context to help — this repo (Hewn) is a CLI wrapper, and that error is JavaScript. Quick questions:\n\n1. Which project/directory is the app in?\n2. Do you have a stack trace? The file + line number will point straight at the culprit.\n\nThe error itself means something like `foo.map(...)` ran when `foo` was `undefined`. Common causes:\n- API response shape changed, or fetch hasn't resolved yet (state is still `undefined`)\n- Destructuring a prop/field that doesn't exist (`const { items } = data` where `data` has no `items`)\n- Array renamed or moved under a wrapper object (e.g. `data` → `data.results`)\n\nPaste the stack trace (or point me at the file) and I'll find it.",
+  "assertion_pass": true,
+  "raw_payload": {
+    "type": "result",
+    "subtype": "success",
+    "is_error": false,
+    "api_error_status": null,
+    "duration_ms": 9978,
+    "duration_api_ms": 11495,
+    "num_turns": 1,
+    "result": "Need more context to help — this repo (Hewn) is a CLI wrapper, and that error is JavaScript. Quick questions:\n\n1. Which project/directory is the app in?\n2. Do you have a stack trace? The file + line number will point straight at the culprit.\n\nThe error itself means something like `foo.map(...)` ran when `foo` was `undefined`. Common causes:\n- API response shape changed, or fetch hasn't resolved yet (state is still `undefined`)\n- Destructuring a prop/field that doesn't exist (`const { items } = data` where `data` has no `items`)\n- Array renamed or moved under a wrapper object (e.g. `data` → `data.results`)\n\nPaste the stack trace (or point me at the file) and I'll find it.",
+    "stop_reason": "end_turn",
+    "session_id": "86ab6d07-3051-4772-bc3a-6d5d31568e80",
+    "total_cost_usd": 0.030898500000000002,
+    "usage": {
+      "input_tokens": 6,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 33869,
+      "output_tokens": 540,
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "",
+      "iterations": [
+        {
+          "input_tokens": 6,
+          "output_tokens": 540,
+          "cache_read_input_tokens": 33869,
+          "cache_creation_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard"
+    },
+    "modelUsage": {
+      "claude-haiku-4-5-20251001": {
+        "inputTokens": 364,
+        "outputTokens": 14,
+        "cacheReadInputTokens": 0,
+        "cacheCreationInputTokens": 0,
+        "webSearchRequests": 0,
+        "costUSD": 0.00043400000000000003,
+        "contextWindow": 200000,
+        "maxOutputTokens": 32000
+      },
+      "claude-opus-4-7": {
+        "inputTokens": 6,
+        "outputTokens": 540,
+        "cacheReadInputTokens": 33869,
+        "cacheCreationInputTokens": 0,
+        "webSearchRequests": 0,
+        "costUSD": 0.030464500000000002,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "uuid": "6b68d708-d207-49ae-86de-c4b4bbfebb2e"
+  }
+}

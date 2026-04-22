@@ -14,61 +14,61 @@
   ],
   "digest_hex": "a46d644acd0981610a1422e22f1bd34c2d79b52758fd77a5fa0177b885096c70",
   "seed": "hewn-bench-v1",
-  "timestamp": "2026-04-22T09:40:29.513115+00:00",
-  "output_tokens_tiktoken": 51,
-  "output_tokens_anthropic": 200,
+  "timestamp": "2026-04-22T12:38:00.492171+00:00",
+  "output_tokens_tiktoken": 169,
+  "output_tokens_anthropic": 904,
   "input_tokens_anthropic": 6,
-  "cache_creation_input_tokens": 17049,
+  "cache_creation_input_tokens": 17064,
   "cache_read_input_tokens": 16796,
-  "total_input_tokens": 33851,
+  "total_input_tokens": 33866,
   "cache_state": "warm",
-  "wallclock_ms": 11780.777713021962,
-  "duration_ms": 5512,
-  "duration_api_ms": 6432,
+  "wallclock_ms": 23382.83466899884,
+  "duration_ms": 16688,
+  "duration_api_ms": 17701,
   "wrapper_overhead_ms": null,
   "stop_reason": "end_turn",
   "num_turns": 1,
-  "session_id": "8e4fed69-1da4-4454-b6d6-138bf0053ac4",
-  "total_cost_usd": 0.12040125,
+  "session_id": "1e69c10e-e48e-4cb8-bd70-fbcae311f874",
+  "total_cost_usd": 0.138095,
   "model_used": "claude-haiku-4-5-20251001,claude-opus-4-7",
-  "result": "Which app? This repo (SIGIL/Hewn) is a CLI wrapper — no UI to put a search bar on. Do you mean a different project? If so, point me at the path or describe the stack (framework, what's being searched).",
+  "result": "What stack? The answer forks hard on it (React/Vue/Svelte/plain HTML, client-only vs server search, dataset size).\n\nGeneric starting point, independent of stack:\n\n1. **Decide scope** — what are you searching? A static list in memory, a database, or an external index (Algolia/Meilisearch/Elastic)?\n2. **UI** — `<input type=\"search\">` bound to a state variable, debounced ~200ms on change.\n3. **Filter** — for small in-memory data: `items.filter(i => i.name.toLowerCase().includes(q.toLowerCase()))`. For larger: hit an endpoint.\n4. **Render** — map filtered results; show an empty state when none match.\n\nTell me the framework and what you're searching and I'll give you the concrete code.",
   "assertion_pass": true,
   "raw_payload": {
     "type": "result",
     "subtype": "success",
     "is_error": false,
     "api_error_status": null,
-    "duration_ms": 5512,
-    "duration_api_ms": 6432,
+    "duration_ms": 16688,
+    "duration_api_ms": 17701,
     "num_turns": 1,
-    "result": "Which app? This repo (SIGIL/Hewn) is a CLI wrapper — no UI to put a search bar on. Do you mean a different project? If so, point me at the path or describe the stack (framework, what's being searched).",
+    "result": "What stack? The answer forks hard on it (React/Vue/Svelte/plain HTML, client-only vs server search, dataset size).\n\nGeneric starting point, independent of stack:\n\n1. **Decide scope** — what are you searching? A static list in memory, a database, or an external index (Algolia/Meilisearch/Elastic)?\n2. **UI** — `<input type=\"search\">` bound to a state variable, debounced ~200ms on change.\n3. **Filter** — for small in-memory data: `items.filter(i => i.name.toLowerCase().includes(q.toLowerCase()))`. For larger: hit an endpoint.\n4. **Render** — map filtered results; show an empty state when none match.\n\nTell me the framework and what you're searching and I'll give you the concrete code.",
     "stop_reason": "end_turn",
-    "session_id": "8e4fed69-1da4-4454-b6d6-138bf0053ac4",
-    "total_cost_usd": 0.12040125,
+    "session_id": "1e69c10e-e48e-4cb8-bd70-fbcae311f874",
+    "total_cost_usd": 0.138095,
     "usage": {
       "input_tokens": 6,
-      "cache_creation_input_tokens": 17049,
+      "cache_creation_input_tokens": 17064,
       "cache_read_input_tokens": 16796,
-      "output_tokens": 200,
+      "output_tokens": 904,
       "server_tool_use": {
         "web_search_requests": 0,
         "web_fetch_requests": 0
       },
       "service_tier": "standard",
       "cache_creation": {
-        "ephemeral_1h_input_tokens": 17049,
+        "ephemeral_1h_input_tokens": 17064,
         "ephemeral_5m_input_tokens": 0
       },
       "inference_geo": "",
       "iterations": [
         {
           "input_tokens": 6,
-          "output_tokens": 200,
+          "output_tokens": 904,
           "cache_read_input_tokens": 16796,
-          "cache_creation_input_tokens": 17049,
+          "cache_creation_input_tokens": 17064,
           "cache_creation": {
             "ephemeral_5m_input_tokens": 0,
-            "ephemeral_1h_input_tokens": 17049
+            "ephemeral_1h_input_tokens": 17064
           },
           "type": "message"
         }
@@ -88,11 +88,11 @@
       },
       "claude-opus-4-7": {
         "inputTokens": 6,
-        "outputTokens": 200,
+        "outputTokens": 904,
         "cacheReadInputTokens": 16796,
-        "cacheCreationInputTokens": 17049,
+        "cacheCreationInputTokens": 17064,
         "webSearchRequests": 0,
-        "costUSD": 0.11998425,
+        "costUSD": 0.137678,
         "contextWindow": 1000000,
         "maxOutputTokens": 64000
       }
@@ -100,6 +100,6 @@
     "permission_denials": [],
     "terminal_reason": "completed",
     "fast_mode_state": "off",
-    "uuid": "151a86e3-52e3-4fd7-9202-f9212df80015"
+    "uuid": "e2ae8bc6-1d53-4232-a396-e501e958e737"
   }
 }

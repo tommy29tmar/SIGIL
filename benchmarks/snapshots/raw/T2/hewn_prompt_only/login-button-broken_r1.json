@@ -14,61 +14,61 @@
   ],
   "digest_hex": "2a516f124e7c3f36519661dd85a98f48aa78e74bb3ea51fb090afd928de500ea",
   "seed": "hewn-bench-v1",
-  "timestamp": "2026-04-22T09:36:04.850626+00:00",
-  "output_tokens_tiktoken": 47,
-  "output_tokens_anthropic": 174,
+  "timestamp": "2026-04-22T12:32:15.899959+00:00",
+  "output_tokens_tiktoken": 182,
+  "output_tokens_anthropic": 737,
   "input_tokens_anthropic": 6,
-  "cache_creation_input_tokens": 17048,
+  "cache_creation_input_tokens": 17063,
   "cache_read_input_tokens": 16796,
-  "total_input_tokens": 33850,
+  "total_input_tokens": 33865,
   "cache_state": "warm",
-  "wallclock_ms": 10774.47663701605,
-  "duration_ms": 4433,
-  "duration_api_ms": 5710,
+  "wallclock_ms": 22238.049218984088,
+  "duration_ms": 14557,
+  "duration_api_ms": 15361,
   "wrapper_overhead_ms": null,
   "stop_reason": "end_turn",
   "num_turns": 1,
-  "session_id": "4e11bc3e-b37e-4aec-a296-3d16bb00c1f1",
-  "total_cost_usd": 0.119742,
+  "session_id": "ae52a0b7-f1a8-4165-9944-e95311f9c675",
+  "total_cost_usd": 0.13390575,
   "model_used": "claude-haiku-4-5-20251001,claude-opus-4-7",
-  "result": "This repo is Hewn — a Claude Code CLI wrapper. There's no login button here, no frontend, no users logging in.\n\nAre you in the right repo? Or is this about a different project you want me to look at?",
+  "result": "There's no login UI in this repo — SIGIL/Hewn is a Claude Code CLI wrapper for benchmarking. The phrase \"login-button-broken\" matches one of your benchmark scenario names (`benchmarks/snapshots/raw/T2/*/login-button-broken_r*.json`), so I want to make sure I'm helping with the right thing.\n\nWhich do you mean:\n1. **A real app** with a broken login button — if so, point me at the repo/path, I'm not in it.\n2. **The benchmark scenario** `login-button-broken` — e.g. you want to regenerate those snapshots (they're currently deleted per `git status`), tweak the prompt, or inspect what the arms produced.\n3. **Testing me** with the vague-user-report scenario itself — happy to role-play a debugging session if you tell me which codebase to pretend against.\n\nWhich one?",
   "assertion_pass": true,
   "raw_payload": {
     "type": "result",
     "subtype": "success",
     "is_error": false,
     "api_error_status": null,
-    "duration_ms": 4433,
-    "duration_api_ms": 5710,
+    "duration_ms": 14557,
+    "duration_api_ms": 15361,
     "num_turns": 1,
-    "result": "This repo is Hewn — a Claude Code CLI wrapper. There's no login button here, no frontend, no users logging in.\n\nAre you in the right repo? Or is this about a different project you want me to look at?",
+    "result": "There's no login UI in this repo — SIGIL/Hewn is a Claude Code CLI wrapper for benchmarking. The phrase \"login-button-broken\" matches one of your benchmark scenario names (`benchmarks/snapshots/raw/T2/*/login-button-broken_r*.json`), so I want to make sure I'm helping with the right thing.\n\nWhich do you mean:\n1. **A real app** with a broken login button — if so, point me at the repo/path, I'm not in it.\n2. **The benchmark scenario** `login-button-broken` — e.g. you want to regenerate those snapshots (they're currently deleted per `git status`), tweak the prompt, or inspect what the arms produced.\n3. **Testing me** with the vague-user-report scenario itself — happy to role-play a debugging session if you tell me which codebase to pretend against.\n\nWhich one?",
     "stop_reason": "end_turn",
-    "session_id": "4e11bc3e-b37e-4aec-a296-3d16bb00c1f1",
-    "total_cost_usd": 0.119742,
+    "session_id": "ae52a0b7-f1a8-4165-9944-e95311f9c675",
+    "total_cost_usd": 0.13390575,
     "usage": {
       "input_tokens": 6,
-      "cache_creation_input_tokens": 17048,
+      "cache_creation_input_tokens": 17063,
       "cache_read_input_tokens": 16796,
-      "output_tokens": 174,
+      "output_tokens": 737,
       "server_tool_use": {
         "web_search_requests": 0,
         "web_fetch_requests": 0
       },
       "service_tier": "standard",
       "cache_creation": {
-        "ephemeral_1h_input_tokens": 17048,
+        "ephemeral_1h_input_tokens": 17063,
         "ephemeral_5m_input_tokens": 0
       },
       "inference_geo": "",
       "iterations": [
         {
           "input_tokens": 6,
-          "output_tokens": 174,
+          "output_tokens": 737,
           "cache_read_input_tokens": 16796,
-          "cache_creation_input_tokens": 17048,
+          "cache_creation_input_tokens": 17063,
           "cache_creation": {
             "ephemeral_5m_input_tokens": 0,
-            "ephemeral_1h_input_tokens": 17048
+            "ephemeral_1h_input_tokens": 17063
           },
           "type": "message"
         }
@@ -78,21 +78,21 @@
     "modelUsage": {
       "claude-haiku-4-5-20251001": {
         "inputTokens": 349,
-        "outputTokens": 13,
+        "outputTokens": 12,
         "cacheReadInputTokens": 0,
         "cacheCreationInputTokens": 0,
         "webSearchRequests": 0,
-        "costUSD": 0.00041400000000000003,
+        "costUSD": 0.000409,
         "contextWindow": 200000,
         "maxOutputTokens": 32000
       },
       "claude-opus-4-7": {
         "inputTokens": 6,
-        "outputTokens": 174,
+        "outputTokens": 737,
         "cacheReadInputTokens": 16796,
-        "cacheCreationInputTokens": 17048,
+        "cacheCreationInputTokens": 17063,
         "webSearchRequests": 0,
-        "costUSD": 0.119328,
+        "costUSD": 0.13349675,
         "contextWindow": 1000000,
         "maxOutputTokens": 64000
       }
@@ -100,6 +100,6 @@
     "permission_denials": [],
     "terminal_reason": "completed",
     "fast_mode_state": "off",
-    "uuid": "e925c02d-3f50-43d1-9438-f8130917cf39"
+    "uuid": "28d84189-dcf8-4cef-9fc0-bf0c217af264"
   }
 }

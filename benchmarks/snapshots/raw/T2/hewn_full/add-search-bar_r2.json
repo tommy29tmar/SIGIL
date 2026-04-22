@@ -14,61 +14,61 @@
   ],
   "digest_hex": "e4d553ad3e355ccffc56234ee1f9b935b3963f152f24e81c5cb452140df74b94",
   "seed": "hewn-bench-v1",
-  "timestamp": "2026-04-22T09:38:24.985959+00:00",
-  "output_tokens_tiktoken": 22,
-  "output_tokens_anthropic": 35,
+  "timestamp": "2026-04-22T12:35:21.304191+00:00",
+  "output_tokens_tiktoken": 27,
+  "output_tokens_anthropic": 43,
   "input_tokens_anthropic": 6,
-  "cache_creation_input_tokens": 0,
-  "cache_read_input_tokens": 35290,
-  "total_input_tokens": 35296,
+  "cache_creation_input_tokens": 18761,
+  "cache_read_input_tokens": 16805,
+  "total_input_tokens": 35572,
   "cache_state": "warm",
-  "wallclock_ms": 8801.547218987253,
-  "duration_ms": 2490,
-  "duration_api_ms": 3750,
-  "wrapper_overhead_ms": 5051.547218987253,
+  "wallclock_ms": 10393.099879991496,
+  "duration_ms": 3595,
+  "duration_api_ms": 4326,
+  "wrapper_overhead_ms": 6067.099879991496,
   "stop_reason": "end_turn",
   "num_turns": 1,
-  "session_id": "8251d148-d812-4abc-8dc7-7505254f6a5f",
-  "total_cost_usd": 0.018967,
+  "session_id": "77433730-815d-4b32-bf49-364262a7dc94",
+  "total_cost_usd": 0.12718075,
   "model_used": "claude-haiku-4-5-20251001,claude-opus-4-7",
-  "result": "Need more info. What app? Web/mobile/desktop? What searching — local list, API, docs?",
+  "result": "what framework? react/vue/svelte/other.\nwhat search? client-side filter or server query.\npaste component file where bar goes.",
   "assertion_pass": true,
   "raw_payload": {
     "type": "result",
     "subtype": "success",
     "is_error": false,
     "api_error_status": null,
-    "duration_ms": 2490,
-    "duration_api_ms": 3750,
+    "duration_ms": 3595,
+    "duration_api_ms": 4326,
     "num_turns": 1,
-    "result": "Need more info. What app? Web/mobile/desktop? What searching — local list, API, docs?",
+    "result": "what framework? react/vue/svelte/other.\nwhat search? client-side filter or server query.\npaste component file where bar goes.",
     "stop_reason": "end_turn",
-    "session_id": "8251d148-d812-4abc-8dc7-7505254f6a5f",
-    "total_cost_usd": 0.018967,
+    "session_id": "77433730-815d-4b32-bf49-364262a7dc94",
+    "total_cost_usd": 0.12718075,
     "usage": {
       "input_tokens": 6,
-      "cache_creation_input_tokens": 0,
-      "cache_read_input_tokens": 35290,
-      "output_tokens": 35,
+      "cache_creation_input_tokens": 18761,
+      "cache_read_input_tokens": 16805,
+      "output_tokens": 43,
       "server_tool_use": {
         "web_search_requests": 0,
         "web_fetch_requests": 0
       },
       "service_tier": "standard",
       "cache_creation": {
-        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 18761,
         "ephemeral_5m_input_tokens": 0
       },
       "inference_geo": "",
       "iterations": [
         {
           "input_tokens": 6,
-          "output_tokens": 35,
-          "cache_read_input_tokens": 35290,
-          "cache_creation_input_tokens": 0,
+          "output_tokens": 43,
+          "cache_read_input_tokens": 16805,
+          "cache_creation_input_tokens": 18761,
           "cache_creation": {
             "ephemeral_5m_input_tokens": 0,
-            "ephemeral_1h_input_tokens": 0
+            "ephemeral_1h_input_tokens": 18761
           },
           "type": "message"
         }
@@ -88,11 +88,11 @@
       },
       "claude-opus-4-7": {
         "inputTokens": 6,
-        "outputTokens": 35,
-        "cacheReadInputTokens": 35290,
-        "cacheCreationInputTokens": 0,
+        "outputTokens": 43,
+        "cacheReadInputTokens": 16805,
+        "cacheCreationInputTokens": 18761,
         "webSearchRequests": 0,
-        "costUSD": 0.01855,
+        "costUSD": 0.12676375,
         "contextWindow": 1000000,
         "maxOutputTokens": 64000
       }
@@ -100,6 +100,6 @@
     "permission_denials": [],
     "terminal_reason": "completed",
     "fast_mode_state": "off",
-    "uuid": "7aea132f-70a9-431a-921b-22c395cfacff"
+    "uuid": "f5ecb99d-ef25-4429-b528-11faa83b8b5c"
   }
 }

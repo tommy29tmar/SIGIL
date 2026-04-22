@@ -14,61 +14,61 @@
   ],
   "digest_hex": "8f919a0c7b8b1c67b4c06afc835537a9aea81a8fcdfc1009313802d4d28f466f",
   "seed": "hewn-bench-v1",
-  "timestamp": "2026-04-22T09:39:57.354550+00:00",
-  "output_tokens_tiktoken": 31,
-  "output_tokens_anthropic": 49,
+  "timestamp": "2026-04-22T12:37:06.724707+00:00",
+  "output_tokens_tiktoken": 34,
+  "output_tokens_anthropic": 56,
   "input_tokens_anthropic": 6,
-  "cache_creation_input_tokens": 0,
-  "cache_read_input_tokens": 35289,
-  "total_input_tokens": 35295,
+  "cache_creation_input_tokens": 18760,
+  "cache_read_input_tokens": 16805,
+  "total_input_tokens": 35571,
   "cache_state": "warm",
-  "wallclock_ms": 10615.765700989868,
-  "duration_ms": 4343,
-  "duration_api_ms": 5511,
-  "wrapper_overhead_ms": 5104.7657009898685,
+  "wallclock_ms": 17775.813054002356,
+  "duration_ms": 10898,
+  "duration_api_ms": 12013,
+  "wrapper_overhead_ms": 5762.813054002356,
   "stop_reason": "end_turn",
   "num_turns": 1,
-  "session_id": "511fa9fc-67dd-4586-bf39-85fc49528046",
-  "total_cost_usd": 0.0193085,
+  "session_id": "8b9d6fa7-28c8-475a-848a-8e64ceaa068e",
+  "total_cost_usd": 0.12749149999999998,
   "model_used": "claude-haiku-4-5-20251001,claude-opus-4-7",
-  "result": "Need more info. Which app/repo? URL or file path? What happens on click — nothing, error, wrong redirect? Any console/network errors?",
+  "result": "Need URL/repo + browser console error or network tab.\nWithout repro, guess only. Check: onclick handler bound? Network 4xx/5xx on submit?",
   "assertion_pass": true,
   "raw_payload": {
     "type": "result",
     "subtype": "success",
     "is_error": false,
     "api_error_status": null,
-    "duration_ms": 4343,
-    "duration_api_ms": 5511,
+    "duration_ms": 10898,
+    "duration_api_ms": 12013,
     "num_turns": 1,
-    "result": "Need more info. Which app/repo? URL or file path? What happens on click — nothing, error, wrong redirect? Any console/network errors?",
+    "result": "Need URL/repo + browser console error or network tab.\nWithout repro, guess only. Check: onclick handler bound? Network 4xx/5xx on submit?",
     "stop_reason": "end_turn",
-    "session_id": "511fa9fc-67dd-4586-bf39-85fc49528046",
-    "total_cost_usd": 0.0193085,
+    "session_id": "8b9d6fa7-28c8-475a-848a-8e64ceaa068e",
+    "total_cost_usd": 0.12749149999999998,
     "usage": {
       "input_tokens": 6,
-      "cache_creation_input_tokens": 0,
-      "cache_read_input_tokens": 35289,
-      "output_tokens": 49,
+      "cache_creation_input_tokens": 18760,
+      "cache_read_input_tokens": 16805,
+      "output_tokens": 56,
       "server_tool_use": {
         "web_search_requests": 0,
         "web_fetch_requests": 0
       },
       "service_tier": "standard",
       "cache_creation": {
-        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 18760,
         "ephemeral_5m_input_tokens": 0
       },
       "inference_geo": "",
       "iterations": [
         {
           "input_tokens": 6,
-          "output_tokens": 49,
-          "cache_read_input_tokens": 35289,
-          "cache_creation_input_tokens": 0,
+          "output_tokens": 56,
+          "cache_read_input_tokens": 16805,
+          "cache_creation_input_tokens": 18760,
           "cache_creation": {
             "ephemeral_5m_input_tokens": 0,
-            "ephemeral_1h_input_tokens": 0
+            "ephemeral_1h_input_tokens": 18760
           },
           "type": "message"
         }
@@ -88,11 +88,11 @@
       },
       "claude-opus-4-7": {
         "inputTokens": 6,
-        "outputTokens": 49,
-        "cacheReadInputTokens": 35289,
-        "cacheCreationInputTokens": 0,
+        "outputTokens": 56,
+        "cacheReadInputTokens": 16805,
+        "cacheCreationInputTokens": 18760,
         "webSearchRequests": 0,
-        "costUSD": 0.0188995,
+        "costUSD": 0.1270825,
         "contextWindow": 1000000,
         "maxOutputTokens": 64000
       }
@@ -100,6 +100,6 @@
     "permission_denials": [],
     "terminal_reason": "completed",
     "fast_mode_state": "off",
-    "uuid": "75493bc0-473c-4924-bb74-f053d70c8d09"
+    "uuid": "259ce1e0-1b98-4897-95fe-fc9626b27018"
   }
 }

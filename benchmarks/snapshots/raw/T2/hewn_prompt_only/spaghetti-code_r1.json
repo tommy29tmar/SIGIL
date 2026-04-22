@@ -14,61 +14,61 @@
   ],
   "digest_hex": "4b03fc8be3949c05b432d9b1384c3888f2497445b9d83c4262c2a2a4a9712965",
   "seed": "hewn-bench-v1",
-  "timestamp": "2026-04-22T09:37:22.353035+00:00",
-  "output_tokens_tiktoken": 304,
-  "output_tokens_anthropic": 518,
+  "timestamp": "2026-04-22T12:33:54.494978+00:00",
+  "output_tokens_tiktoken": 278,
+  "output_tokens_anthropic": 472,
   "input_tokens_anthropic": 6,
-  "cache_creation_input_tokens": 17058,
+  "cache_creation_input_tokens": 17073,
   "cache_read_input_tokens": 16796,
-  "total_input_tokens": 33860,
+  "total_input_tokens": 33875,
   "cache_state": "warm",
-  "wallclock_ms": 17645.823811006267,
-  "duration_ms": 11178,
-  "duration_api_ms": 12440,
+  "wallclock_ms": 21024.621744989417,
+  "duration_ms": 10103,
+  "duration_api_ms": 11071,
   "wrapper_overhead_ms": null,
   "stop_reason": "end_turn",
   "num_turns": 1,
-  "session_id": "f29f0e3b-c671-4756-8859-0fd4ce8fdff0",
-  "total_cost_usd": 0.1284295,
+  "session_id": "70f41016-8f06-4534-99bf-1c284cc69ef7",
+  "total_cost_usd": 0.12737325,
   "model_used": "claude-haiku-4-5-20251001,claude-opus-4-7",
-  "result": "The core trick: **every function should do one thing, named for what it does**. If you can't name it without \"and\", split it.\n\nConcrete habits that kill spaghetti:\n\n1. **Name things for their job, not their shape.** `fetch_user_json` → `get_user`. If the name reads like English, you can skim code without reading bodies.\n2. **Keep functions short.** If it scrolls, it's probably two functions. ~20 lines is a good gut-check, not a rule.\n3. **Separate layers.** I/O (network, disk, DB) stays in thin wrappers. Pure logic (transform, decide, validate) stays in functions you can call with plain values. Mixing them is the #1 source of spaghetti.\n4. **Return early.** Nested ifs hide the happy path. `if (bad) return;` flattens everything.\n5. **Don't reach across modules.** If `billing.py` imports from `ui.py`, something's wrong. Dependencies should point one direction.\n6. **Delete dead code the moment it's dead.** Commented-out blocks and \"just in case\" helpers are where comprehension goes to die.\n7. **When lost, draw the data flow on paper.** One box per function, arrows for what calls what. The mess becomes visible; the fix usually becomes obvious.\n\nWant me to look at a specific file of yours and point out where it's tangled? That's faster than general advice.",
+  "result": "A few habits that actually help:\n\n1. **Name things for what they do, not how.** `calculateTax(order)` beats `processOrder2`. If you can't name a function cleanly, it's probably doing too much.\n2. **One function = one job.** If you write \"and\" in the docstring (\"parses input *and* saves to DB\"), split it.\n3. **Separate layers.** Keep I/O (HTTP, DB, files) at the edges and pure logic in the middle. Spaghetti usually comes from DB calls tangled inside business logic.\n4. **Kill deep nesting.** Return early instead of wrapping in `if` chains. Max ~2 levels of indent per function.\n5. **Group by feature, not by type.** A `user/` folder with its routes + logic + storage beats `controllers/`, `services/`, `models/` all split apart — you stop jumping across 4 files to follow one flow.\n6. **Delete dead code immediately.** Commented-out blocks, \"just in case\" flags, unused params. Git remembers.\n7. **When you get lost, the code is telling you something.** Rename the confusing thing before moving on. Don't push through.\n\nIf you want, point me at a specific file that feels tangled and I'll show you where to cut.",
   "assertion_pass": true,
   "raw_payload": {
     "type": "result",
     "subtype": "success",
     "is_error": false,
     "api_error_status": null,
-    "duration_ms": 11178,
-    "duration_api_ms": 12440,
+    "duration_ms": 10103,
+    "duration_api_ms": 11071,
     "num_turns": 1,
-    "result": "The core trick: **every function should do one thing, named for what it does**. If you can't name it without \"and\", split it.\n\nConcrete habits that kill spaghetti:\n\n1. **Name things for their job, not their shape.** `fetch_user_json` → `get_user`. If the name reads like English, you can skim code without reading bodies.\n2. **Keep functions short.** If it scrolls, it's probably two functions. ~20 lines is a good gut-check, not a rule.\n3. **Separate layers.** I/O (network, disk, DB) stays in thin wrappers. Pure logic (transform, decide, validate) stays in functions you can call with plain values. Mixing them is the #1 source of spaghetti.\n4. **Return early.** Nested ifs hide the happy path. `if (bad) return;` flattens everything.\n5. **Don't reach across modules.** If `billing.py` imports from `ui.py`, something's wrong. Dependencies should point one direction.\n6. **Delete dead code the moment it's dead.** Commented-out blocks and \"just in case\" helpers are where comprehension goes to die.\n7. **When lost, draw the data flow on paper.** One box per function, arrows for what calls what. The mess becomes visible; the fix usually becomes obvious.\n\nWant me to look at a specific file of yours and point out where it's tangled? That's faster than general advice.",
+    "result": "A few habits that actually help:\n\n1. **Name things for what they do, not how.** `calculateTax(order)` beats `processOrder2`. If you can't name a function cleanly, it's probably doing too much.\n2. **One function = one job.** If you write \"and\" in the docstring (\"parses input *and* saves to DB\"), split it.\n3. **Separate layers.** Keep I/O (HTTP, DB, files) at the edges and pure logic in the middle. Spaghetti usually comes from DB calls tangled inside business logic.\n4. **Kill deep nesting.** Return early instead of wrapping in `if` chains. Max ~2 levels of indent per function.\n5. **Group by feature, not by type.** A `user/` folder with its routes + logic + storage beats `controllers/`, `services/`, `models/` all split apart — you stop jumping across 4 files to follow one flow.\n6. **Delete dead code immediately.** Commented-out blocks, \"just in case\" flags, unused params. Git remembers.\n7. **When you get lost, the code is telling you something.** Rename the confusing thing before moving on. Don't push through.\n\nIf you want, point me at a specific file that feels tangled and I'll show you where to cut.",
     "stop_reason": "end_turn",
-    "session_id": "f29f0e3b-c671-4756-8859-0fd4ce8fdff0",
-    "total_cost_usd": 0.1284295,
+    "session_id": "70f41016-8f06-4534-99bf-1c284cc69ef7",
+    "total_cost_usd": 0.12737325,
     "usage": {
       "input_tokens": 6,
-      "cache_creation_input_tokens": 17058,
+      "cache_creation_input_tokens": 17073,
       "cache_read_input_tokens": 16796,
-      "output_tokens": 518,
+      "output_tokens": 472,
       "server_tool_use": {
         "web_search_requests": 0,
         "web_fetch_requests": 0
       },
       "service_tier": "standard",
       "cache_creation": {
-        "ephemeral_1h_input_tokens": 17058,
+        "ephemeral_1h_input_tokens": 17073,
         "ephemeral_5m_input_tokens": 0
       },
       "inference_geo": "",
       "iterations": [
         {
           "input_tokens": 6,
-          "output_tokens": 518,
+          "output_tokens": 472,
           "cache_read_input_tokens": 16796,
-          "cache_creation_input_tokens": 17058,
+          "cache_creation_input_tokens": 17073,
           "cache_creation": {
             "ephemeral_5m_input_tokens": 0,
-            "ephemeral_1h_input_tokens": 17058
+            "ephemeral_1h_input_tokens": 17073
           },
           "type": "message"
         }
@@ -88,11 +88,11 @@
       },
       "claude-opus-4-7": {
         "inputTokens": 6,
-        "outputTokens": 518,
+        "outputTokens": 472,
         "cacheReadInputTokens": 16796,
-        "cacheCreationInputTokens": 17058,
+        "cacheCreationInputTokens": 17073,
         "webSearchRequests": 0,
-        "costUSD": 0.1279905,
+        "costUSD": 0.12693425,
         "contextWindow": 1000000,
         "maxOutputTokens": 64000
       }
@@ -100,6 +100,6 @@
     "permission_denials": [],
     "terminal_reason": "completed",
     "fast_mode_state": "off",
-    "uuid": "d6d86cc7-43a8-461e-948f-9bd7a2866b87"
+    "uuid": "f4c5e142-b0c9-47ee-815b-81a524cc4849"
   }
 }

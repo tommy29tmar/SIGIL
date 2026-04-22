@@ -26,12 +26,12 @@ Caveman/baseline/terse arms unchanged — shown for reference.
 
 | prompt | v1 | v2 | v3 | caveman_full | caveman+ultra | baseline |
 |---|---:|---:|---:|---:|---:|---:|
-| `add-search-bar` | 76 | 42 | 35 | 266 | 199 | 197 |
-| `login-button-broken` | 236 | 44 | 45 | 122 | 106 | 227 |
-| `make-website-faster` | 72 | 43 | 44 | 59 | 131 | 43 |
-| `spaghetti-code` | 310 | 55 | 72 | 427 | 451 | 442 |
-| `typeerror-undefined-map` | 257 | 56 | 58 | 116 | 105 | 254 |
-| **mean** | **190** | **48** | **50** | **198** | **198** | **232** |
+| `add-search-bar` | 76 | 42 | 51 | 266 | 199 | 197 |
+| `login-button-broken` | 236 | 44 | 56 | 122 | 106 | 227 |
+| `make-website-faster` | 72 | 43 | 48 | 59 | 131 | 43 |
+| `spaghetti-code` | 310 | 55 | 65 | 427 | 451 | 442 |
+| `typeerror-undefined-map` | 257 | 56 | 71 | 116 | 105 | 254 |
+| **mean** | **190** | **48** | **58** | **198** | **198** | **232** |
 
 ## T3 — hewn_full v1 → v2 → v3 vs comparators
 
@@ -81,7 +81,7 @@ Caveman/baseline/terse arms unchanged — shown for reference.
 | caveman_full_plus_ultra_directive | 83% | 15 |
 | hewn_full_v1 | 70% | 15 |
 | hewn_full_v2 | 53% | 15 |
-| hewn_full | 53% | 15 |
+| hewn_full | 63% | 15 |
 
 ### T3 concept coverage (mean ratio)
 

@@ -1,0 +1,105 @@
+{
+  "track": "T2",
+  "arm": "hewn_prompt_only",
+  "prompt_id": "login-button-broken",
+  "run_index": 2,
+  "arm_order_index": 2,
+  "arm_order_full": [
+    "caveman_full_plus_ultra_directive",
+    "baseline",
+    "hewn_prompt_only",
+    "terse",
+    "hewn_full",
+    "caveman_full"
+  ],
+  "digest_hex": "e1fff6cb5ce95b9c68e1704c12e3bb9788cf296894302e3a503c3240dcf37267",
+  "seed": "hewn-bench-v1",
+  "timestamp": "2026-04-22T09:38:02.404097+00:00",
+  "output_tokens_tiktoken": 89,
+  "output_tokens_anthropic": 246,
+  "input_tokens_anthropic": 6,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 33844,
+  "total_input_tokens": 33850,
+  "cache_state": "warm",
+  "wallclock_ms": 12298.909918987192,
+  "duration_ms": 5964,
+  "duration_api_ms": 7316,
+  "wrapper_overhead_ms": null,
+  "stop_reason": "end_turn",
+  "num_turns": 1,
+  "session_id": "de20ab7d-896f-418b-a7f6-753f16da0f3c",
+  "total_cost_usd": 0.023510999999999997,
+  "model_used": "claude-haiku-4-5-20251001,claude-opus-4-7",
+  "result": "This repo is Hewn — a Claude Code CLI wrapper. There's no login button or web UI here, so \"login button\" doesn't map to anything in this codebase.\n\nAre you in the wrong directory? If you meant a different project, `cd` there and re-run. If you actually mean something in Hewn (e.g. auth to Anthropic API, a locale/config flag), tell me what you clicked and what happened.",
+  "assertion_pass": true,
+  "raw_payload": {
+    "type": "result",
+    "subtype": "success",
+    "is_error": false,
+    "api_error_status": null,
+    "duration_ms": 5964,
+    "duration_api_ms": 7316,
+    "num_turns": 1,
+    "result": "This repo is Hewn — a Claude Code CLI wrapper. There's no login button or web UI here, so \"login button\" doesn't map to anything in this codebase.\n\nAre you in the wrong directory? If you meant a different project, `cd` there and re-run. If you actually mean something in Hewn (e.g. auth to Anthropic API, a locale/config flag), tell me what you clicked and what happened.",
+    "stop_reason": "end_turn",
+    "session_id": "de20ab7d-896f-418b-a7f6-753f16da0f3c",
+    "total_cost_usd": 0.023510999999999997,
+    "usage": {
+      "input_tokens": 6,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 33844,
+      "output_tokens": 246,
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "",
+      "iterations": [
+        {
+          "input_tokens": 6,
+          "output_tokens": 246,
+          "cache_read_input_tokens": 33844,
+          "cache_creation_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard"
+    },
+    "modelUsage": {
+      "claude-haiku-4-5-20251001": {
+        "inputTokens": 349,
+        "outputTokens": 12,
+        "cacheReadInputTokens": 0,
+        "cacheCreationInputTokens": 0,
+        "webSearchRequests": 0,
+        "costUSD": 0.000409,
+        "contextWindow": 200000,
+        "maxOutputTokens": 32000
+      },
+      "claude-opus-4-7": {
+        "inputTokens": 6,
+        "outputTokens": 246,
+        "cacheReadInputTokens": 33844,
+        "cacheCreationInputTokens": 0,
+        "webSearchRequests": 0,
+        "costUSD": 0.023101999999999998,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "uuid": "ffea8535-bd32-42be-b662-2e745dea8293"
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "track": "T2",
+  "arm": "hewn_full",
+  "prompt_id": "typeerror-undefined-map",
+  "run_index": 2,
+  "arm_order_index": 3,
+  "arm_order_full": [
+    "terse",
+    "caveman_full_plus_ultra_directive",
+    "hewn_prompt_only",
+    "hewn_full",
+    "caveman_full",
+    "baseline"
+  ],
+  "digest_hex": "14bddb51c1c5866706ff2e594385e235efce8e94983a8266c26c2b19b478fcc1",
+  "seed": "hewn-bench-v1",
+  "timestamp": "2026-04-22T09:39:01.106815+00:00",
+  "output_tokens_tiktoken": 33,
+  "output_tokens_anthropic": 58,
+  "input_tokens_anthropic": 6,
+  "cache_creation_input_tokens": 0,
+  "cache_read_input_tokens": 35314,
+  "total_input_tokens": 35320,
+  "cache_state": "warm",
+  "wallclock_ms": 9702.77702002204,
+  "duration_ms": 3345,
+  "duration_api_ms": 4897,
+  "wrapper_overhead_ms": 4805.77702002204,
+  "stop_reason": "end_turn",
+  "num_turns": 1,
+  "session_id": "e39c262f-7c2d-4ee4-980c-dcfb9990c212",
+  "total_cost_usd": 0.019570999999999998,
+  "model_used": "claude-haiku-4-5-20251001,claude-opus-4-7",
+  "result": "`.map` ran on undefined. Data not loaded yet, fetch failed, or prop/state shape wrong.\n\nShare call site + value of the thing before `.map`.",
+  "assertion_pass": true,
+  "raw_payload": {
+    "type": "result",
+    "subtype": "success",
+    "is_error": false,
+    "api_error_status": null,
+    "duration_ms": 3345,
+    "duration_api_ms": 4897,
+    "num_turns": 1,
+    "result": "`.map` ran on undefined. Data not loaded yet, fetch failed, or prop/state shape wrong.\n\nShare call site + value of the thing before `.map`.",
+    "stop_reason": "end_turn",
+    "session_id": "e39c262f-7c2d-4ee4-980c-dcfb9990c212",
+    "total_cost_usd": 0.019570999999999998,
+    "usage": {
+      "input_tokens": 6,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 35314,
+      "output_tokens": 58,
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "",
+      "iterations": [
+        {
+          "input_tokens": 6,
+          "output_tokens": 58,
+          "cache_read_input_tokens": 35314,
+          "cache_creation_input_tokens": 0,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 0
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard"
+    },
+    "modelUsage": {
+      "claude-haiku-4-5-20251001": {
+        "inputTokens": 364,
+        "outputTokens": 14,
+        "cacheReadInputTokens": 0,
+        "cacheCreationInputTokens": 0,
+        "webSearchRequests": 0,
+        "costUSD": 0.00043400000000000003,
+        "contextWindow": 200000,
+        "maxOutputTokens": 32000
+      },
+      "claude-opus-4-7": {
+        "inputTokens": 6,
+        "outputTokens": 58,
+        "cacheReadInputTokens": 35314,
+        "cacheCreationInputTokens": 0,
+        "webSearchRequests": 0,
+        "costUSD": 0.019136999999999998,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "uuid": "024166de-045f-4fb1-a8cd-6813035d1d9d"
+  }
+}

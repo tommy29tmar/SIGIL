@@ -14,61 +14,61 @@
   ],
   "digest_hex": "7c52e02c0161a16855ab7dffa75684d8428461f60fda8988678da48d36f5dfae",
   "seed": "hewn-bench-v1",
-  "timestamp": "2026-04-22T09:41:06.356093+00:00",
-  "output_tokens_tiktoken": 312,
-  "output_tokens_anthropic": 526,
+  "timestamp": "2026-04-22T12:38:53.335034+00:00",
+  "output_tokens_tiktoken": 387,
+  "output_tokens_anthropic": 663,
   "input_tokens_anthropic": 6,
-  "cache_creation_input_tokens": 0,
-  "cache_read_input_tokens": 33854,
-  "total_input_tokens": 33860,
+  "cache_creation_input_tokens": 17073,
+  "cache_read_input_tokens": 16796,
+  "total_input_tokens": 33875,
   "cache_state": "warm",
-  "wallclock_ms": 18450.789830996655,
-  "duration_ms": 12157,
-  "duration_api_ms": 13909,
+  "wallclock_ms": 21388.08740201057,
+  "duration_ms": 14364,
+  "duration_api_ms": 15281,
   "wrapper_overhead_ms": null,
   "stop_reason": "end_turn",
   "num_turns": 1,
-  "session_id": "42842184-0c98-4676-90e6-bde0b424b0a6",
-  "total_cost_usd": 0.030546,
+  "session_id": "47878e38-a3c8-4f89-a66b-1977d5d34424",
+  "total_cost_usd": 0.13214825,
   "model_used": "claude-haiku-4-5-20251001,claude-opus-4-7",
-  "result": "A few moves that actually help, in order of return-on-effort:\n\n1. **Name things honestly.** If you can't name a function without \"and\" in it, it's doing two things. Split it. Same for variables — `data`, `info`, `temp` are lies.\n\n2. **One layer per function.** A function should either make decisions *or* do work, not both. Top-level functions read like a table of contents; leaf functions do one concrete thing. If you're scrolling to follow a single call, you've mixed layers.\n\n3. **Keep related things close.** Code that changes together should live together. If fixing one bug means touching five files, your boundaries are wrong — not your discipline.\n\n4. **Kill the middle state.** Long functions with mutable variables being tweaked across 40 lines are where tracking breaks. Prefer: compute → transform → return. Early returns over nested `if`s.\n\n5. **Comment the *why*, never the *what*.** If the code needs a comment to explain what it does, rename the function instead.\n\n6. **Read your own code cold the next morning.** The parts that confuse you *then* are the parts that will confuse everyone else forever. Fix those, not the parts that felt clever.\n\nThe meta-rule: spaghetti is a symptom of missing boundaries. You're not lacking discipline — you're lacking the right seams. When you feel lost, the fix is almost always \"extract this into a thing with a name,\" not \"add more comments.\"",
+  "result": "Spaghetti usually isn't a style problem — it's a **coupling** problem. Things that should be separate are tangled together, so changing one forces you to understand five others.\n\nA few concrete moves that consistently help:\n\n**1. Name by what, not how.** If you can't name a function without \"and\" or \"helper\", it's doing too much. `fetchUserAndUpdateCache` → split it. Good names let you skim and trust without reading the body.\n\n**2. Push side effects to the edges.** Keep the middle pure. Functions that compute don't also write files / call APIs / mutate globals. When IO is separated from logic, you can read the logic top-to-bottom without jumping.\n\n**3. Stop passing state through five layers.** If `foo → bar → baz → qux(userId)` and only `qux` uses `userId`, that chain is drag. Either `qux` gets it from its own scope, or the whole thing is structured wrong.\n\n**4. One direction of data flow per module.** Inputs come in the top, outputs leave the bottom. No module should reach sideways into a sibling's guts.\n\n**5. Delete before you abstract.** Most \"spaghetti\" is dead code, commented-out code, and three slightly-different versions of the same function. Delete ruthlessly — you'll be shocked how much clears up before you need any refactoring.\n\n**6. If you're losing track, the file is too long.** 500+ lines in one file = you can't hold it in your head. Split by responsibility, not by arbitrary line count.\n\nThe fastest diagnostic: pick one function at random. Can you explain what it does in one sentence, without looking at what calls it or what it calls? If no — that's your next refactor.\n\nWant me to look at a specific file and point out where the tangles are?",
   "assertion_pass": true,
   "raw_payload": {
     "type": "result",
     "subtype": "success",
     "is_error": false,
     "api_error_status": null,
-    "duration_ms": 12157,
-    "duration_api_ms": 13909,
+    "duration_ms": 14364,
+    "duration_api_ms": 15281,
     "num_turns": 1,
-    "result": "A few moves that actually help, in order of return-on-effort:\n\n1. **Name things honestly.** If you can't name a function without \"and\" in it, it's doing two things. Split it. Same for variables — `data`, `info`, `temp` are lies.\n\n2. **One layer per function.** A function should either make decisions *or* do work, not both. Top-level functions read like a table of contents; leaf functions do one concrete thing. If you're scrolling to follow a single call, you've mixed layers.\n\n3. **Keep related things close.** Code that changes together should live together. If fixing one bug means touching five files, your boundaries are wrong — not your discipline.\n\n4. **Kill the middle state.** Long functions with mutable variables being tweaked across 40 lines are where tracking breaks. Prefer: compute → transform → return. Early returns over nested `if`s.\n\n5. **Comment the *why*, never the *what*.** If the code needs a comment to explain what it does, rename the function instead.\n\n6. **Read your own code cold the next morning.** The parts that confuse you *then* are the parts that will confuse everyone else forever. Fix those, not the parts that felt clever.\n\nThe meta-rule: spaghetti is a symptom of missing boundaries. You're not lacking discipline — you're lacking the right seams. When you feel lost, the fix is almost always \"extract this into a thing with a name,\" not \"add more comments.\"",
+    "result": "Spaghetti usually isn't a style problem — it's a **coupling** problem. Things that should be separate are tangled together, so changing one forces you to understand five others.\n\nA few concrete moves that consistently help:\n\n**1. Name by what, not how.** If you can't name a function without \"and\" or \"helper\", it's doing too much. `fetchUserAndUpdateCache` → split it. Good names let you skim and trust without reading the body.\n\n**2. Push side effects to the edges.** Keep the middle pure. Functions that compute don't also write files / call APIs / mutate globals. When IO is separated from logic, you can read the logic top-to-bottom without jumping.\n\n**3. Stop passing state through five layers.** If `foo → bar → baz → qux(userId)` and only `qux` uses `userId`, that chain is drag. Either `qux` gets it from its own scope, or the whole thing is structured wrong.\n\n**4. One direction of data flow per module.** Inputs come in the top, outputs leave the bottom. No module should reach sideways into a sibling's guts.\n\n**5. Delete before you abstract.** Most \"spaghetti\" is dead code, commented-out code, and three slightly-different versions of the same function. Delete ruthlessly — you'll be shocked how much clears up before you need any refactoring.\n\n**6. If you're losing track, the file is too long.** 500+ lines in one file = you can't hold it in your head. Split by responsibility, not by arbitrary line count.\n\nThe fastest diagnostic: pick one function at random. Can you explain what it does in one sentence, without looking at what calls it or what it calls? If no — that's your next refactor.\n\nWant me to look at a specific file and point out where the tangles are?",
     "stop_reason": "end_turn",
-    "session_id": "42842184-0c98-4676-90e6-bde0b424b0a6",
-    "total_cost_usd": 0.030546,
+    "session_id": "47878e38-a3c8-4f89-a66b-1977d5d34424",
+    "total_cost_usd": 0.13214825,
     "usage": {
       "input_tokens": 6,
-      "cache_creation_input_tokens": 0,
-      "cache_read_input_tokens": 33854,
-      "output_tokens": 526,
+      "cache_creation_input_tokens": 17073,
+      "cache_read_input_tokens": 16796,
+      "output_tokens": 663,
       "server_tool_use": {
         "web_search_requests": 0,
         "web_fetch_requests": 0
       },
       "service_tier": "standard",
       "cache_creation": {
-        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 17073,
         "ephemeral_5m_input_tokens": 0
       },
       "inference_geo": "",
       "iterations": [
         {
           "input_tokens": 6,
-          "output_tokens": 526,
-          "cache_read_input_tokens": 33854,
-          "cache_creation_input_tokens": 0,
+          "output_tokens": 663,
+          "cache_read_input_tokens": 16796,
+          "cache_creation_input_tokens": 17073,
           "cache_creation": {
             "ephemeral_5m_input_tokens": 0,
-            "ephemeral_1h_input_tokens": 0
+            "ephemeral_1h_input_tokens": 17073
           },
           "type": "message"
         }
@@ -88,11 +88,11 @@
       },
       "claude-opus-4-7": {
         "inputTokens": 6,
-        "outputTokens": 526,
-        "cacheReadInputTokens": 33854,
-        "cacheCreationInputTokens": 0,
+        "outputTokens": 663,
+        "cacheReadInputTokens": 16796,
+        "cacheCreationInputTokens": 17073,
         "webSearchRequests": 0,
-        "costUSD": 0.030107000000000002,
+        "costUSD": 0.13170925,
         "contextWindow": 1000000,
         "maxOutputTokens": 64000
       }
@@ -100,6 +100,6 @@
     "permission_denials": [],
     "terminal_reason": "completed",
     "fast_mode_state": "off",
-    "uuid": "448e3154-a09b-4ac3-b658-bbbdedcc3ed5"
+    "uuid": "20ded6d5-ab3c-440e-9973-62bbdefde611"
   }
 }

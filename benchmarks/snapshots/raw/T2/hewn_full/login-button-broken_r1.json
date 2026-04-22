@@ -14,61 +14,61 @@
   ],
   "digest_hex": "2a516f124e7c3f36519661dd85a98f48aa78e74bb3ea51fb090afd928de500ea",
   "seed": "hewn-bench-v1",
-  "timestamp": "2026-04-22T09:36:15.625764+00:00",
-  "output_tokens_tiktoken": 30,
-  "output_tokens_anthropic": 45,
+  "timestamp": "2026-04-22T12:32:38.138917+00:00",
+  "output_tokens_tiktoken": 39,
+  "output_tokens_anthropic": 58,
   "input_tokens_anthropic": 6,
-  "cache_creation_input_tokens": 18484,
+  "cache_creation_input_tokens": 18760,
   "cache_read_input_tokens": 16805,
-  "total_input_tokens": 35295,
+  "total_input_tokens": 35571,
   "cache_state": "warm",
-  "wallclock_ms": 9336.880299990298,
-  "duration_ms": 2763,
-  "duration_api_ms": 3624,
-  "wrapper_overhead_ms": 5712.880299990298,
+  "wallclock_ms": 12467.657153989421,
+  "duration_ms": 5039,
+  "duration_api_ms": 6274,
+  "wrapper_overhead_ms": 6193.657153989421,
   "stop_reason": "end_turn",
   "num_turns": 1,
-  "session_id": "6b0c4c48-295c-4c59-83be-b1aabba2f0a7",
-  "total_cost_usd": 0.1254915,
+  "session_id": "86592681-1d0f-4a17-bd77-7d76d00a5f5e",
+  "total_cost_usd": 0.12754149999999997,
   "model_used": "claude-haiku-4-5-20251001,claude-opus-4-7",
-  "result": "Need more info. Which site/repo? URL + what \"doesn't work\" means (no click, 500, redirect loop, blank)?",
+  "result": "Need URL + what \"doesn't work\" means (no click / wrong redirect / error toast / 500).\nCheck browser console + network tab on click — paste first error or failing request.",
   "assertion_pass": true,
   "raw_payload": {
     "type": "result",
     "subtype": "success",
     "is_error": false,
     "api_error_status": null,
-    "duration_ms": 2763,
-    "duration_api_ms": 3624,
+    "duration_ms": 5039,
+    "duration_api_ms": 6274,
     "num_turns": 1,
-    "result": "Need more info. Which site/repo? URL + what \"doesn't work\" means (no click, 500, redirect loop, blank)?",
+    "result": "Need URL + what \"doesn't work\" means (no click / wrong redirect / error toast / 500).\nCheck browser console + network tab on click — paste first error or failing request.",
     "stop_reason": "end_turn",
-    "session_id": "6b0c4c48-295c-4c59-83be-b1aabba2f0a7",
-    "total_cost_usd": 0.1254915,
+    "session_id": "86592681-1d0f-4a17-bd77-7d76d00a5f5e",
+    "total_cost_usd": 0.12754149999999997,
     "usage": {
       "input_tokens": 6,
-      "cache_creation_input_tokens": 18484,
+      "cache_creation_input_tokens": 18760,
       "cache_read_input_tokens": 16805,
-      "output_tokens": 45,
+      "output_tokens": 58,
       "server_tool_use": {
         "web_search_requests": 0,
         "web_fetch_requests": 0
       },
       "service_tier": "standard",
       "cache_creation": {
-        "ephemeral_1h_input_tokens": 18484,
+        "ephemeral_1h_input_tokens": 18760,
         "ephemeral_5m_input_tokens": 0
       },
       "inference_geo": "",
       "iterations": [
         {
           "input_tokens": 6,
-          "output_tokens": 45,
+          "output_tokens": 58,
           "cache_read_input_tokens": 16805,
-          "cache_creation_input_tokens": 18484,
+          "cache_creation_input_tokens": 18760,
           "cache_creation": {
             "ephemeral_5m_input_tokens": 0,
-            "ephemeral_1h_input_tokens": 18484
+            "ephemeral_1h_input_tokens": 18760
           },
           "type": "message"
         }
@@ -88,11 +88,11 @@
       },
       "claude-opus-4-7": {
         "inputTokens": 6,
-        "outputTokens": 45,
+        "outputTokens": 58,
         "cacheReadInputTokens": 16805,
-        "cacheCreationInputTokens": 18484,
+        "cacheCreationInputTokens": 18760,
         "webSearchRequests": 0,
-        "costUSD": 0.1250825,
+        "costUSD": 0.12713249999999998,
         "contextWindow": 1000000,
         "maxOutputTokens": 64000
       }
@@ -100,6 +100,6 @@
     "permission_denials": [],
     "terminal_reason": "completed",
     "fast_mode_state": "off",
-    "uuid": "08c3e85f-5fa0-4cbf-9284-372a80806055"
+    "uuid": "48dff4c0-f7cb-4e5f-a467-0b0614be7f30"
   }
 }

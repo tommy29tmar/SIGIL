@@ -3791,8 +3791,8 @@
     },
     "readability_count_true": 2
   },
-  "hewn_full/add-search-bar_r1": {
-    "arm": "hewn_full",
+  "hewn_full_v3/add-search-bar_r1": {
+    "arm": "hewn_full_v3",
     "prompt_id": "add-search-bar",
     "run_index": 1,
     "literals_present": {},
@@ -3822,8 +3822,8 @@
     },
     "readability_count_true": 0
   },
-  "hewn_full/add-search-bar_r2": {
-    "arm": "hewn_full",
+  "hewn_full_v3/add-search-bar_r2": {
+    "arm": "hewn_full_v3",
     "prompt_id": "add-search-bar",
     "run_index": 2,
     "literals_present": {},
@@ -3853,8 +3853,8 @@
     },
     "readability_count_true": 1
   },
-  "hewn_full/add-search-bar_r3": {
-    "arm": "hewn_full",
+  "hewn_full_v3/add-search-bar_r3": {
+    "arm": "hewn_full_v3",
     "prompt_id": "add-search-bar",
     "run_index": 3,
     "literals_present": {},
@@ -3884,8 +3884,8 @@
     },
     "readability_count_true": 0
   },
-  "hewn_full/login-button-broken_r1": {
-    "arm": "hewn_full",
+  "hewn_full_v3/login-button-broken_r1": {
+    "arm": "hewn_full_v3",
     "prompt_id": "login-button-broken",
     "run_index": 1,
     "literals_present": {},
@@ -3915,8 +3915,8 @@
     },
     "readability_count_true": 2
   },
-  "hewn_full/login-button-broken_r2": {
-    "arm": "hewn_full",
+  "hewn_full_v3/login-button-broken_r2": {
+    "arm": "hewn_full_v3",
     "prompt_id": "login-button-broken",
     "run_index": 2,
     "literals_present": {},
@@ -3937,6 +3937,954 @@
       "stays_calm_and_actionable_not_panicky": true
     },
     "concepts_count_present": 3,
+    "concepts_count_total": 4,
+    "readability": {
+      "uses_plain_language": false,
+      "actionable": false,
+      "starts_helpfully": false,
+      "respects_user_level": false
+    },
+    "readability_count_true": 0
+  },
+  "hewn_full_v3/login-button-broken_r3": {
+    "arm": "hewn_full_v3",
+    "prompt_id": "login-button-broken",
+    "run_index": 3,
+    "literals_present": {},
+    "format": {
+      "hewn_ir_valid": false,
+      "caveman_style": {
+        "filler_count": 0,
+        "leading_article_count": 0,
+        "words": 21,
+        "filler_per_100w": 0.0,
+        "leading_article_per_100w": 0.0
+      }
+    },
+    "concepts": {
+      "asks_for_more_info_e_g_browser_console_error_or_network_tab": true,
+      "suggests_checking_recent_deploys_or_changes": false,
+      "mentions_a_diagnostic_step_user_can_run": true,
+      "stays_calm_and_actionable_not_panicky": true
+    },
+    "concepts_count_present": 3,
+    "concepts_count_total": 4,
+    "readability": {
+      "uses_plain_language": false,
+      "actionable": true,
+      "starts_helpfully": true,
+      "respects_user_level": false
+    },
+    "readability_count_true": 2
+  },
+  "hewn_full_v3/make-website-faster_r1": {
+    "arm": "hewn_full_v3",
+    "prompt_id": "make-website-faster",
+    "run_index": 1,
+    "literals_present": {},
+    "format": {
+      "hewn_ir_valid": false,
+      "caveman_style": {
+        "filler_count": 0,
+        "leading_article_count": 0,
+        "words": 15,
+        "filler_per_100w": 0.0,
+        "leading_article_per_100w": 0.0
+      }
+    },
+    "concepts": {
+      "asks_for_or_assumes_what_kind_of_slow": true,
+      "mentions_measurement_first_e_g_lighthouse_or_devtools": false,
+      "suggests_concrete_levers_e_g_image_optimization_or_bundle_size_or_caching": false,
+      "asks_clarifying_question_or_offers_a_starting_point": true
+    },
+    "concepts_count_present": 2,
+    "concepts_count_total": 4,
+    "readability": {
+      "uses_plain_language": false,
+      "actionable": false,
+      "starts_helpfully": false,
+      "respects_user_level": false
+    },
+    "readability_count_true": 0
+  },
+  "hewn_full_v3/make-website-faster_r2": {
+    "arm": "hewn_full_v3",
+    "prompt_id": "make-website-faster",
+    "run_index": 2,
+    "literals_present": {},
+    "format": {
+      "hewn_ir_valid": false,
+      "caveman_style": {
+        "filler_count": 0,
+        "leading_article_count": 0,
+        "words": 20,
+        "filler_per_100w": 0.0,
+        "leading_article_per_100w": 0.0
+      }
+    },
+    "concepts": {
+      "asks_for_or_assumes_what_kind_of_slow": true,
+      "mentions_measurement_first_e_g_lighthouse_or_devtools": true,
+      "suggests_concrete_levers_e_g_image_optimization_or_bundle_size_or_caching": false,
+      "asks_clarifying_question_or_offers_a_starting_point": true
+    },
+    "concepts_count_present": 3,
+    "concepts_count_total": 4,
+    "readability": {
+      "uses_plain_language": false,
+      "actionable": false,
+      "starts_helpfully": false,
+      "respects_user_level": false
+    },
+    "readability_count_true": 0
+  },
+  "hewn_full_v3/make-website-faster_r3": {
+    "arm": "hewn_full_v3",
+    "prompt_id": "make-website-faster",
+    "run_index": 3,
+    "literals_present": {},
+    "format": {
+      "hewn_ir_valid": false,
+      "caveman_style": {
+        "filler_count": 0,
+        "leading_article_count": 0,
+        "words": 18,
+        "filler_per_100w": 0.0,
+        "leading_article_per_100w": 0.0
+      }
+    },
+    "concepts": {
+      "asks_for_or_assumes_what_kind_of_slow": true,
+      "mentions_measurement_first_e_g_lighthouse_or_devtools": false,
+      "suggests_concrete_levers_e_g_image_optimization_or_bundle_size_or_caching": false,
+      "asks_clarifying_question_or_offers_a_starting_point": true
+    },
+    "concepts_count_present": 2,
+    "concepts_count_total": 4,
+    "readability": {
+      "uses_plain_language": false,
+      "actionable": false,
+      "starts_helpfully": false,
+      "respects_user_level": false
+    },
+    "readability_count_true": 0
+  },
+  "hewn_full_v3/spaghetti-code_r1": {
+    "arm": "hewn_full_v3",
+    "prompt_id": "spaghetti-code",
+    "run_index": 1,
+    "literals_present": {},
+    "format": {
+      "hewn_ir_valid": false,
+      "caveman_style": {
+        "filler_count": 0,
+        "leading_article_count": 0,
+        "words": 42,
+        "filler_per_100w": 0.0,
+        "leading_article_per_100w": 0.0
+      }
+    },
+    "concepts": {
+      "names_a_pattern_for_organizing_code_e_g_modules_or_separation_of_concerns": false,
+      "suggests_naming_things_well": true,
+      "suggests_writing_smaller_functions_with_one_responsibility": true,
+      "mentions_tests_or_documentation_as_complementary_aid": false
+    },
+    "concepts_count_present": 2,
+    "concepts_count_total": 4,
+    "readability": {
+      "uses_plain_language": true,
+      "actionable": true,
+      "starts_helpfully": true,
+      "respects_user_level": true
+    },
+    "readability_count_true": 4
+  },
+  "hewn_full_v3/spaghetti-code_r2": {
+    "arm": "hewn_full_v3",
+    "prompt_id": "spaghetti-code",
+    "run_index": 2,
+    "literals_present": {},
+    "format": {
+      "hewn_ir_valid": false,
+      "caveman_style": {
+        "filler_count": 0,
+        "leading_article_count": 0,
+        "words": 33,
+        "filler_per_100w": 0.0,
+        "leading_article_per_100w": 0.0
+      }
+    },
+    "concepts": {
+      "names_a_pattern_for_organizing_code_e_g_modules_or_separation_of_concerns": true,
+      "suggests_naming_things_well": true,
+      "suggests_writing_smaller_functions_with_one_responsibility": true,
+      "mentions_tests_or_documentation_as_complementary_aid": false
+    },
+    "concepts_count_present": 3,
+    "concepts_count_total": 4,
+    "readability": {
+      "uses_plain_language": true,
+      "actionable": true,
+      "starts_helpfully": true,
+      "respects_user_level": true
+    },
+    "readability_count_true": 4
+  },
+  "hewn_full_v3/spaghetti-code_r3": {
+    "arm": "hewn_full_v3",
+    "prompt_id": "spaghetti-code",
+    "run_index": 3,
+    "literals_present": {},
+    "format": {
+      "hewn_ir_valid": false,
+      "caveman_style": {
+        "filler_count": 0,
+        "leading_article_count": 0,
+        "words": 54,
+        "filler_per_100w": 0.0,
+        "leading_article_per_100w": 0.0
+      }
+    },
+    "concepts": {
+      "names_a_pattern_for_organizing_code_e_g_modules_or_separation_of_concerns": true,
+      "suggests_naming_things_well": true,
+      "suggests_writing_smaller_functions_with_one_responsibility": true,
+      "mentions_tests_or_documentation_as_complementary_aid": false
+    },
+    "concepts_count_present": 3,
+    "concepts_count_total": 4,
+    "readability": {
+      "uses_plain_language": true,
+      "actionable": true,
+      "starts_helpfully": true,
+      "respects_user_level": true
+    },
+    "readability_count_true": 4
+  },
+  "hewn_full_v3/typeerror-undefined-map_r1": {
+    "arm": "hewn_full_v3",
+    "prompt_id": "typeerror-undefined-map",
+    "run_index": 1,
+    "literals_present": {
+      "TypeError": false,
+      "undefined": true
+    },
+    "format": {
+      "hewn_ir_valid": false,
+      "caveman_style": {
+        "filler_count": 0,
+        "leading_article_count": 0,
+        "words": 27,
+        "filler_per_100w": 0.0,
+        "leading_article_per_100w": 0.0
+      }
+    },
+    "concepts": {
+      "explains_what_the_error_means": true,
+      "names_the_likely_cause_data_is_undefined_when_map_is_called": true,
+      "suggests_defensive_check_e_g_optional_chaining_or_default_array": false,
+      "suggests_finding_root_cause_why_data_is_undefined": true
+    },
+    "concepts_count_present": 3,
+    "concepts_count_total": 4,
+    "readability": {
+      "uses_plain_language": false,
+      "actionable": true,
+      "starts_helpfully": true,
+      "respects_user_level": false
+    },
+    "readability_count_true": 2
+  },
+  "hewn_full_v3/typeerror-undefined-map_r2": {
+    "arm": "hewn_full_v3",
+    "prompt_id": "typeerror-undefined-map",
+    "run_index": 2,
+    "literals_present": {
+      "TypeError": false,
+      "undefined": true
+    },
+    "format": {
+      "hewn_ir_valid": false,
+      "caveman_style": {
+        "filler_count": 0,
+        "leading_article_count": 0,
+        "words": 24,
+        "filler_per_100w": 0.0,
+        "leading_article_per_100w": 0.0
+      }
+    },
+    "concepts": {
+      "explains_what_the_error_means": true,
+      "names_the_likely_cause_data_is_undefined_when_map_is_called": true,
+      "suggests_defensive_check_e_g_optional_chaining_or_default_array": false,
+      "suggests_finding_root_cause_why_data_is_undefined": true
+    },
+    "concepts_count_present": 3,
+    "concepts_count_total": 4,
+    "readability": {
+      "uses_plain_language": false,
+      "actionable": true,
+      "starts_helpfully": false,
+      "respects_user_level": false
+    },
+    "readability_count_true": 1
+  },
+  "hewn_full_v3/typeerror-undefined-map_r3": {
+    "arm": "hewn_full_v3",
+    "prompt_id": "typeerror-undefined-map",
+    "run_index": 3,
+    "literals_present": {
+      "TypeError": false,
+      "undefined": true
+    },
+    "format": {
+      "hewn_ir_valid": false,
+      "caveman_style": {
+        "filler_count": 0,
+        "leading_article_count": 0,
+        "words": 30,
+        "filler_per_100w": 0.0,
+        "leading_article_per_100w": 0.0
+      }
+    },
+    "concepts": {
+      "explains_what_the_error_means": true,
+      "names_the_likely_cause_data_is_undefined_when_map_is_called": true,
+      "suggests_defensive_check_e_g_optional_chaining_or_default_array": false,
+      "suggests_finding_root_cause_why_data_is_undefined": true
+    },
+    "concepts_count_present": 3,
+    "concepts_count_total": 4,
+    "readability": {
+      "uses_plain_language": false,
+      "actionable": true,
+      "starts_helpfully": true,
+      "respects_user_level": false
+    },
+    "readability_count_true": 2
+  },
+  "hewn_prompt_only_v3/add-search-bar_r1": {
+    "arm": "hewn_prompt_only_v3",
+    "prompt_id": "add-search-bar",
+    "run_index": 1,
+    "literals_present": {},
+    "format": {
+      "hewn_ir_valid": false,
+      "caveman_style": {
+        "filler_count": 0,
+        "leading_article_count": 0,
+        "words": 39,
+        "filler_per_100w": 0.0,
+        "leading_article_per_100w": 0.0
+      }
+    },
+    "concepts": {
+      "explains_two_main_pieces_input_field_and_search_logic": false,
+      "mentions_filtering_or_querying_data_source": false,
+      "explains_starting_simple_then_iterating": false,
+      "mentions_debouncing_or_performance_consideration_eventually": false
+    },
+    "concepts_count_present": 0,
+    "concepts_count_total": 4,
+    "readability": {
+      "uses_plain_language": true,
+      "actionable": true,
+      "starts_helpfully": true,
+      "respects_user_level": false
+    },
+    "readability_count_true": 3
+  },
+  "hewn_prompt_only_v3/add-search-bar_r2": {
+    "arm": "hewn_prompt_only_v3",
+    "prompt_id": "add-search-bar",
+    "run_index": 2,
+    "literals_present": {},
+    "format": {
+      "hewn_ir_valid": false,
+      "caveman_style": {
+        "filler_count": 0,
+        "leading_article_count": 0,
+        "words": 37,
+        "filler_per_100w": 0.0,
+        "leading_article_per_100w": 0.0
+      }
+    },
+    "concepts": {
+      "explains_two_main_pieces_input_field_and_search_logic": false,
+      "mentions_filtering_or_querying_data_source": false,
+      "explains_starting_simple_then_iterating": false,
+      "mentions_debouncing_or_performance_consideration_eventually": false
+    },
+    "concepts_count_present": 0,
+    "concepts_count_total": 4,
+    "readability": {
+      "uses_plain_language": true,
+      "actionable": true,
+      "starts_helpfully": true,
+      "respects_user_level": true
+    },
+    "readability_count_true": 4
+  },
+  "hewn_prompt_only_v3/add-search-bar_r3": {
+    "arm": "hewn_prompt_only_v3",
+    "prompt_id": "add-search-bar",
+    "run_index": 3,
+    "literals_present": {},
+    "format": {
+      "hewn_ir_valid": false,
+      "caveman_style": {
+        "filler_count": 0,
+        "leading_article_count": 0,
+        "words": 39,
+        "filler_per_100w": 0.0,
+        "leading_article_per_100w": 0.0
+      }
+    },
+    "concepts": {
+      "explains_two_main_pieces_input_field_and_search_logic": false,
+      "mentions_filtering_or_querying_data_source": false,
+      "explains_starting_simple_then_iterating": false,
+      "mentions_debouncing_or_performance_consideration_eventually": false
+    },
+    "concepts_count_present": 0,
+    "concepts_count_total": 4,
+    "readability": {
+      "uses_plain_language": true,
+      "actionable": true,
+      "starts_helpfully": true,
+      "respects_user_level": false
+    },
+    "readability_count_true": 3
+  },
+  "hewn_prompt_only_v3/login-button-broken_r1": {
+    "arm": "hewn_prompt_only_v3",
+    "prompt_id": "login-button-broken",
+    "run_index": 1,
+    "literals_present": {},
+    "format": {
+      "hewn_ir_valid": false,
+      "caveman_style": {
+        "filler_count": 0,
+        "leading_article_count": 0,
+        "words": 40,
+        "filler_per_100w": 0.0,
+        "leading_article_per_100w": 0.0
+      }
+    },
+    "concepts": {
+      "asks_for_more_info_e_g_browser_console_error_or_network_tab": false,
+      "suggests_checking_recent_deploys_or_changes": false,
+      "mentions_a_diagnostic_step_user_can_run": false,
+      "stays_calm_and_actionable_not_panicky": true
+    },
+    "concepts_count_present": 1,
+    "concepts_count_total": 4,
+    "readability": {
+      "uses_plain_language": true,
+      "actionable": true,
+      "starts_helpfully": true,
+      "respects_user_level": true
+    },
+    "readability_count_true": 4
+  },
+  "hewn_prompt_only_v3/login-button-broken_r2": {
+    "arm": "hewn_prompt_only_v3",
+    "prompt_id": "login-button-broken",
+    "run_index": 2,
+    "literals_present": {},
+    "format": {
+      "hewn_ir_valid": false,
+      "caveman_style": {
+        "filler_count": 1,
+        "leading_article_count": 0,
+        "words": 67,
+        "filler_per_100w": 1.49,
+        "leading_article_per_100w": 0.0
+      }
+    },
+    "concepts": {
+      "asks_for_more_info_e_g_browser_console_error_or_network_tab": true,
+      "suggests_checking_recent_deploys_or_changes": false,
+      "mentions_a_diagnostic_step_user_can_run": true,
+      "stays_calm_and_actionable_not_panicky": true
+    },
+    "concepts_count_present": 3,
+    "concepts_count_total": 4,
+    "readability": {
+      "uses_plain_language": false,
+      "actionable": true,
+      "starts_helpfully": true,
+      "respects_user_level": false
+    },
+    "readability_count_true": 2
+  },
+  "hewn_prompt_only_v3/login-button-broken_r3": {
+    "arm": "hewn_prompt_only_v3",
+    "prompt_id": "login-button-broken",
+    "run_index": 3,
+    "literals_present": {},
+    "format": {
+      "hewn_ir_valid": false,
+      "caveman_style": {
+        "filler_count": 0,
+        "leading_article_count": 0,
+        "words": 44,
+        "filler_per_100w": 0.0,
+        "leading_article_per_100w": 0.0
+      }
+    },
+    "concepts": {
+      "asks_for_more_info_e_g_browser_console_error_or_network_tab": false,
+      "suggests_checking_recent_deploys_or_changes": false,
+      "mentions_a_diagnostic_step_user_can_run": true,
+      "stays_calm_and_actionable_not_panicky": true
+    },
+    "concepts_count_present": 2,
+    "concepts_count_total": 4,
+    "readability": {
+      "uses_plain_language": true,
+      "actionable": true,
+      "starts_helpfully": true,
+      "respects_user_level": false
+    },
+    "readability_count_true": 3
+  },
+  "hewn_prompt_only_v3/make-website-faster_r1": {
+    "arm": "hewn_prompt_only_v3",
+    "prompt_id": "make-website-faster",
+    "run_index": 1,
+    "literals_present": {},
+    "format": {
+      "hewn_ir_valid": false,
+      "caveman_style": {
+        "filler_count": 0,
+        "leading_article_count": 0,
+        "words": 26,
+        "filler_per_100w": 0.0,
+        "leading_article_per_100w": 0.0
+      }
+    },
+    "concepts": {
+      "asks_for_or_assumes_what_kind_of_slow": false,
+      "mentions_measurement_first_e_g_lighthouse_or_devtools": false,
+      "suggests_concrete_levers_e_g_image_optimization_or_bundle_size_or_caching": false,
+      "asks_clarifying_question_or_offers_a_starting_point": true
+    },
+    "concepts_count_present": 1,
+    "concepts_count_total": 4,
+    "readability": {
+      "uses_plain_language": false,
+      "actionable": true,
+      "starts_helpfully": true,
+      "respects_user_level": false
+    },
+    "readability_count_true": 2
+  },
+  "hewn_prompt_only_v3/make-website-faster_r2": {
+    "arm": "hewn_prompt_only_v3",
+    "prompt_id": "make-website-faster",
+    "run_index": 2,
+    "literals_present": {},
+    "format": {
+      "hewn_ir_valid": false,
+      "caveman_style": {
+        "filler_count": 0,
+        "leading_article_count": 0,
+        "words": 28,
+        "filler_per_100w": 0.0,
+        "leading_article_per_100w": 0.0
+      }
+    },
+    "concepts": {
+      "asks_for_or_assumes_what_kind_of_slow": false,
+      "mentions_measurement_first_e_g_lighthouse_or_devtools": false,
+      "suggests_concrete_levers_e_g_image_optimization_or_bundle_size_or_caching": false,
+      "asks_clarifying_question_or_offers_a_starting_point": true
+    },
+    "concepts_count_present": 1,
+    "concepts_count_total": 4,
+    "readability": {
+      "uses_plain_language": true,
+      "actionable": true,
+      "starts_helpfully": true,
+      "respects_user_level": true
+    },
+    "readability_count_true": 4
+  },
+  "hewn_prompt_only_v3/make-website-faster_r3": {
+    "arm": "hewn_prompt_only_v3",
+    "prompt_id": "make-website-faster",
+    "run_index": 3,
+    "literals_present": {},
+    "format": {
+      "hewn_ir_valid": false,
+      "caveman_style": {
+        "filler_count": 0,
+        "leading_article_count": 0,
+        "words": 18,
+        "filler_per_100w": 0.0,
+        "leading_article_per_100w": 0.0
+      }
+    },
+    "concepts": {
+      "asks_for_or_assumes_what_kind_of_slow": false,
+      "mentions_measurement_first_e_g_lighthouse_or_devtools": false,
+      "suggests_concrete_levers_e_g_image_optimization_or_bundle_size_or_caching": false,
+      "asks_clarifying_question_or_offers_a_starting_point": true
+    },
+    "concepts_count_present": 1,
+    "concepts_count_total": 4,
+    "readability": {
+      "uses_plain_language": true,
+      "actionable": true,
+      "starts_helpfully": true,
+      "respects_user_level": true
+    },
+    "readability_count_true": 4
+  },
+  "hewn_prompt_only_v3/spaghetti-code_r1": {
+    "arm": "hewn_prompt_only_v3",
+    "prompt_id": "spaghetti-code",
+    "run_index": 1,
+    "literals_present": {},
+    "format": {
+      "hewn_ir_valid": false,
+      "caveman_style": {
+        "filler_count": 1,
+        "leading_article_count": 1,
+        "words": 206,
+        "filler_per_100w": 0.49,
+        "leading_article_per_100w": 0.49
+      }
+    },
+    "concepts": {
+      "names_a_pattern_for_organizing_code_e_g_modules_or_separation_of_concerns": true,
+      "suggests_naming_things_well": true,
+      "suggests_writing_smaller_functions_with_one_responsibility": true,
+      "mentions_tests_or_documentation_as_complementary_aid": false
+    },
+    "concepts_count_present": 3,
+    "concepts_count_total": 4,
+    "readability": {
+      "uses_plain_language": false,
+      "actionable": true,
+      "starts_helpfully": true,
+      "respects_user_level": false
+    },
+    "readability_count_true": 2
+  },
+  "hewn_prompt_only_v3/spaghetti-code_r2": {
+    "arm": "hewn_prompt_only_v3",
+    "prompt_id": "spaghetti-code",
+    "run_index": 2,
+    "literals_present": {},
+    "format": {
+      "hewn_ir_valid": false,
+      "caveman_style": {
+        "filler_count": 1,
+        "leading_article_count": 0,
+        "words": 172,
+        "filler_per_100w": 0.58,
+        "leading_article_per_100w": 0.0
+      }
+    },
+    "concepts": {
+      "names_a_pattern_for_organizing_code_e_g_modules_or_separation_of_concerns": true,
+      "suggests_naming_things_well": true,
+      "suggests_writing_smaller_functions_with_one_responsibility": true,
+      "mentions_tests_or_documentation_as_complementary_aid": false
+    },
+    "concepts_count_present": 3,
+    "concepts_count_total": 4,
+    "readability": {
+      "uses_plain_language": false,
+      "actionable": true,
+      "starts_helpfully": true,
+      "respects_user_level": false
+    },
+    "readability_count_true": 2
+  },
+  "hewn_prompt_only_v3/spaghetti-code_r3": {
+    "arm": "hewn_prompt_only_v3",
+    "prompt_id": "spaghetti-code",
+    "run_index": 3,
+    "literals_present": {},
+    "format": {
+      "hewn_ir_valid": false,
+      "caveman_style": {
+        "filler_count": 1,
+        "leading_article_count": 2,
+        "words": 232,
+        "filler_per_100w": 0.43,
+        "leading_article_per_100w": 0.86
+      }
+    },
+    "concepts": {
+      "names_a_pattern_for_organizing_code_e_g_modules_or_separation_of_concerns": true,
+      "suggests_naming_things_well": true,
+      "suggests_writing_smaller_functions_with_one_responsibility": true,
+      "mentions_tests_or_documentation_as_complementary_aid": false
+    },
+    "concepts_count_present": 3,
+    "concepts_count_total": 4,
+    "readability": {
+      "uses_plain_language": false,
+      "actionable": true,
+      "starts_helpfully": true,
+      "respects_user_level": false
+    },
+    "readability_count_true": 2
+  },
+  "hewn_prompt_only_v3/typeerror-undefined-map_r1": {
+    "arm": "hewn_prompt_only_v3",
+    "prompt_id": "typeerror-undefined-map",
+    "run_index": 1,
+    "literals_present": {
+      "TypeError": false,
+      "undefined": true
+    },
+    "format": {
+      "hewn_ir_valid": false,
+      "caveman_style": {
+        "filler_count": 1,
+        "leading_article_count": 0,
+        "words": 113,
+        "filler_per_100w": 0.88,
+        "leading_article_per_100w": 0.0
+      }
+    },
+    "concepts": {
+      "explains_what_the_error_means": true,
+      "names_the_likely_cause_data_is_undefined_when_map_is_called": true,
+      "suggests_defensive_check_e_g_optional_chaining_or_default_array": true,
+      "suggests_finding_root_cause_why_data_is_undefined": true
+    },
+    "concepts_count_present": 4,
+    "concepts_count_total": 4,
+    "readability": {
+      "uses_plain_language": false,
+      "actionable": true,
+      "starts_helpfully": true,
+      "respects_user_level": false
+    },
+    "readability_count_true": 2
+  },
+  "hewn_prompt_only_v3/typeerror-undefined-map_r2": {
+    "arm": "hewn_prompt_only_v3",
+    "prompt_id": "typeerror-undefined-map",
+    "run_index": 2,
+    "literals_present": {
+      "TypeError": false,
+      "undefined": true
+    },
+    "format": {
+      "hewn_ir_valid": false,
+      "caveman_style": {
+        "filler_count": 0,
+        "leading_article_count": 1,
+        "words": 118,
+        "filler_per_100w": 0.0,
+        "leading_article_per_100w": 0.85
+      }
+    },
+    "concepts": {
+      "explains_what_the_error_means": true,
+      "names_the_likely_cause_data_is_undefined_when_map_is_called": true,
+      "suggests_defensive_check_e_g_optional_chaining_or_default_array": false,
+      "suggests_finding_root_cause_why_data_is_undefined": true
+    },
+    "concepts_count_present": 3,
+    "concepts_count_total": 4,
+    "readability": {
+      "uses_plain_language": false,
+      "actionable": true,
+      "starts_helpfully": true,
+      "respects_user_level": false
+    },
+    "readability_count_true": 2
+  },
+  "hewn_prompt_only_v3/typeerror-undefined-map_r3": {
+    "arm": "hewn_prompt_only_v3",
+    "prompt_id": "typeerror-undefined-map",
+    "run_index": 3,
+    "literals_present": {
+      "TypeError": false,
+      "undefined": true
+    },
+    "format": {
+      "hewn_ir_valid": false,
+      "caveman_style": {
+        "filler_count": 1,
+        "leading_article_count": 0,
+        "words": 102,
+        "filler_per_100w": 0.98,
+        "leading_article_per_100w": 0.0
+      }
+    },
+    "concepts": {
+      "explains_what_the_error_means": true,
+      "names_the_likely_cause_data_is_undefined_when_map_is_called": true,
+      "suggests_defensive_check_e_g_optional_chaining_or_default_array": true,
+      "suggests_finding_root_cause_why_data_is_undefined": true
+    },
+    "concepts_count_present": 4,
+    "concepts_count_total": 4,
+    "readability": {
+      "uses_plain_language": false,
+      "actionable": true,
+      "starts_helpfully": true,
+      "respects_user_level": false
+    },
+    "readability_count_true": 2
+  },
+  "hewn_full/add-search-bar_r1": {
+    "arm": "hewn_full",
+    "prompt_id": "add-search-bar",
+    "run_index": 1,
+    "literals_present": {},
+    "format": {
+      "hewn_ir_valid": false,
+      "caveman_style": {
+        "filler_count": 0,
+        "leading_article_count": 0,
+        "words": 24,
+        "filler_per_100w": 0.0,
+        "leading_article_per_100w": 0.0
+      }
+    },
+    "concepts": {
+      "explains_two_main_pieces_input_field_and_search_logic": false,
+      "mentions_filtering_or_querying_data_source": true,
+      "explains_starting_simple_then_iterating": true,
+      "mentions_debouncing_or_performance_consideration_eventually": false
+    },
+    "concepts_count_present": 2,
+    "concepts_count_total": 4,
+    "readability": {
+      "uses_plain_language": false,
+      "actionable": false,
+      "starts_helpfully": false,
+      "respects_user_level": false
+    },
+    "readability_count_true": 0
+  },
+  "hewn_full/add-search-bar_r2": {
+    "arm": "hewn_full",
+    "prompt_id": "add-search-bar",
+    "run_index": 2,
+    "literals_present": {},
+    "format": {
+      "hewn_ir_valid": false,
+      "caveman_style": {
+        "filler_count": 0,
+        "leading_article_count": 0,
+        "words": 16,
+        "filler_per_100w": 0.0,
+        "leading_article_per_100w": 0.0
+      }
+    },
+    "concepts": {
+      "explains_two_main_pieces_input_field_and_search_logic": false,
+      "mentions_filtering_or_querying_data_source": true,
+      "explains_starting_simple_then_iterating": false,
+      "mentions_debouncing_or_performance_consideration_eventually": false
+    },
+    "concepts_count_present": 1,
+    "concepts_count_total": 4,
+    "readability": {
+      "uses_plain_language": false,
+      "actionable": false,
+      "starts_helpfully": false,
+      "respects_user_level": false
+    },
+    "readability_count_true": 0
+  },
+  "hewn_full/add-search-bar_r3": {
+    "arm": "hewn_full",
+    "prompt_id": "add-search-bar",
+    "run_index": 3,
+    "literals_present": {},
+    "format": {
+      "hewn_ir_valid": false,
+      "caveman_style": {
+        "filler_count": 0,
+        "leading_article_count": 0,
+        "words": 17,
+        "filler_per_100w": 0.0,
+        "leading_article_per_100w": 0.0
+      }
+    },
+    "concepts": {
+      "explains_two_main_pieces_input_field_and_search_logic": false,
+      "mentions_filtering_or_querying_data_source": true,
+      "explains_starting_simple_then_iterating": false,
+      "mentions_debouncing_or_performance_consideration_eventually": false
+    },
+    "concepts_count_present": 1,
+    "concepts_count_total": 4,
+    "readability": {
+      "uses_plain_language": false,
+      "actionable": false,
+      "starts_helpfully": false,
+      "respects_user_level": false
+    },
+    "readability_count_true": 0
+  },
+  "hewn_full/login-button-broken_r1": {
+    "arm": "hewn_full",
+    "prompt_id": "login-button-broken",
+    "run_index": 1,
+    "literals_present": {},
+    "format": {
+      "hewn_ir_valid": false,
+      "caveman_style": {
+        "filler_count": 0,
+        "leading_article_count": 0,
+        "words": 32,
+        "filler_per_100w": 0.0,
+        "leading_article_per_100w": 0.0
+      }
+    },
+    "concepts": {
+      "asks_for_more_info_e_g_browser_console_error_or_network_tab": true,
+      "suggests_checking_recent_deploys_or_changes": false,
+      "mentions_a_diagnostic_step_user_can_run": true,
+      "stays_calm_and_actionable_not_panicky": true
+    },
+    "concepts_count_present": 3,
+    "concepts_count_total": 4,
+    "readability": {
+      "uses_plain_language": false,
+      "actionable": false,
+      "starts_helpfully": false,
+      "respects_user_level": false
+    },
+    "readability_count_true": 0
+  },
+  "hewn_full/login-button-broken_r2": {
+    "arm": "hewn_full",
+    "prompt_id": "login-button-broken",
+    "run_index": 2,
+    "literals_present": {},
+    "format": {
+      "hewn_ir_valid": false,
+      "caveman_style": {
+        "filler_count": 0,
+        "leading_article_count": 0,
+        "words": 20,
+        "filler_per_100w": 0.0,
+        "leading_article_per_100w": 0.0
+      }
+    },
+    "concepts": {
+      "asks_for_more_info_e_g_browser_console_error_or_network_tab": true,
+      "suggests_checking_recent_deploys_or_changes": true,
+      "mentions_a_diagnostic_step_user_can_run": true,
+      "stays_calm_and_actionable_not_panicky": true
+    },
+    "concepts_count_present": 4,
     "concepts_count_total": 4,
     "readability": {
       "uses_plain_language": false,
@@ -3971,11 +4919,11 @@
     "concepts_count_total": 4,
     "readability": {
       "uses_plain_language": false,
-      "actionable": true,
-      "starts_helpfully": true,
+      "actionable": false,
+      "starts_helpfully": false,
       "respects_user_level": false
     },
-    "readability_count_true": 2
+    "readability_count_true": 0
   },
   "hewn_full/make-website-faster_r1": {
     "arm": "hewn_full",
@@ -3987,7 +4935,7 @@
       "caveman_style": {
         "filler_count": 0,
         "leading_article_count": 0,
-        "words": 15,
+        "words": 18,
         "filler_per_100w": 0.0,
         "leading_article_per_100w": 0.0
       }
@@ -4018,18 +4966,18 @@
       "caveman_style": {
         "filler_count": 0,
         "leading_article_count": 0,
-        "words": 20,
+        "words": 24,
         "filler_per_100w": 0.0,
         "leading_article_per_100w": 0.0
       }
     },
     "concepts": {
       "asks_for_or_assumes_what_kind_of_slow": true,
-      "mentions_measurement_first_e_g_lighthouse_or_devtools": true,
+      "mentions_measurement_first_e_g_lighthouse_or_devtools": false,
       "suggests_concrete_levers_e_g_image_optimization_or_bundle_size_or_caching": false,
       "asks_clarifying_question_or_offers_a_starting_point": true
     },
-    "concepts_count_present": 3,
+    "concepts_count_present": 2,
     "concepts_count_total": 4,
     "readability": {
       "uses_plain_language": false,
@@ -4049,7 +4997,7 @@
       "caveman_style": {
         "filler_count": 0,
         "leading_article_count": 0,
-        "words": 18,
+        "words": 13,
         "filler_per_100w": 0.0,
         "leading_article_per_100w": 0.0
       }
@@ -4080,38 +5028,7 @@
       "caveman_style": {
         "filler_count": 0,
         "leading_article_count": 0,
-        "words": 42,
-        "filler_per_100w": 0.0,
-        "leading_article_per_100w": 0.0
-      }
-    },
-    "concepts": {
-      "names_a_pattern_for_organizing_code_e_g_modules_or_separation_of_concerns": false,
-      "suggests_naming_things_well": true,
-      "suggests_writing_smaller_functions_with_one_responsibility": true,
-      "mentions_tests_or_documentation_as_complementary_aid": false
-    },
-    "concepts_count_present": 2,
-    "concepts_count_total": 4,
-    "readability": {
-      "uses_plain_language": true,
-      "actionable": true,
-      "starts_helpfully": true,
-      "respects_user_level": true
-    },
-    "readability_count_true": 4
-  },
-  "hewn_full/spaghetti-code_r2": {
-    "arm": "hewn_full",
-    "prompt_id": "spaghetti-code",
-    "run_index": 2,
-    "literals_present": {},
-    "format": {
-      "hewn_ir_valid": false,
-      "caveman_style": {
-        "filler_count": 0,
-        "leading_article_count": 0,
-        "words": 33,
+        "words": 46,
         "filler_per_100w": 0.0,
         "leading_article_per_100w": 0.0
       }
@@ -4125,12 +5042,43 @@
     "concepts_count_present": 3,
     "concepts_count_total": 4,
     "readability": {
-      "uses_plain_language": true,
+      "uses_plain_language": false,
       "actionable": true,
       "starts_helpfully": true,
-      "respects_user_level": true
+      "respects_user_level": false
     },
-    "readability_count_true": 4
+    "readability_count_true": 2
+  },
+  "hewn_full/spaghetti-code_r2": {
+    "arm": "hewn_full",
+    "prompt_id": "spaghetti-code",
+    "run_index": 2,
+    "literals_present": {},
+    "format": {
+      "hewn_ir_valid": false,
+      "caveman_style": {
+        "filler_count": 0,
+        "leading_article_count": 0,
+        "words": 30,
+        "filler_per_100w": 0.0,
+        "leading_article_per_100w": 0.0
+      }
+    },
+    "concepts": {
+      "names_a_pattern_for_organizing_code_e_g_modules_or_separation_of_concerns": false,
+      "suggests_naming_things_well": true,
+      "suggests_writing_smaller_functions_with_one_responsibility": true,
+      "mentions_tests_or_documentation_as_complementary_aid": false
+    },
+    "concepts_count_present": 2,
+    "concepts_count_total": 4,
+    "readability": {
+      "uses_plain_language": false,
+      "actionable": true,
+      "starts_helpfully": true,
+      "respects_user_level": false
+    },
+    "readability_count_true": 2
   },
   "hewn_full/spaghetti-code_r3": {
     "arm": "hewn_full",
@@ -4142,7 +5090,7 @@
       "caveman_style": {
         "filler_count": 0,
         "leading_article_count": 0,
-        "words": 54,
+        "words": 38,
         "filler_per_100w": 0.0,
         "leading_article_per_100w": 0.0
       }
@@ -4176,7 +5124,7 @@
       "caveman_style": {
         "filler_count": 0,
         "leading_article_count": 0,
-        "words": 27,
+        "words": 29,
         "filler_per_100w": 0.0,
         "leading_article_per_100w": 0.0
       }
@@ -4184,10 +5132,10 @@
     "concepts": {
       "explains_what_the_error_means": true,
       "names_the_likely_cause_data_is_undefined_when_map_is_called": true,
-      "suggests_defensive_check_e_g_optional_chaining_or_default_array": false,
+      "suggests_defensive_check_e_g_optional_chaining_or_default_array": true,
       "suggests_finding_root_cause_why_data_is_undefined": true
     },
-    "concepts_count_present": 3,
+    "concepts_count_present": 4,
     "concepts_count_total": 4,
     "readability": {
       "uses_plain_language": false,
@@ -4210,7 +5158,7 @@
       "caveman_style": {
         "filler_count": 0,
         "leading_article_count": 0,
-        "words": 24,
+        "words": 27,
         "filler_per_100w": 0.0,
         "leading_article_per_100w": 0.0
       }
@@ -4218,8 +5166,8 @@
     "concepts": {
       "explains_what_the_error_means": true,
       "names_the_likely_cause_data_is_undefined_when_map_is_called": true,
-      "suggests_defensive_check_e_g_optional_chaining_or_default_array": false,
-      "suggests_finding_root_cause_why_data_is_undefined": true
+      "suggests_defensive_check_e_g_optional_chaining_or_default_array": true,
+      "suggests_finding_root_cause_why_data_is_undefined": false
     },
     "concepts_count_present": 3,
     "concepts_count_total": 4,
@@ -4244,7 +5192,7 @@
       "caveman_style": {
         "filler_count": 0,
         "leading_article_count": 0,
-        "words": 30,
+        "words": 29,
         "filler_per_100w": 0.0,
         "leading_article_per_100w": 0.0
       }
@@ -4252,18 +5200,18 @@
     "concepts": {
       "explains_what_the_error_means": true,
       "names_the_likely_cause_data_is_undefined_when_map_is_called": true,
-      "suggests_defensive_check_e_g_optional_chaining_or_default_array": false,
-      "suggests_finding_root_cause_why_data_is_undefined": true
+      "suggests_defensive_check_e_g_optional_chaining_or_default_array": true,
+      "suggests_finding_root_cause_why_data_is_undefined": false
     },
     "concepts_count_present": 3,
     "concepts_count_total": 4,
     "readability": {
       "uses_plain_language": false,
       "actionable": true,
-      "starts_helpfully": true,
+      "starts_helpfully": false,
       "respects_user_level": false
     },
-    "readability_count_true": 2
+    "readability_count_true": 1
   },
   "hewn_prompt_only/add-search-bar_r1": {
     "arm": "hewn_prompt_only",
@@ -4275,7 +5223,7 @@
       "caveman_style": {
         "filler_count": 0,
         "leading_article_count": 0,
-        "words": 39,
+        "words": 80,
         "filler_per_100w": 0.0,
         "leading_article_per_100w": 0.0
       }
@@ -4292,9 +5240,9 @@
       "uses_plain_language": true,
       "actionable": true,
       "starts_helpfully": true,
-      "respects_user_level": false
+      "respects_user_level": true
     },
-    "readability_count_true": 3
+    "readability_count_true": 4
   },
   "hewn_prompt_only/add-search-bar_r2": {
     "arm": "hewn_prompt_only",
@@ -4306,37 +5254,6 @@
       "caveman_style": {
         "filler_count": 0,
         "leading_article_count": 0,
-        "words": 37,
-        "filler_per_100w": 0.0,
-        "leading_article_per_100w": 0.0
-      }
-    },
-    "concepts": {
-      "explains_two_main_pieces_input_field_and_search_logic": false,
-      "mentions_filtering_or_querying_data_source": false,
-      "explains_starting_simple_then_iterating": false,
-      "mentions_debouncing_or_performance_consideration_eventually": false
-    },
-    "concepts_count_present": 0,
-    "concepts_count_total": 4,
-    "readability": {
-      "uses_plain_language": true,
-      "actionable": true,
-      "starts_helpfully": true,
-      "respects_user_level": true
-    },
-    "readability_count_true": 4
-  },
-  "hewn_prompt_only/add-search-bar_r3": {
-    "arm": "hewn_prompt_only",
-    "prompt_id": "add-search-bar",
-    "run_index": 3,
-    "literals_present": {},
-    "format": {
-      "hewn_ir_valid": false,
-      "caveman_style": {
-        "filler_count": 0,
-        "leading_article_count": 0,
         "words": 39,
         "filler_per_100w": 0.0,
         "leading_article_per_100w": 0.0
@@ -4351,12 +5268,43 @@
     "concepts_count_present": 0,
     "concepts_count_total": 4,
     "readability": {
-      "uses_plain_language": true,
+      "uses_plain_language": false,
       "actionable": true,
       "starts_helpfully": true,
       "respects_user_level": false
     },
-    "readability_count_true": 3
+    "readability_count_true": 2
+  },
+  "hewn_prompt_only/add-search-bar_r3": {
+    "arm": "hewn_prompt_only",
+    "prompt_id": "add-search-bar",
+    "run_index": 3,
+    "literals_present": {},
+    "format": {
+      "hewn_ir_valid": false,
+      "caveman_style": {
+        "filler_count": 0,
+        "leading_article_count": 0,
+        "words": 99,
+        "filler_per_100w": 0.0,
+        "leading_article_per_100w": 0.0
+      }
+    },
+    "concepts": {
+      "explains_two_main_pieces_input_field_and_search_logic": true,
+      "mentions_filtering_or_querying_data_source": true,
+      "explains_starting_simple_then_iterating": false,
+      "mentions_debouncing_or_performance_consideration_eventually": true
+    },
+    "concepts_count_present": 3,
+    "concepts_count_total": 4,
+    "readability": {
+      "uses_plain_language": false,
+      "actionable": true,
+      "starts_helpfully": false,
+      "respects_user_level": false
+    },
+    "readability_count_true": 1
   },
   "hewn_prompt_only/login-button-broken_r1": {
     "arm": "hewn_prompt_only",
@@ -4366,64 +5314,33 @@
     "format": {
       "hewn_ir_valid": false,
       "caveman_style": {
-        "filler_count": 0,
+        "filler_count": 2,
         "leading_article_count": 0,
-        "words": 40,
-        "filler_per_100w": 0.0,
-        "leading_article_per_100w": 0.0
-      }
-    },
-    "concepts": {
-      "asks_for_more_info_e_g_browser_console_error_or_network_tab": false,
-      "suggests_checking_recent_deploys_or_changes": false,
-      "mentions_a_diagnostic_step_user_can_run": false,
-      "stays_calm_and_actionable_not_panicky": true
-    },
-    "concepts_count_present": 1,
-    "concepts_count_total": 4,
-    "readability": {
-      "uses_plain_language": true,
-      "actionable": true,
-      "starts_helpfully": true,
-      "respects_user_level": true
-    },
-    "readability_count_true": 4
-  },
-  "hewn_prompt_only/login-button-broken_r2": {
-    "arm": "hewn_prompt_only",
-    "prompt_id": "login-button-broken",
-    "run_index": 2,
-    "literals_present": {},
-    "format": {
-      "hewn_ir_valid": false,
-      "caveman_style": {
-        "filler_count": 1,
-        "leading_article_count": 0,
-        "words": 67,
-        "filler_per_100w": 1.49,
+        "words": 119,
+        "filler_per_100w": 1.68,
         "leading_article_per_100w": 0.0
       }
     },
     "concepts": {
       "asks_for_more_info_e_g_browser_console_error_or_network_tab": true,
       "suggests_checking_recent_deploys_or_changes": false,
-      "mentions_a_diagnostic_step_user_can_run": true,
+      "mentions_a_diagnostic_step_user_can_run": false,
       "stays_calm_and_actionable_not_panicky": true
     },
-    "concepts_count_present": 3,
+    "concepts_count_present": 2,
     "concepts_count_total": 4,
     "readability": {
       "uses_plain_language": false,
-      "actionable": true,
-      "starts_helpfully": true,
+      "actionable": false,
+      "starts_helpfully": false,
       "respects_user_level": false
     },
-    "readability_count_true": 2
+    "readability_count_true": 0
   },
-  "hewn_prompt_only/login-button-broken_r3": {
+  "hewn_prompt_only/login-button-broken_r2": {
     "arm": "hewn_prompt_only",
     "prompt_id": "login-button-broken",
-    "run_index": 3,
+    "run_index": 2,
     "literals_present": {},
     "format": {
       "hewn_ir_valid": false,
@@ -4436,9 +5353,9 @@
       }
     },
     "concepts": {
-      "asks_for_more_info_e_g_browser_console_error_or_network_tab": false,
+      "asks_for_more_info_e_g_browser_console_error_or_network_tab": true,
       "suggests_checking_recent_deploys_or_changes": false,
-      "mentions_a_diagnostic_step_user_can_run": true,
+      "mentions_a_diagnostic_step_user_can_run": false,
       "stays_calm_and_actionable_not_panicky": true
     },
     "concepts_count_present": 2,
@@ -4447,9 +5364,40 @@
       "uses_plain_language": true,
       "actionable": true,
       "starts_helpfully": true,
+      "respects_user_level": true
+    },
+    "readability_count_true": 4
+  },
+  "hewn_prompt_only/login-button-broken_r3": {
+    "arm": "hewn_prompt_only",
+    "prompt_id": "login-button-broken",
+    "run_index": 3,
+    "literals_present": {},
+    "format": {
+      "hewn_ir_valid": false,
+      "caveman_style": {
+        "filler_count": 0,
+        "leading_article_count": 0,
+        "words": 172,
+        "filler_per_100w": 0.0,
+        "leading_article_per_100w": 0.0
+      }
+    },
+    "concepts": {
+      "asks_for_more_info_e_g_browser_console_error_or_network_tab": true,
+      "suggests_checking_recent_deploys_or_changes": true,
+      "mentions_a_diagnostic_step_user_can_run": true,
+      "stays_calm_and_actionable_not_panicky": true
+    },
+    "concepts_count_present": 4,
+    "concepts_count_total": 4,
+    "readability": {
+      "uses_plain_language": false,
+      "actionable": true,
+      "starts_helpfully": true,
       "respects_user_level": false
     },
-    "readability_count_true": 3
+    "readability_count_true": 2
   },
   "hewn_prompt_only/make-website-faster_r1": {
     "arm": "hewn_prompt_only",
@@ -4461,26 +5409,26 @@
       "caveman_style": {
         "filler_count": 0,
         "leading_article_count": 0,
-        "words": 26,
+        "words": 72,
         "filler_per_100w": 0.0,
         "leading_article_per_100w": 0.0
       }
     },
     "concepts": {
-      "asks_for_or_assumes_what_kind_of_slow": false,
-      "mentions_measurement_first_e_g_lighthouse_or_devtools": false,
-      "suggests_concrete_levers_e_g_image_optimization_or_bundle_size_or_caching": false,
+      "asks_for_or_assumes_what_kind_of_slow": true,
+      "mentions_measurement_first_e_g_lighthouse_or_devtools": true,
+      "suggests_concrete_levers_e_g_image_optimization_or_bundle_size_or_caching": true,
       "asks_clarifying_question_or_offers_a_starting_point": true
     },
-    "concepts_count_present": 1,
+    "concepts_count_present": 4,
     "concepts_count_total": 4,
     "readability": {
       "uses_plain_language": false,
-      "actionable": true,
-      "starts_helpfully": true,
+      "actionable": false,
+      "starts_helpfully": false,
       "respects_user_level": false
     },
-    "readability_count_true": 2
+    "readability_count_true": 0
   },
   "hewn_prompt_only/make-website-faster_r2": {
     "arm": "hewn_prompt_only",
@@ -4492,26 +5440,26 @@
       "caveman_style": {
         "filler_count": 0,
         "leading_article_count": 0,
-        "words": 28,
+        "words": 84,
         "filler_per_100w": 0.0,
         "leading_article_per_100w": 0.0
       }
     },
     "concepts": {
       "asks_for_or_assumes_what_kind_of_slow": false,
-      "mentions_measurement_first_e_g_lighthouse_or_devtools": false,
-      "suggests_concrete_levers_e_g_image_optimization_or_bundle_size_or_caching": false,
+      "mentions_measurement_first_e_g_lighthouse_or_devtools": true,
+      "suggests_concrete_levers_e_g_image_optimization_or_bundle_size_or_caching": true,
       "asks_clarifying_question_or_offers_a_starting_point": true
     },
-    "concepts_count_present": 1,
+    "concepts_count_present": 3,
     "concepts_count_total": 4,
     "readability": {
-      "uses_plain_language": true,
+      "uses_plain_language": false,
       "actionable": true,
-      "starts_helpfully": true,
-      "respects_user_level": true
+      "starts_helpfully": false,
+      "respects_user_level": false
     },
-    "readability_count_true": 4
+    "readability_count_true": 1
   },
   "hewn_prompt_only/make-website-faster_r3": {
     "arm": "hewn_prompt_only",
@@ -4521,10 +5469,10 @@
     "format": {
       "hewn_ir_valid": false,
       "caveman_style": {
-        "filler_count": 0,
+        "filler_count": 1,
         "leading_article_count": 0,
-        "words": 18,
-        "filler_per_100w": 0.0,
+        "words": 30,
+        "filler_per_100w": 3.33,
         "leading_article_per_100w": 0.0
       }
     },
@@ -4552,11 +5500,11 @@
     "format": {
       "hewn_ir_valid": false,
       "caveman_style": {
-        "filler_count": 1,
+        "filler_count": 2,
         "leading_article_count": 1,
-        "words": 206,
-        "filler_per_100w": 0.49,
-        "leading_article_per_100w": 0.49
+        "words": 187,
+        "filler_per_100w": 1.07,
+        "leading_article_per_100w": 0.53
       }
     },
     "concepts": {
@@ -4583,11 +5531,11 @@
     "format": {
       "hewn_ir_valid": false,
       "caveman_style": {
-        "filler_count": 1,
-        "leading_article_count": 0,
-        "words": 172,
-        "filler_per_100w": 0.58,
-        "leading_article_per_100w": 0.0
+        "filler_count": 2,
+        "leading_article_count": 2,
+        "words": 237,
+        "filler_per_100w": 0.84,
+        "leading_article_per_100w": 0.84
       }
     },
     "concepts": {
@@ -4614,11 +5562,11 @@
     "format": {
       "hewn_ir_valid": false,
       "caveman_style": {
-        "filler_count": 1,
+        "filler_count": 0,
         "leading_article_count": 2,
-        "words": 232,
-        "filler_per_100w": 0.43,
-        "leading_article_per_100w": 0.86
+        "words": 288,
+        "filler_per_100w": 0.0,
+        "leading_article_per_100w": 0.69
       }
     },
     "concepts": {
@@ -4648,78 +5596,10 @@
     "format": {
       "hewn_ir_valid": false,
       "caveman_style": {
-        "filler_count": 1,
-        "leading_article_count": 0,
-        "words": 113,
-        "filler_per_100w": 0.88,
-        "leading_article_per_100w": 0.0
-      }
-    },
-    "concepts": {
-      "explains_what_the_error_means": true,
-      "names_the_likely_cause_data_is_undefined_when_map_is_called": true,
-      "suggests_defensive_check_e_g_optional_chaining_or_default_array": true,
-      "suggests_finding_root_cause_why_data_is_undefined": true
-    },
-    "concepts_count_present": 4,
-    "concepts_count_total": 4,
-    "readability": {
-      "uses_plain_language": false,
-      "actionable": true,
-      "starts_helpfully": true,
-      "respects_user_level": false
-    },
-    "readability_count_true": 2
-  },
-  "hewn_prompt_only/typeerror-undefined-map_r2": {
-    "arm": "hewn_prompt_only",
-    "prompt_id": "typeerror-undefined-map",
-    "run_index": 2,
-    "literals_present": {
-      "TypeError": false,
-      "undefined": true
-    },
-    "format": {
-      "hewn_ir_valid": false,
-      "caveman_style": {
         "filler_count": 0,
-        "leading_article_count": 1,
-        "words": 118,
-        "filler_per_100w": 0.0,
-        "leading_article_per_100w": 0.85
-      }
-    },
-    "concepts": {
-      "explains_what_the_error_means": true,
-      "names_the_likely_cause_data_is_undefined_when_map_is_called": true,
-      "suggests_defensive_check_e_g_optional_chaining_or_default_array": false,
-      "suggests_finding_root_cause_why_data_is_undefined": true
-    },
-    "concepts_count_present": 3,
-    "concepts_count_total": 4,
-    "readability": {
-      "uses_plain_language": false,
-      "actionable": true,
-      "starts_helpfully": true,
-      "respects_user_level": false
-    },
-    "readability_count_true": 2
-  },
-  "hewn_prompt_only/typeerror-undefined-map_r3": {
-    "arm": "hewn_prompt_only",
-    "prompt_id": "typeerror-undefined-map",
-    "run_index": 3,
-    "literals_present": {
-      "TypeError": false,
-      "undefined": true
-    },
-    "format": {
-      "hewn_ir_valid": false,
-      "caveman_style": {
-        "filler_count": 1,
         "leading_article_count": 0,
-        "words": 102,
-        "filler_per_100w": 0.98,
+        "words": 87,
+        "filler_per_100w": 0.0,
         "leading_article_per_100w": 0.0
       }
     },
@@ -4734,9 +5614,9 @@
     "readability": {
       "uses_plain_language": false,
       "actionable": true,
-      "starts_helpfully": true,
+      "starts_helpfully": false,
       "respects_user_level": false
     },
-    "readability_count_true": 2
+    "readability_count_true": 1
   }
 }

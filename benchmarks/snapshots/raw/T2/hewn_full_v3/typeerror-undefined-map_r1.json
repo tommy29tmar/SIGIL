@@ -1,0 +1,105 @@
+{
+  "track": "T2",
+  "arm": "hewn_full",
+  "prompt_id": "typeerror-undefined-map",
+  "run_index": 1,
+  "arm_order_index": 1,
+  "arm_order_full": [
+    "caveman_full_plus_ultra_directive",
+    "hewn_full",
+    "terse",
+    "caveman_full",
+    "hewn_prompt_only",
+    "baseline"
+  ],
+  "digest_hex": "5b724573e058540f92f1cf0a27ec02ab3ed51a957569e6eb2a6e04a27a1062f9",
+  "seed": "hewn-bench-v1",
+  "timestamp": "2026-04-22T09:36:45.445203+00:00",
+  "output_tokens_tiktoken": 34,
+  "output_tokens_anthropic": 55,
+  "input_tokens_anthropic": 6,
+  "cache_creation_input_tokens": 18509,
+  "cache_read_input_tokens": 16805,
+  "total_input_tokens": 35320,
+  "cache_state": "warm",
+  "wallclock_ms": 10054.243006015895,
+  "duration_ms": 3751,
+  "duration_api_ms": 4812,
+  "wrapper_overhead_ms": 5242.243006015895,
+  "stop_reason": "end_turn",
+  "num_turns": 1,
+  "session_id": "b72eb797-6005-4cee-a62e-9beb3ce8538b",
+  "total_cost_usd": 0.12591775000000002,
+  "model_used": "claude-haiku-4-5-20251001,claude-opus-4-7",
+  "result": "`.map` called on undefined. Data not loaded yet, wrong shape, or key missing.\n\nShare call site + value of the thing you're mapping right before the call.",
+  "assertion_pass": true,
+  "raw_payload": {
+    "type": "result",
+    "subtype": "success",
+    "is_error": false,
+    "api_error_status": null,
+    "duration_ms": 3751,
+    "duration_api_ms": 4812,
+    "num_turns": 1,
+    "result": "`.map` called on undefined. Data not loaded yet, wrong shape, or key missing.\n\nShare call site + value of the thing you're mapping right before the call.",
+    "stop_reason": "end_turn",
+    "session_id": "b72eb797-6005-4cee-a62e-9beb3ce8538b",
+    "total_cost_usd": 0.12591775000000002,
+    "usage": {
+      "input_tokens": 6,
+      "cache_creation_input_tokens": 18509,
+      "cache_read_input_tokens": 16805,
+      "output_tokens": 55,
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 18509,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "",
+      "iterations": [
+        {
+          "input_tokens": 6,
+          "output_tokens": 55,
+          "cache_read_input_tokens": 16805,
+          "cache_creation_input_tokens": 18509,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 18509
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard"
+    },
+    "modelUsage": {
+      "claude-haiku-4-5-20251001": {
+        "inputTokens": 364,
+        "outputTokens": 13,
+        "cacheReadInputTokens": 0,
+        "cacheCreationInputTokens": 0,
+        "webSearchRequests": 0,
+        "costUSD": 0.000429,
+        "contextWindow": 200000,
+        "maxOutputTokens": 32000
+      },
+      "claude-opus-4-7": {
+        "inputTokens": 6,
+        "outputTokens": 55,
+        "cacheReadInputTokens": 16805,
+        "cacheCreationInputTokens": 18509,
+        "webSearchRequests": 0,
+        "costUSD": 0.12548875,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "uuid": "35df5847-595d-4412-a15f-8fc31a936f71"
+  }
+}

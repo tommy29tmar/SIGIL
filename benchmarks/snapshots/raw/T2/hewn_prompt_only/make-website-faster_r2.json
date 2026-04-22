@@ -14,61 +14,61 @@
   ],
   "digest_hex": "9caf83a97f9c70aad26c54db6edc6ff5dabd66837b4f8a8772db304b1d670fb8",
   "seed": "hewn-bench-v1",
-  "timestamp": "2026-04-22T09:37:39.999899+00:00",
-  "output_tokens_tiktoken": 33,
-  "output_tokens_anthropic": 208,
+  "timestamp": "2026-04-22T12:34:15.521517+00:00",
+  "output_tokens_tiktoken": 135,
+  "output_tokens_anthropic": 814,
   "input_tokens_anthropic": 6,
-  "cache_creation_input_tokens": 17045,
+  "cache_creation_input_tokens": 17060,
   "cache_read_input_tokens": 16796,
-  "total_input_tokens": 33847,
+  "total_input_tokens": 33862,
   "cache_state": "warm",
-  "wallclock_ms": 12469.997378007974,
-  "duration_ms": 5037,
-  "duration_api_ms": 6311,
+  "wallclock_ms": 21131.712973001413,
+  "duration_ms": 14423,
+  "duration_api_ms": 15180,
   "wrapper_overhead_ms": null,
   "stop_reason": "end_turn",
   "num_turns": 1,
-  "session_id": "f25baab4-bacb-4e83-a339-0cc07c0bbfa1",
-  "total_cost_usd": 0.12056625000000001,
+  "session_id": "684d829e-960d-4fe8-aed1-5358c73024a4",
+  "total_cost_usd": 0.13581,
   "model_used": "claude-haiku-4-5-20251001,claude-opus-4-7",
-  "result": "There's no website in this repo — it's Hewn, a Claude Code CLI wrapper. Which site do you mean? Share a URL or path and I'll dig in.",
+  "result": "No website code in this repo — SIGIL/Hewn is a Claude Code CLI wrapper. What site do you mean? Point me at a repo/URL or drop the code here.\n\nIf you want generic triage, the usual wins:\n1. Measure first (Lighthouse / WebPageTest) — don't guess\n2. Image optimization (WebP/AVIF, proper sizing, lazy-load)\n3. JS bundle: code-split, tree-shake, defer non-critical\n4. Cache headers + CDN for static assets\n5. Fewer/smaller render-blocking requests in `<head>`\n\nGive me the project and I'll do the actual work.",
   "assertion_pass": true,
   "raw_payload": {
     "type": "result",
     "subtype": "success",
     "is_error": false,
     "api_error_status": null,
-    "duration_ms": 5037,
-    "duration_api_ms": 6311,
+    "duration_ms": 14423,
+    "duration_api_ms": 15180,
     "num_turns": 1,
-    "result": "There's no website in this repo — it's Hewn, a Claude Code CLI wrapper. Which site do you mean? Share a URL or path and I'll dig in.",
+    "result": "No website code in this repo — SIGIL/Hewn is a Claude Code CLI wrapper. What site do you mean? Point me at a repo/URL or drop the code here.\n\nIf you want generic triage, the usual wins:\n1. Measure first (Lighthouse / WebPageTest) — don't guess\n2. Image optimization (WebP/AVIF, proper sizing, lazy-load)\n3. JS bundle: code-split, tree-shake, defer non-critical\n4. Cache headers + CDN for static assets\n5. Fewer/smaller render-blocking requests in `<head>`\n\nGive me the project and I'll do the actual work.",
     "stop_reason": "end_turn",
-    "session_id": "f25baab4-bacb-4e83-a339-0cc07c0bbfa1",
-    "total_cost_usd": 0.12056625000000001,
+    "session_id": "684d829e-960d-4fe8-aed1-5358c73024a4",
+    "total_cost_usd": 0.13581,
     "usage": {
       "input_tokens": 6,
-      "cache_creation_input_tokens": 17045,
+      "cache_creation_input_tokens": 17060,
       "cache_read_input_tokens": 16796,
-      "output_tokens": 208,
+      "output_tokens": 814,
       "server_tool_use": {
         "web_search_requests": 0,
         "web_fetch_requests": 0
       },
       "service_tier": "standard",
       "cache_creation": {
-        "ephemeral_1h_input_tokens": 17045,
+        "ephemeral_1h_input_tokens": 17060,
         "ephemeral_5m_input_tokens": 0
       },
       "inference_geo": "",
       "iterations": [
         {
           "input_tokens": 6,
-          "output_tokens": 208,
+          "output_tokens": 814,
           "cache_read_input_tokens": 16796,
-          "cache_creation_input_tokens": 17045,
+          "cache_creation_input_tokens": 17060,
           "cache_creation": {
             "ephemeral_5m_input_tokens": 0,
-            "ephemeral_1h_input_tokens": 17045
+            "ephemeral_1h_input_tokens": 17060
           },
           "type": "message"
         }
@@ -88,11 +88,11 @@
       },
       "claude-opus-4-7": {
         "inputTokens": 6,
-        "outputTokens": 208,
+        "outputTokens": 814,
         "cacheReadInputTokens": 16796,
-        "cacheCreationInputTokens": 17045,
+        "cacheCreationInputTokens": 17060,
         "webSearchRequests": 0,
-        "costUSD": 0.12015925000000001,
+        "costUSD": 0.135403,
         "contextWindow": 1000000,
         "maxOutputTokens": 64000
       }
@@ -100,6 +100,6 @@
     "permission_denials": [],
     "terminal_reason": "completed",
     "fast_mode_state": "off",
-    "uuid": "2a99089d-54c9-4bd2-899c-37f2ea4a9a98"
+    "uuid": "00894d20-ff46-4018-82cc-06b1908338aa"
   }
 }

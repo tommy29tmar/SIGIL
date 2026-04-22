@@ -8,8 +8,8 @@
   "history": [
     {
       "attempt": 0,
-      "raw": "{\"asks_for_more_info_e_g_browser_console_error_or_network_tab\":true,\"suggests_checking_recent_deploys_or_changes\":false,\"mentions_a_diagnostic_step_user_can_run\":true,\"stays_calm_and_actionable_not_panicky\":true}"
+      "raw": "{\"asks_for_more_info_e_g_browser_console_error_or_network_tab\": true, \"suggests_checking_recent_deploys_or_changes\": false, \"mentions_a_diagnostic_step_user_can_run\": true, \"stays_calm_and_actionable_not_panicky\": true}"
     }
   ],
-  "ts": "2026-04-22T10:23:59.962085+00:00"
+  "ts": "2026-04-22T12:41:34.201024+00:00"
 }

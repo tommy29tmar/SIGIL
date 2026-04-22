@@ -1,0 +1,105 @@
+{
+  "track": "T2",
+  "arm": "hewn_full",
+  "prompt_id": "login-button-broken",
+  "run_index": 2,
+  "arm_order_index": 4,
+  "arm_order_full": [
+    "caveman_full_plus_ultra_directive",
+    "baseline",
+    "hewn_prompt_only",
+    "terse",
+    "hewn_full",
+    "caveman_full"
+  ],
+  "digest_hex": "e1fff6cb5ce95b9c68e1704c12e3bb9788cf296894302e3a503c3240dcf37267",
+  "seed": "hewn-bench-v1",
+  "timestamp": "2026-04-22T09:38:14.703756+00:00",
+  "output_tokens_tiktoken": 23,
+  "output_tokens_anthropic": 39,
+  "input_tokens_anthropic": 6,
+  "cache_creation_input_tokens": 18484,
+  "cache_read_input_tokens": 16805,
+  "total_input_tokens": 35295,
+  "cache_state": "warm",
+  "wallclock_ms": 10281.613781990018,
+  "duration_ms": 3776,
+  "duration_api_ms": 4567,
+  "wrapper_overhead_ms": 5714.613781990018,
+  "stop_reason": "end_turn",
+  "num_turns": 1,
+  "session_id": "a3998e38-f771-484f-809a-ecf6f68359c9",
+  "total_cost_usd": 0.1253415,
+  "model_used": "claude-haiku-4-5-20251001,claude-opus-4-7",
+  "result": "Need URL, repo path, or error.\nWhat stack? React/Vue/plain?\nConsole error or network failure?",
+  "assertion_pass": true,
+  "raw_payload": {
+    "type": "result",
+    "subtype": "success",
+    "is_error": false,
+    "api_error_status": null,
+    "duration_ms": 3776,
+    "duration_api_ms": 4567,
+    "num_turns": 1,
+    "result": "Need URL, repo path, or error.\nWhat stack? React/Vue/plain?\nConsole error or network failure?",
+    "stop_reason": "end_turn",
+    "session_id": "a3998e38-f771-484f-809a-ecf6f68359c9",
+    "total_cost_usd": 0.1253415,
+    "usage": {
+      "input_tokens": 6,
+      "cache_creation_input_tokens": 18484,
+      "cache_read_input_tokens": 16805,
+      "output_tokens": 39,
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 18484,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "",
+      "iterations": [
+        {
+          "input_tokens": 6,
+          "output_tokens": 39,
+          "cache_read_input_tokens": 16805,
+          "cache_creation_input_tokens": 18484,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 18484
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard"
+    },
+    "modelUsage": {
+      "claude-haiku-4-5-20251001": {
+        "inputTokens": 349,
+        "outputTokens": 12,
+        "cacheReadInputTokens": 0,
+        "cacheCreationInputTokens": 0,
+        "webSearchRequests": 0,
+        "costUSD": 0.000409,
+        "contextWindow": 200000,
+        "maxOutputTokens": 32000
+      },
+      "claude-opus-4-7": {
+        "inputTokens": 6,
+        "outputTokens": 39,
+        "cacheReadInputTokens": 16805,
+        "cacheCreationInputTokens": 18484,
+        "webSearchRequests": 0,
+        "costUSD": 0.1249325,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "uuid": "5401da95-8a65-4713-bde4-b28688bcb9a3"
+  }
+}

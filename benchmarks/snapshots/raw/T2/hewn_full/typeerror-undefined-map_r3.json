@@ -14,61 +14,61 @@
   ],
   "digest_hex": "b411d91d6824cb5d90e319244d1f8afae2ac980e8f9071346ea0937437d8e0db",
   "seed": "hewn-bench-v1",
-  "timestamp": "2026-04-22T09:40:41.294542+00:00",
-  "output_tokens_tiktoken": 39,
-  "output_tokens_anthropic": 61,
+  "timestamp": "2026-04-22T12:38:23.875817+00:00",
+  "output_tokens_tiktoken": 46,
+  "output_tokens_anthropic": 78,
   "input_tokens_anthropic": 6,
-  "cache_creation_input_tokens": 18509,
+  "cache_creation_input_tokens": 18785,
   "cache_read_input_tokens": 16805,
-  "total_input_tokens": 35320,
+  "total_input_tokens": 35596,
   "cache_state": "warm",
-  "wallclock_ms": 9612.751896987902,
-  "duration_ms": 3124,
-  "duration_api_ms": 4329,
-  "wrapper_overhead_ms": 5283.751896987902,
+  "wallclock_ms": 15261.637748015346,
+  "duration_ms": 5602,
+  "duration_api_ms": 7632,
+  "wrapper_overhead_ms": 7629.637748015346,
   "stop_reason": "end_turn",
   "num_turns": 1,
-  "session_id": "f388c983-4073-45be-a7ec-6defffa605ad",
-  "total_cost_usd": 0.12607275,
+  "session_id": "edb792b4-6f65-4c55-9bf3-3df6293b7fc8",
+  "total_cost_usd": 0.12822275,
   "model_used": "claude-haiku-4-5-20251001,claude-opus-4-7",
-  "result": "`.map` called on undefined. Data not loaded yet, or shape wrong, or key missing.\n\nNeed stack trace + the line calling `.map` + what you expect that value to be.",
+  "result": "`.map` called on undefined. Data not loaded yet or wrong shape.\n\nQuick guard: `(items ?? []).map(...)` or `items && items.map(...)`.\n\nShare call site + what `items` is before `.map`.",
   "assertion_pass": true,
   "raw_payload": {
     "type": "result",
     "subtype": "success",
     "is_error": false,
     "api_error_status": null,
-    "duration_ms": 3124,
-    "duration_api_ms": 4329,
+    "duration_ms": 5602,
+    "duration_api_ms": 7632,
     "num_turns": 1,
-    "result": "`.map` called on undefined. Data not loaded yet, or shape wrong, or key missing.\n\nNeed stack trace + the line calling `.map` + what you expect that value to be.",
+    "result": "`.map` called on undefined. Data not loaded yet or wrong shape.\n\nQuick guard: `(items ?? []).map(...)` or `items && items.map(...)`.\n\nShare call site + what `items` is before `.map`.",
     "stop_reason": "end_turn",
-    "session_id": "f388c983-4073-45be-a7ec-6defffa605ad",
-    "total_cost_usd": 0.12607275,
+    "session_id": "edb792b4-6f65-4c55-9bf3-3df6293b7fc8",
+    "total_cost_usd": 0.12822275,
     "usage": {
       "input_tokens": 6,
-      "cache_creation_input_tokens": 18509,
+      "cache_creation_input_tokens": 18785,
       "cache_read_input_tokens": 16805,
-      "output_tokens": 61,
+      "output_tokens": 78,
       "server_tool_use": {
         "web_search_requests": 0,
         "web_fetch_requests": 0
       },
       "service_tier": "standard",
       "cache_creation": {
-        "ephemeral_1h_input_tokens": 18509,
+        "ephemeral_1h_input_tokens": 18785,
         "ephemeral_5m_input_tokens": 0
       },
       "inference_geo": "",
       "iterations": [
         {
           "input_tokens": 6,
-          "output_tokens": 61,
+          "output_tokens": 78,
           "cache_read_input_tokens": 16805,
-          "cache_creation_input_tokens": 18509,
+          "cache_creation_input_tokens": 18785,
           "cache_creation": {
             "ephemeral_5m_input_tokens": 0,
-            "ephemeral_1h_input_tokens": 18509
+            "ephemeral_1h_input_tokens": 18785
           },
           "type": "message"
         }
@@ -88,11 +88,11 @@
       },
       "claude-opus-4-7": {
         "inputTokens": 6,
-        "outputTokens": 61,
+        "outputTokens": 78,
         "cacheReadInputTokens": 16805,
-        "cacheCreationInputTokens": 18509,
+        "cacheCreationInputTokens": 18785,
         "webSearchRequests": 0,
-        "costUSD": 0.12563875000000002,
+        "costUSD": 0.12778875,
         "contextWindow": 1000000,
         "maxOutputTokens": 64000
       }
@@ -100,6 +100,6 @@
     "permission_denials": [],
     "terminal_reason": "completed",
     "fast_mode_state": "off",
-    "uuid": "17472b16-fb1c-44a0-8e2f-7ccd217df50d"
+    "uuid": "86ae4200-1ff7-43e6-91f5-9f3cf8eb6d4b"
   }
 }

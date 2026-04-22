@@ -14,61 +14,61 @@
   ],
   "digest_hex": "b411d91d6824cb5d90e319244d1f8afae2ac980e8f9071346ea0937437d8e0db",
   "seed": "hewn-bench-v1",
-  "timestamp": "2026-04-22T09:40:50.907947+00:00",
-  "output_tokens_tiktoken": 146,
-  "output_tokens_anthropic": 409,
+  "timestamp": "2026-04-22T12:38:39.138067+00:00",
+  "output_tokens_tiktoken": 185,
+  "output_tokens_anthropic": 341,
   "input_tokens_anthropic": 6,
-  "cache_creation_input_tokens": 0,
-  "cache_read_input_tokens": 33869,
-  "total_input_tokens": 33875,
+  "cache_creation_input_tokens": 17088,
+  "cache_read_input_tokens": 16796,
+  "total_input_tokens": 33890,
   "cache_state": "warm",
-  "wallclock_ms": 15447.031086980132,
-  "duration_ms": 9012,
-  "duration_api_ms": 9917,
+  "wallclock_ms": 14194.748571026139,
+  "duration_ms": 7386,
+  "duration_api_ms": 8229,
   "wrapper_overhead_ms": null,
   "stop_reason": "end_turn",
   "num_turns": 1,
-  "session_id": "12d7e4c2-9a2a-42ca-b328-d1679159b71b",
-  "total_cost_usd": 0.0276185,
+  "session_id": "e8abe860-e397-44e8-a0bf-85157f672bf2",
+  "total_cost_usd": 0.12418199999999999,
   "model_used": "claude-haiku-4-5-20251001,claude-opus-4-7",
-  "result": "That error means you're calling `.map()` on something that's `undefined` — typically an array prop/state that hasn't loaded yet, or an API response shape that's different from what you expect.\n\nCommon causes:\n- Async data: component renders before fetch resolves. Guard with `items?.map(...)` or `(items ?? []).map(...)`.\n- Wrong path into response: e.g. `data.map(...)` when the array is actually `data.items`.\n- Destructuring a missing field: `const { users } = props` where `users` isn't passed.\n\nTo pinpoint it I need the stack trace (which file/line) or the component code. Paste the full error with the stack, or the file where it's happening.",
+  "result": "You're calling `.map()` on a variable that's `undefined`. Most common causes:\n\n1. **API data not loaded yet** — rendering `data.map(...)` before the fetch resolves. Fix: default to `[]` or guard:\n   ```js\n   const [items, setItems] = useState([]);        // not useState()\n   {items?.map(...)}                              // optional chaining\n   ```\n\n2. **Wrong property path** — `response.map(...)` when the array is actually at `response.data` or `response.items`. Log the object first.\n\n3. **Destructuring a missing field** — `const { list } = props` where `list` isn't passed. Default it: `const { list = [] } = props`.\n\nShare the stack trace line (file + line number) or the snippet around the `.map()` call and I'll point to the exact fix.",
   "assertion_pass": true,
   "raw_payload": {
     "type": "result",
     "subtype": "success",
     "is_error": false,
     "api_error_status": null,
-    "duration_ms": 9012,
-    "duration_api_ms": 9917,
+    "duration_ms": 7386,
+    "duration_api_ms": 8229,
     "num_turns": 1,
-    "result": "That error means you're calling `.map()` on something that's `undefined` — typically an array prop/state that hasn't loaded yet, or an API response shape that's different from what you expect.\n\nCommon causes:\n- Async data: component renders before fetch resolves. Guard with `items?.map(...)` or `(items ?? []).map(...)`.\n- Wrong path into response: e.g. `data.map(...)` when the array is actually `data.items`.\n- Destructuring a missing field: `const { users } = props` where `users` isn't passed.\n\nTo pinpoint it I need the stack trace (which file/line) or the component code. Paste the full error with the stack, or the file where it's happening.",
+    "result": "You're calling `.map()` on a variable that's `undefined`. Most common causes:\n\n1. **API data not loaded yet** — rendering `data.map(...)` before the fetch resolves. Fix: default to `[]` or guard:\n   ```js\n   const [items, setItems] = useState([]);        // not useState()\n   {items?.map(...)}                              // optional chaining\n   ```\n\n2. **Wrong property path** — `response.map(...)` when the array is actually at `response.data` or `response.items`. Log the object first.\n\n3. **Destructuring a missing field** — `const { list } = props` where `list` isn't passed. Default it: `const { list = [] } = props`.\n\nShare the stack trace line (file + line number) or the snippet around the `.map()` call and I'll point to the exact fix.",
     "stop_reason": "end_turn",
-    "session_id": "12d7e4c2-9a2a-42ca-b328-d1679159b71b",
-    "total_cost_usd": 0.0276185,
+    "session_id": "e8abe860-e397-44e8-a0bf-85157f672bf2",
+    "total_cost_usd": 0.12418199999999999,
     "usage": {
       "input_tokens": 6,
-      "cache_creation_input_tokens": 0,
-      "cache_read_input_tokens": 33869,
-      "output_tokens": 409,
+      "cache_creation_input_tokens": 17088,
+      "cache_read_input_tokens": 16796,
+      "output_tokens": 341,
       "server_tool_use": {
         "web_search_requests": 0,
         "web_fetch_requests": 0
       },
       "service_tier": "standard",
       "cache_creation": {
-        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 17088,
         "ephemeral_5m_input_tokens": 0
       },
       "inference_geo": "",
       "iterations": [
         {
           "input_tokens": 6,
-          "output_tokens": 409,
-          "cache_read_input_tokens": 33869,
-          "cache_creation_input_tokens": 0,
+          "output_tokens": 341,
+          "cache_read_input_tokens": 16796,
+          "cache_creation_input_tokens": 17088,
           "cache_creation": {
             "ephemeral_5m_input_tokens": 0,
-            "ephemeral_1h_input_tokens": 0
+            "ephemeral_1h_input_tokens": 17088
           },
           "type": "message"
         }
@@ -88,11 +88,11 @@
       },
       "claude-opus-4-7": {
         "inputTokens": 6,
-        "outputTokens": 409,
-        "cacheReadInputTokens": 33869,
-        "cacheCreationInputTokens": 0,
+        "outputTokens": 341,
+        "cacheReadInputTokens": 16796,
+        "cacheCreationInputTokens": 17088,
         "webSearchRequests": 0,
-        "costUSD": 0.027189500000000002,
+        "costUSD": 0.12375299999999999,
         "contextWindow": 1000000,
         "maxOutputTokens": 64000
       }
@@ -100,6 +100,6 @@
     "permission_denials": [],
     "terminal_reason": "completed",
     "fast_mode_state": "off",
-    "uuid": "45b61ed7-cd5c-4108-a490-488f1cac8add"
+    "uuid": "52f9de6a-ac98-4e5d-bf66-9ad3fcbc763e"
   }
 }

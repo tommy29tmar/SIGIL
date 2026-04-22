@@ -1,0 +1,105 @@
+{
+  "track": "T2",
+  "arm": "hewn_prompt_only",
+  "prompt_id": "spaghetti-code",
+  "run_index": 2,
+  "arm_order_index": 2,
+  "arm_order_full": [
+    "baseline",
+    "caveman_full",
+    "hewn_prompt_only",
+    "caveman_full_plus_ultra_directive",
+    "hewn_full",
+    "terse"
+  ],
+  "digest_hex": "c5b7a91bb866632a665b169537e636c6632c835cd292573b5020e32ca3fec5f2",
+  "seed": "hewn-bench-v1",
+  "timestamp": "2026-04-22T09:39:10.810212+00:00",
+  "output_tokens_tiktoken": 237,
+  "output_tokens_anthropic": 424,
+  "input_tokens_anthropic": 6,
+  "cache_creation_input_tokens": 17058,
+  "cache_read_input_tokens": 16796,
+  "total_input_tokens": 33860,
+  "cache_state": "warm",
+  "wallclock_ms": 17151.93248700234,
+  "duration_ms": 10844,
+  "duration_api_ms": 12144,
+  "wrapper_overhead_ms": null,
+  "stop_reason": "end_turn",
+  "num_turns": 1,
+  "session_id": "f6032ef9-d82f-4258-b7f6-339cc1d0ea85",
+  "total_cost_usd": 0.12607949999999998,
+  "model_used": "claude-haiku-4-5-20251001,claude-opus-4-7",
+  "result": "Name things for what they do, not how they work. `fetchUserAndValidateEmail` beats `handleStuff`. If you can't name a function cleanly, it's doing too much — split it.\n\nKeep functions short enough to see whole on screen. If you're scrolling to understand one function, it should be several.\n\nSeparate by responsibility, not by type. Group code that changes together: the validation, the API call, and the error handling for *one feature* belong near each other. Don't scatter them into `utils/`, `helpers/`, `services/` just because that's the \"clean\" structure.\n\nMake data flow one-directional. Inputs come in, outputs go out, no function reaching up to mutate something three levels above it. Spaghetti almost always comes from hidden side effects.\n\nDelete dead code immediately. Old branches, commented-out blocks, \"might need this later\" — they rot and confuse you later.\n\nWhen lost: pick one entry point (a route, a CLI command, a button click) and trace it top-to-bottom. If that trace is hard to follow, that's your refactor target. Fix that one path, then pick the next.",
+  "assertion_pass": true,
+  "raw_payload": {
+    "type": "result",
+    "subtype": "success",
+    "is_error": false,
+    "api_error_status": null,
+    "duration_ms": 10844,
+    "duration_api_ms": 12144,
+    "num_turns": 1,
+    "result": "Name things for what they do, not how they work. `fetchUserAndValidateEmail` beats `handleStuff`. If you can't name a function cleanly, it's doing too much — split it.\n\nKeep functions short enough to see whole on screen. If you're scrolling to understand one function, it should be several.\n\nSeparate by responsibility, not by type. Group code that changes together: the validation, the API call, and the error handling for *one feature* belong near each other. Don't scatter them into `utils/`, `helpers/`, `services/` just because that's the \"clean\" structure.\n\nMake data flow one-directional. Inputs come in, outputs go out, no function reaching up to mutate something three levels above it. Spaghetti almost always comes from hidden side effects.\n\nDelete dead code immediately. Old branches, commented-out blocks, \"might need this later\" — they rot and confuse you later.\n\nWhen lost: pick one entry point (a route, a CLI command, a button click) and trace it top-to-bottom. If that trace is hard to follow, that's your refactor target. Fix that one path, then pick the next.",
+    "stop_reason": "end_turn",
+    "session_id": "f6032ef9-d82f-4258-b7f6-339cc1d0ea85",
+    "total_cost_usd": 0.12607949999999998,
+    "usage": {
+      "input_tokens": 6,
+      "cache_creation_input_tokens": 17058,
+      "cache_read_input_tokens": 16796,
+      "output_tokens": 424,
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 17058,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "",
+      "iterations": [
+        {
+          "input_tokens": 6,
+          "output_tokens": 424,
+          "cache_read_input_tokens": 16796,
+          "cache_creation_input_tokens": 17058,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 17058
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard"
+    },
+    "modelUsage": {
+      "claude-haiku-4-5-20251001": {
+        "inputTokens": 359,
+        "outputTokens": 16,
+        "cacheReadInputTokens": 0,
+        "cacheCreationInputTokens": 0,
+        "webSearchRequests": 0,
+        "costUSD": 0.000439,
+        "contextWindow": 200000,
+        "maxOutputTokens": 32000
+      },
+      "claude-opus-4-7": {
+        "inputTokens": 6,
+        "outputTokens": 424,
+        "cacheReadInputTokens": 16796,
+        "cacheCreationInputTokens": 17058,
+        "webSearchRequests": 0,
+        "costUSD": 0.1256405,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 64000
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "uuid": "a66a5ef2-1276-44c4-97d6-f3c99eecb5fe"
+  }
+}

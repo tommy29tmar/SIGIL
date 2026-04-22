@@ -14,61 +14,61 @@
   ],
   "digest_hex": "c5b7a91bb866632a665b169537e636c6632c835cd292573b5020e32ca3fec5f2",
   "seed": "hewn-bench-v1",
-  "timestamp": "2026-04-22T09:39:10.810212+00:00",
-  "output_tokens_tiktoken": 237,
-  "output_tokens_anthropic": 424,
+  "timestamp": "2026-04-22T12:36:11.902846+00:00",
+  "output_tokens_tiktoken": 342,
+  "output_tokens_anthropic": 564,
   "input_tokens_anthropic": 6,
-  "cache_creation_input_tokens": 17058,
+  "cache_creation_input_tokens": 17073,
   "cache_read_input_tokens": 16796,
-  "total_input_tokens": 33860,
+  "total_input_tokens": 33875,
   "cache_state": "warm",
-  "wallclock_ms": 17151.93248700234,
-  "duration_ms": 10844,
-  "duration_api_ms": 12144,
+  "wallclock_ms": 19367.225080990465,
+  "duration_ms": 12766,
+  "duration_api_ms": 13722,
   "wrapper_overhead_ms": null,
   "stop_reason": "end_turn",
   "num_turns": 1,
-  "session_id": "f6032ef9-d82f-4258-b7f6-339cc1d0ea85",
-  "total_cost_usd": 0.12607949999999998,
+  "session_id": "b06de2ad-9484-4de4-856d-958cb26e6af7",
+  "total_cost_usd": 0.12966824999999998,
   "model_used": "claude-haiku-4-5-20251001,claude-opus-4-7",
-  "result": "Name things for what they do, not how they work. `fetchUserAndValidateEmail` beats `handleStuff`. If you can't name a function cleanly, it's doing too much — split it.\n\nKeep functions short enough to see whole on screen. If you're scrolling to understand one function, it should be several.\n\nSeparate by responsibility, not by type. Group code that changes together: the validation, the API call, and the error handling for *one feature* belong near each other. Don't scatter them into `utils/`, `helpers/`, `services/` just because that's the \"clean\" structure.\n\nMake data flow one-directional. Inputs come in, outputs go out, no function reaching up to mutate something three levels above it. Spaghetti almost always comes from hidden side effects.\n\nDelete dead code immediately. Old branches, commented-out blocks, \"might need this later\" — they rot and confuse you later.\n\nWhen lost: pick one entry point (a route, a CLI command, a button click) and trace it top-to-bottom. If that trace is hard to follow, that's your refactor target. Fix that one path, then pick the next.",
+  "result": "A few high-leverage habits, roughly in order of impact:\n\n1. **Name things for what they mean, not what they do.** `isEligibleForRefund` beats `checkUser`. If you can't name a function clearly, it's doing too much.\n2. **One function = one job.** If you need \"and\" to describe it, split it. Aim for functions that fit on a screen.\n3. **Separate layers.** Keep I/O (DB, HTTP, filesystem) at the edges; keep pure logic (calculations, transformations) in the middle. Spaghetti usually = business logic tangled with side effects.\n4. **Kill deep nesting.** Early returns and guard clauses flatten code dramatically. Three levels of `if` is a smell; five is a bug waiting to happen.\n5. **Group by feature, not by type.** `users/` containing its own routes + logic + types beats `controllers/ models/ views/` spread across the repo.\n6. **Delete aggressively.** Unused code, commented-out blocks, \"just in case\" abstractions — all noise. If you need it back, git remembers.\n7. **When you lose the thread, draw the data flow.** Not UML — just \"input → X → Y → output\" on paper. The places you can't draw cleanly are where the mess lives.\n\nThe meta-rule: **write code for the next person reading it at 2am**, not for the compiler. Most \"spaghetti\" is code that was easy to write and hard to read.\n\nIf you want, point me at a file that feels tangled and I'll show you where to cut.",
   "assertion_pass": true,
   "raw_payload": {
     "type": "result",
     "subtype": "success",
     "is_error": false,
     "api_error_status": null,
-    "duration_ms": 10844,
-    "duration_api_ms": 12144,
+    "duration_ms": 12766,
+    "duration_api_ms": 13722,
     "num_turns": 1,
-    "result": "Name things for what they do, not how they work. `fetchUserAndValidateEmail` beats `handleStuff`. If you can't name a function cleanly, it's doing too much — split it.\n\nKeep functions short enough to see whole on screen. If you're scrolling to understand one function, it should be several.\n\nSeparate by responsibility, not by type. Group code that changes together: the validation, the API call, and the error handling for *one feature* belong near each other. Don't scatter them into `utils/`, `helpers/`, `services/` just because that's the \"clean\" structure.\n\nMake data flow one-directional. Inputs come in, outputs go out, no function reaching up to mutate something three levels above it. Spaghetti almost always comes from hidden side effects.\n\nDelete dead code immediately. Old branches, commented-out blocks, \"might need this later\" — they rot and confuse you later.\n\nWhen lost: pick one entry point (a route, a CLI command, a button click) and trace it top-to-bottom. If that trace is hard to follow, that's your refactor target. Fix that one path, then pick the next.",
+    "result": "A few high-leverage habits, roughly in order of impact:\n\n1. **Name things for what they mean, not what they do.** `isEligibleForRefund` beats `checkUser`. If you can't name a function clearly, it's doing too much.\n2. **One function = one job.** If you need \"and\" to describe it, split it. Aim for functions that fit on a screen.\n3. **Separate layers.** Keep I/O (DB, HTTP, filesystem) at the edges; keep pure logic (calculations, transformations) in the middle. Spaghetti usually = business logic tangled with side effects.\n4. **Kill deep nesting.** Early returns and guard clauses flatten code dramatically. Three levels of `if` is a smell; five is a bug waiting to happen.\n5. **Group by feature, not by type.** `users/` containing its own routes + logic + types beats `controllers/ models/ views/` spread across the repo.\n6. **Delete aggressively.** Unused code, commented-out blocks, \"just in case\" abstractions — all noise. If you need it back, git remembers.\n7. **When you lose the thread, draw the data flow.** Not UML — just \"input → X → Y → output\" on paper. The places you can't draw cleanly are where the mess lives.\n\nThe meta-rule: **write code for the next person reading it at 2am**, not for the compiler. Most \"spaghetti\" is code that was easy to write and hard to read.\n\nIf you want, point me at a file that feels tangled and I'll show you where to cut.",
     "stop_reason": "end_turn",
-    "session_id": "f6032ef9-d82f-4258-b7f6-339cc1d0ea85",
-    "total_cost_usd": 0.12607949999999998,
+    "session_id": "b06de2ad-9484-4de4-856d-958cb26e6af7",
+    "total_cost_usd": 0.12966824999999998,
     "usage": {
       "input_tokens": 6,
-      "cache_creation_input_tokens": 17058,
+      "cache_creation_input_tokens": 17073,
       "cache_read_input_tokens": 16796,
-      "output_tokens": 424,
+      "output_tokens": 564,
       "server_tool_use": {
         "web_search_requests": 0,
         "web_fetch_requests": 0
       },
       "service_tier": "standard",
       "cache_creation": {
-        "ephemeral_1h_input_tokens": 17058,
+        "ephemeral_1h_input_tokens": 17073,
         "ephemeral_5m_input_tokens": 0
       },
       "inference_geo": "",
       "iterations": [
         {
           "input_tokens": 6,
-          "output_tokens": 424,
+          "output_tokens": 564,
           "cache_read_input_tokens": 16796,
-          "cache_creation_input_tokens": 17058,
+          "cache_creation_input_tokens": 17073,
           "cache_creation": {
             "ephemeral_5m_input_tokens": 0,
-            "ephemeral_1h_input_tokens": 17058
+            "ephemeral_1h_input_tokens": 17073
           },
           "type": "message"
         }
@@ -78,21 +78,21 @@
     "modelUsage": {
       "claude-haiku-4-5-20251001": {
         "inputTokens": 359,
-        "outputTokens": 16,
+        "outputTokens": 15,
         "cacheReadInputTokens": 0,
         "cacheCreationInputTokens": 0,
         "webSearchRequests": 0,
-        "costUSD": 0.000439,
+        "costUSD": 0.00043400000000000003,
         "contextWindow": 200000,
         "maxOutputTokens": 32000
       },
       "claude-opus-4-7": {
         "inputTokens": 6,
-        "outputTokens": 424,
+        "outputTokens": 564,
         "cacheReadInputTokens": 16796,
-        "cacheCreationInputTokens": 17058,
+        "cacheCreationInputTokens": 17073,
         "webSearchRequests": 0,
-        "costUSD": 0.1256405,
+        "costUSD": 0.12923425,
         "contextWindow": 1000000,
         "maxOutputTokens": 64000
       }
@@ -100,6 +100,6 @@
     "permission_denials": [],
     "terminal_reason": "completed",
     "fast_mode_state": "off",
-    "uuid": "a66a5ef2-1276-44c4-97d6-f3c99eecb5fe"
+    "uuid": "7959ca47-d08f-4f9e-8181-a0c648d6172a"
   }
 }

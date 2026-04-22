@@ -14,61 +14,61 @@
   ],
   "digest_hex": "4f33654c9cc752fbb7c1e4089ae3ded5b955b191171e746f3041ab1e443aad4e",
   "seed": "hewn-bench-v1",
-  "timestamp": "2026-04-22T09:39:38.629131+00:00",
-  "output_tokens_tiktoken": 24,
-  "output_tokens_anthropic": 40,
+  "timestamp": "2026-04-22T12:36:42.036935+00:00",
+  "output_tokens_tiktoken": 27,
+  "output_tokens_anthropic": 47,
   "input_tokens_anthropic": 6,
-  "cache_creation_input_tokens": 0,
-  "cache_read_input_tokens": 35286,
-  "total_input_tokens": 35292,
+  "cache_creation_input_tokens": 18757,
+  "cache_read_input_tokens": 16805,
+  "total_input_tokens": 35568,
   "cache_state": "warm",
-  "wallclock_ms": 9556.504706008127,
-  "duration_ms": 2852,
-  "duration_api_ms": 2743,
-  "wrapper_overhead_ms": 6813.504706008127,
+  "wallclock_ms": 9862.592753983336,
+  "duration_ms": 3290,
+  "duration_api_ms": 5660,
+  "wrapper_overhead_ms": 4202.592753983336,
   "stop_reason": "end_turn",
   "num_turns": 1,
-  "session_id": "f87de37b-e13b-40b2-a3c3-73b71c0cbc3d",
-  "total_cost_usd": 0.018673,
-  "model_used": "claude-opus-4-7",
-  "result": "Need URL or repo path. Without target, perf fix is guessing.\nWhat stack, what page, what metric slow?",
+  "session_id": "215f33cc-fc16-4469-bf11-78026afbfd9a",
+  "total_cost_usd": 0.12725575,
+  "model_used": "claude-haiku-4-5-20251001,claude-opus-4-7",
+  "result": "Need URL or repo path. Stack? (static/SSR/SPA, backend?)\nSlow where—first paint, API, nav?",
   "assertion_pass": true,
   "raw_payload": {
     "type": "result",
     "subtype": "success",
     "is_error": false,
     "api_error_status": null,
-    "duration_ms": 2852,
-    "duration_api_ms": 2743,
+    "duration_ms": 3290,
+    "duration_api_ms": 5660,
     "num_turns": 1,
-    "result": "Need URL or repo path. Without target, perf fix is guessing.\nWhat stack, what page, what metric slow?",
+    "result": "Need URL or repo path. Stack? (static/SSR/SPA, backend?)\nSlow where—first paint, API, nav?",
     "stop_reason": "end_turn",
-    "session_id": "f87de37b-e13b-40b2-a3c3-73b71c0cbc3d",
-    "total_cost_usd": 0.018673,
+    "session_id": "215f33cc-fc16-4469-bf11-78026afbfd9a",
+    "total_cost_usd": 0.12725575,
     "usage": {
       "input_tokens": 6,
-      "cache_creation_input_tokens": 0,
-      "cache_read_input_tokens": 35286,
-      "output_tokens": 40,
+      "cache_creation_input_tokens": 18757,
+      "cache_read_input_tokens": 16805,
+      "output_tokens": 47,
       "server_tool_use": {
         "web_search_requests": 0,
         "web_fetch_requests": 0
       },
       "service_tier": "standard",
       "cache_creation": {
-        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_1h_input_tokens": 18757,
         "ephemeral_5m_input_tokens": 0
       },
       "inference_geo": "",
       "iterations": [
         {
           "input_tokens": 6,
-          "output_tokens": 40,
-          "cache_read_input_tokens": 35286,
-          "cache_creation_input_tokens": 0,
+          "output_tokens": 47,
+          "cache_read_input_tokens": 16805,
+          "cache_creation_input_tokens": 18757,
           "cache_creation": {
             "ephemeral_5m_input_tokens": 0,
-            "ephemeral_1h_input_tokens": 0
+            "ephemeral_1h_input_tokens": 18757
           },
           "type": "message"
         }
@@ -76,13 +76,23 @@
       "speed": "standard"
     },
     "modelUsage": {
-      "claude-opus-4-7": {
-        "inputTokens": 6,
-        "outputTokens": 40,
-        "cacheReadInputTokens": 35286,
+      "claude-haiku-4-5-20251001": {
+        "inputTokens": 347,
+        "outputTokens": 14,
+        "cacheReadInputTokens": 0,
         "cacheCreationInputTokens": 0,
         "webSearchRequests": 0,
-        "costUSD": 0.018673,
+        "costUSD": 0.00041699999999999994,
+        "contextWindow": 200000,
+        "maxOutputTokens": 32000
+      },
+      "claude-opus-4-7": {
+        "inputTokens": 6,
+        "outputTokens": 47,
+        "cacheReadInputTokens": 16805,
+        "cacheCreationInputTokens": 18757,
+        "webSearchRequests": 0,
+        "costUSD": 0.12683875,
         "contextWindow": 1000000,
         "maxOutputTokens": 64000
       }
@@ -90,6 +100,6 @@
     "permission_denials": [],
     "terminal_reason": "completed",
     "fast_mode_state": "off",
-    "uuid": "0b715fef-6d4b-4a07-a9d5-849352be0c0b"
+    "uuid": "e8f75ab7-f2c0-430f-a33e-bb3bbe8d48b9"
   }
 }

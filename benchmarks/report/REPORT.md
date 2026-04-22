@@ -1,9 +1,9 @@
 # Hewn vs Verbose Claude vs Caveman — benchmark report
 
-_Generated: 2026-04-22T09:55:11.836404+00:00_
+_Generated: 2026-04-22T12:31:45.576896+00:00_
 _Model: `claude-opus-4-7`_
 _Claude CLI: 2.1.117 (Claude Code)_
-_Hewn repo commit: 99ffcba31852a943303024b142db306a107db186_
+_Hewn repo commit: c869a0963512e6941884942d19aa82c5e7fadf80_
 _Caveman repo commit pinned: 84cc3c14fa1e10182adaced856e003406ccd250d_
 _Caveman SKILL.md sha256: `1762eb9ab0b566d70f51b040dbfd77d1f5be89cfa70da874564bda38c111be7c`_
 _Random seed: `hewn-bench-v1`_
@@ -198,34 +198,34 @@ Cross-track join: `appended` side from T0 single run; `observed` side and `hewn_
 
 | Prompt | baseline | terse | caveman_full | caveman+ultra | hewn_prompt_only | hewn_full |
 |---|---:|---:|---:|---:|---:|---:|
-| `add-search-bar` | 197 | 117 | 266 | 199 | 213 | 35 |
-| `login-button-broken` | 227 | 93 | 122 | 106 | 185 | 45 |
-| `make-website-faster` | 43 | 94 | 59 | 131 | 208 | 44 |
-| `spaghetti-code` | 442 | 422 | 427 | 451 | 518 | 72 |
-| `typeerror-undefined-map` | 254 | 277 | 116 | 105 | 460 | 58 |
-| **mean** | **233** | **201** | **198** | **198** | **317** | **51** |
+| `add-search-bar` | 197 | 117 | 266 | 199 | 339 | 51 |
+| `login-button-broken` | 227 | 93 | 122 | 106 | 737 | 56 |
+| `make-website-faster` | 43 | 94 | 59 | 131 | 626 | 48 |
+| `spaghetti-code` | 442 | 422 | 427 | 451 | 564 | 65 |
+| `typeerror-undefined-map` | 254 | 277 | 116 | 105 | 361 | 71 |
+| **mean** | **233** | **201** | **198** | **198** | **525** | **58** |
 
 ### Hewn-vs-baseline (causal — both arms inherit default+CLAUDE.md)
 
 | Prompt | baseline | hewn_full | savings |
 |---|---:|---:|---:|
-| `add-search-bar` | 197 | 35 | 82% |
-| `login-button-broken` | 227 | 45 | 80% |
-| `make-website-faster` | 43 | 44 | −2% |
-| `spaghetti-code` | 442 | 72 | 84% |
-| `typeerror-undefined-map` | 254 | 58 | 77% |
-| **median** | | | **80%** |
-| **mean** | | | **64%** |
+| `add-search-bar` | 197 | 51 | 74% |
+| `login-button-broken` | 227 | 56 | 75% |
+| `make-website-faster` | 43 | 48 | −12% |
+| `spaghetti-code` | 442 | 65 | 85% |
+| `typeerror-undefined-map` | 254 | 71 | 72% |
+| **median** | | | **74%** |
+| **mean** | | | **59%** |
 
 ### Wall-clock latency (median, ms)
 
 | Prompt | baseline | terse | caveman_full | caveman+ultra | hewn_prompt_only | hewn_full |
 |---|---:|---:|---:|---:|---:|---:|
-| `add-search-bar` | 5397 | 3948 | 6454 | 5872 | 5071 | 2653 |
-| `login-button-broken` | 4985 | 3396 | 4849 | 4063 | 5332 | 3776 |
-| `make-website-faster` | 2479 | 3412 | 4133 | 4344 | 5037 | 2852 |
-| `spaghetti-code` | 10576 | 10273 | 10834 | 12322 | 11178 | 4954 |
-| `typeerror-undefined-map` | 7046 | 5795 | 4021 | 4078 | 9322 | 3345 |
+| `add-search-bar` | 5397 | 3948 | 6454 | 5872 | 6393 | 3595 |
+| `login-button-broken` | 4985 | 3396 | 4849 | 4063 | 14557 | 5039 |
+| `make-website-faster` | 2479 | 3412 | 4133 | 4344 | 11769 | 4362 |
+| `spaghetti-code` | 10576 | 10273 | 10834 | 12322 | 12766 | 4337 |
+| `typeerror-undefined-map` | 7046 | 5795 | 4021 | 4078 | 7562 | 5602 |
 
 ## T3 — Long context (~5k handbook prefix)
 
@@ -342,12 +342,14 @@ OK — no session_id collision across distinct (arm, seq, run) tuples.
 | baseline | 47% | 50% | 0% | 0.1 | 0 | 78% |
 | caveman_full | 78% | 33% | 0% | 0.0 | 0 | 20% |
 | caveman_full_plus_ultra_directive | 83% | 17% | 0% | 0.1 | 0 | 28% |
-| hewn_full | 53% | 50% | 0% | 0.0 | 0 | 37% |
+| hewn_full | 63% | 50% | 0% | 0.0 | 0 | 20% |
 | hewn_full_v1 | 70% | 50% | 0% | 0.8 | 0 | 35% |
 | hewn_full_v2 | 53% | 50% | 0% | 0.3 | 0 | 47% |
-| hewn_prompt_only | 48% | 50% | 0% | 0.3 | 0 | 68% |
+| hewn_full_v3 | 53% | 50% | 0% | 0.0 | 0 | 37% |
+| hewn_prompt_only | 62% | 50% | 0% | 0.5 | 0 | 48% |
 | hewn_prompt_only_v1 | 45% | 50% | 0% | 0.3 | 0 | 60% |
 | hewn_prompt_only_v2 | 55% | 50% | 0% | 0.1 | 0 | 72% |
+| hewn_prompt_only_v3 | 48% | 50% | 0% | 0.3 | 0 | 68% |
 | terse | 65% | 50% | 0% | 0.4 | 0 | 43% |
 
 ### T3
