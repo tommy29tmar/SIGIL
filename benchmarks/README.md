@@ -162,5 +162,6 @@ execution. Notable decisions:
 10. Cross-track join for T1b (appended, observed) pair: appended side
     from T0 single-run, observed side from T1b median-of-3-runs.
 
-Plan iteration files preserved at `/tmp/codex-review/plan-v{1..9}.md`
-on the original benchmarking host.
+Plan iteration files (`plan-v{1..9}.md`) and Codex review responses
+(`review-v{1,2,3,5..9}.md`) are preserved under
+`benchmarks/codex-review-iterations/` for full cross-model review provenance.

@@ -164,7 +164,7 @@ class ClassifyTests(unittest.TestCase):
 
     def test_qa_explanations_route_to_prose_caveman(self):
         # v3 — Q&A explanations stay prose-caveman (v2 routed them to IR which
-        # crushed concept coverage; see benchmarks/report/COMPARISON_v1_v2.md)
+        # crushed concept coverage; see benchmarks/report/COMPARISON_v1_v2_v3.md)
         self._expect(EN_CAVEMAN_QA_PROMPTS, "prose_caveman")
 
     def test_prose_findings_prompts(self):

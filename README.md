@@ -18,6 +18,12 @@ Launch bench: 10 long-context tasks x 4 runs, prompt cache on. "Concepts
 covered" means required points from the prompt were still present in the
 answer.
 
+Full benchmark methodology, raw snapshots, judge rubrics, and per-track
+evidence live in [`benchmarks/`](benchmarks/) — see
+[`benchmarks/report/REPORT.md`](benchmarks/report/REPORT.md) for the
+headline numbers and [`benchmarks/RUNBOOK.md`](benchmarks/RUNBOOK.md) for
+exact reproduction steps.
+
 ## Real Long-Prompt Example
 
 Real Opus 4.7 stress-bench row. Same model, same 16k-token project handbook,
