@@ -1,0 +1,7 @@
+1. Medium: Adjusted brackets are only directly computable for prompts with appended comparator runs.
+Why it matters: T0 only runs `terse_appended` and `caveman_full_appended` on `short_en.txt`, but the plan says Hewn-vs-Caveman/terse comparisons in the report are shown as `[adj, raw]` per prompt and aggregate, including T2-T5. The explicit `adj = caveman_full_appended - hewn_full` formula cannot be applied per prompt outside T0/T1 short prompts.
+Concrete fix: Either add `terse_appended` and `caveman_full_appended` arms to every track where `[adj, raw]` is reported, or restrict adjusted brackets to T1 short prompts and label other tracks as raw observational only.
+
+2. Medium: `[adj, raw]` is still described as lower/upper bound even though ordering depends on the measured exposure effect.
+Why it matters: If appending default+CLAUDE.md makes comparator outputs longer, `adj` can be greater than `raw`, so calling `adj` the lower bound and `raw` the upper bound is incorrect and can misstate the result.
+Concrete fix: Rename the bracket to `[appended-comparator, observed-stock]`, and only call it a lower/upper range after sorting or after confirming the measured exposure effect direction for that prompt/track.
