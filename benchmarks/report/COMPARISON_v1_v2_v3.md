@@ -118,3 +118,16 @@ Caveman/baseline/terse arms unchanged — shown for reference.
 | hewn_full_v1 | 100% | 20 |
 | hewn_full_v2 | 85% | 20 |
 | hewn_full | 82% | 20 |
+
+### T4 transcript-aware concept coverage
+
+Fairer evaluator for multi-turn: judges the FULL conversation not each turn in isolation, so the assistant is not penalized for NOT restating concepts it already established.
+
+| arm | transcript coverage | n |
+|---|---:|---:|
+| baseline | 100% | 4 |
+| terse | 100% | 4 |
+| caveman_full | 100% | 4 |
+| hewn_full_v1 | 100% | 4 |
+| hewn_full_v2 | 100% | 4 |
+| hewn_full | 100% | 4 |

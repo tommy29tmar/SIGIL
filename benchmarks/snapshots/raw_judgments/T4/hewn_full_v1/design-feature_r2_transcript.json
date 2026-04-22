@@ -1,0 +1,24 @@
+{
+  "final": {
+    "lists_design_decisions_e_g_storage_model_or_concurrency_or_expiry_or_refunds": true,
+    "covers_at_least_three_distinct_areas": true,
+    "pros_of_event_sourced": true,
+    "cons_of_event_sourced": true,
+    "pros_of_mutable_row": true,
+    "cons_of_mutable_row": true,
+    "names_select_for_update_or_advisory_lock_or_serializable_isolation": true,
+    "explains_why_simple_select_then_update_is_unsafe": true,
+    "expiry_check_in_consumption_path": true,
+    "expiry_check_in_batch_job": true,
+    "explains_why_both": true,
+    "proportional_refund_to_each_payment_method_or_a_clear_policy": true,
+    "describes_code_path_or_function_locations": true
+  },
+  "history": [
+    {
+      "attempt": 0,
+      "raw": "{\"lists_design_decisions_e_g_storage_model_or_concurrency_or_expiry_or_refunds\": true, \"covers_at_least_three_distinct_areas\": true, \"pros_of_event_sourced\": true, \"cons_of_event_sourced\": true, \"pros_of_mutable_row\": true, \"cons_of_mutable_row\": true, \"names_select_for_update_or_advisory_lock_or_serializable_isolation\": true, \"explains_why_simple_select_then_update_is_unsafe\": true, \"expiry_check_in_consumption_path\": true, \"expiry_check_in_batch_job\": true, \"explains_why_both\": true, \"proportional_refund_to_each_payment_method_or_a_clear_policy\": true, \"describes_code_path_or_function_locations\": true}"
+    }
+  ],
+  "ts": "2026-04-22T12:10:31.627680+00:00"
+}

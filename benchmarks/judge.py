@@ -410,6 +410,136 @@ def judge_multiturn_track(concepts_db: dict) -> None:
                                            ensure_ascii=False))
 
 
+TRANSCRIPT_JUDGE_SYSTEM = """You are a strict, blinded grader of a multi-turn conversation.
+
+You see the FULL conversation between a user and an assistant across N
+turns. Evaluate whether the assistant's RESPONSES TAKEN TOGETHER
+cover each required concept. Rules:
+
+- A concept counts as covered if the assistant established it at any
+  point in the conversation, even if a later turn builds on it without
+  re-stating.
+- A concept counts as NOT covered only if the assistant never introduced
+  or acknowledged the idea anywhere across all turns.
+- Do not penalize the assistant for NOT repeating a concept that was
+  already established earlier. Conversation continuity is expected.
+- Be strict: shallow keyword match without substance = not covered.
+  Substantive coverage even with different wording = covered.
+
+Output ONLY a single JSON object mapping each concept name to a
+boolean. No prose, no markdown fences. Just the JSON.
+"""
+
+
+def build_transcript_judge_user(seq_id: str, user_turns: list[str],
+                                assistant_turns: list[str],
+                                concepts: list[str]) -> str:
+    transcript_lines = [f"CONVERSATION (sequence: {seq_id}, {len(user_turns)} turns)", ""]
+    for i, (u, a) in enumerate(zip(user_turns, assistant_turns), start=1):
+        transcript_lines.append(f"--- USER TURN {i} ---")
+        transcript_lines.append(u.strip())
+        transcript_lines.append("")
+        transcript_lines.append(f"--- ASSISTANT TURN {i} ---")
+        transcript_lines.append(a.strip())
+        transcript_lines.append("")
+    transcript = "\n".join(transcript_lines)
+    return (
+        transcript
+        + "\n\nCONCEPTS TO CHECK (return a JSON object with these exact keys, "
+        + "boolean values only; a concept counts as covered if the assistant "
+        + "established it at any point, even if later turns built on it "
+        + "without restating):\n"
+        + json.dumps(concepts, indent=2)
+    )
+
+
+def judge_multiturn_transcript(concepts_db: dict) -> None:
+    """Conversation-level T4 judge: evaluates the full transcript, not per turn.
+
+    Writes to `snapshots/judgments_T4_transcript.json` (separate from the
+    per-turn `judgments_T4.json` so both views are preserved).
+    """
+    track = "T4"
+    track_dir = RAW / track
+    if not track_dir.exists():
+        print(f"[{track}-transcript] no snapshots; skipping")
+        return
+    out_path = BENCH / "snapshots" / f"judgments_{track}_transcript.json"
+    existing = json.loads(out_path.read_text()) if out_path.exists() else {}
+
+    seq_data = json.loads(
+        (BENCH / "prompts" / "multiturn_en.json").read_text())["sequences"]
+    seq_map = {s["id"]: s for s in seq_data}
+    rubric_per_turn = concepts_db.get("multiturn_en", {})
+
+    # Discover (arm, seq_id, run_idx) tuples from the snapshot filesystem.
+    tuples: set[tuple[str, str, int]] = set()
+    for arm_dir in sorted(track_dir.iterdir()):
+        if not arm_dir.is_dir():
+            continue
+        arm = arm_dir.name
+        for p in arm_dir.glob("*_t*.json"):
+            m = re.match(r"^(.+)_r(\d+)_t(\d+)$", p.stem)
+            if m:
+                tuples.add((arm, m.group(1), int(m.group(2))))
+
+    for (arm, seq_id, run_idx) in sorted(tuples):
+        key = f"{arm}/{seq_id}_r{run_idx}"
+        if key in existing:
+            continue
+        seq = seq_map.get(seq_id)
+        if seq is None:
+            continue
+        user_turns = seq["turns"]
+        n = len(user_turns)
+        # Gather assistant responses in turn order.
+        assistant_turns: list[str] = []
+        for t in range(1, n + 1):
+            p = track_dir / arm / f"{seq_id}_r{run_idx}_t{t}.json"
+            if not p.exists():
+                assistant_turns.append("")
+                continue
+            d = json.loads(p.read_text())
+            assistant_turns.append(d.get("result", "") or "")
+        if not any(assistant_turns):
+            existing[key] = {"skipped": "empty_responses"}
+            continue
+        # Flatten concepts across all turns for this sequence.
+        per_turn = rubric_per_turn.get(seq_id, {})
+        all_concepts: list[str] = []
+        per_turn_map: dict[str, int] = {}
+        for t in range(1, n + 1):
+            for c in per_turn.get(f"turn_{t}", []):
+                if c not in per_turn_map:
+                    per_turn_map[c] = t
+                    all_concepts.append(c)
+        if not all_concepts:
+            continue
+        raw_path = RAW_J / track / arm / f"{seq_id}_r{run_idx}_transcript.json"
+        user_msg = build_transcript_judge_user(
+            seq_id, user_turns, assistant_turns, all_concepts)
+        obj = judge_with_retry(
+            TRANSCRIPT_JUDGE_SYSTEM, user_msg,
+            lambda o: validate_concept_judgment(o, all_concepts),
+            raw_path)
+        entry: dict[str, Any] = {
+            "arm": arm, "sequence_id": seq_id, "run_index": run_idx,
+            "n_turns": n,
+            "concepts_flat": all_concepts,
+        }
+        if obj is None:
+            entry["concepts"] = None
+            entry["concepts_failure"] = True
+        else:
+            entry["concepts"] = obj
+            entry["concepts_count_present"] = sum(1 for v in obj.values() if v)
+            entry["concepts_count_total"] = len(obj)
+        existing[key] = entry
+        print(f"  [T4-transcript] {key}", flush=True)
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(json.dumps(existing, indent=2, ensure_ascii=False))
+
+
 def _lookup_original_prompt(prompt_set: str, prompt_id: str) -> str:
     """Pull the user-visible prompt text for the given id (so judge sees it)."""
     if prompt_set == "short_en":
@@ -434,6 +564,11 @@ def _lookup_original_prompt(prompt_set: str, prompt_id: str) -> str:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--track", default="all")
+    parser.add_argument("--mode", choices=["per_turn", "transcript", "both"],
+                        default="per_turn",
+                        help="For T4 only: 'per_turn' (default, existing "
+                        "judge), 'transcript' (conversation-level judge), "
+                        "or 'both'.")
     args = parser.parse_args()
 
     sys.path.insert(0, str(BENCH))  # so we can `from run import ...`
@@ -444,11 +579,17 @@ def main() -> None:
     if args.track == "all":
         for t in SINGLE_TURN_TRACKS:
             judge_single_turn_track(t, concepts_db, literals_db)
-        judge_multiturn_track(concepts_db)
+        if args.mode in ("per_turn", "both"):
+            judge_multiturn_track(concepts_db)
+        if args.mode in ("transcript", "both"):
+            judge_multiturn_transcript(concepts_db)
     elif args.track in SINGLE_TURN_TRACKS:
         judge_single_turn_track(args.track, concepts_db, literals_db)
     elif args.track == "T4":
-        judge_multiturn_track(concepts_db)
+        if args.mode in ("per_turn", "both"):
+            judge_multiturn_track(concepts_db)
+        if args.mode in ("transcript", "both"):
+            judge_multiturn_transcript(concepts_db)
     else:
         print(f"unknown track: {args.track}")
         sys.exit(1)

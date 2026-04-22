@@ -1,0 +1,22 @@
+{
+  "final": {
+    "asks_for_or_describes_immediate_diagnosis_steps": true,
+    "mentions_correlating_with_recent_deploy": true,
+    "suggests_rollback_or_isolate_consideration": true,
+    "identifies_items_field_was_removed_from_returned_object": true,
+    "names_downstream_consumer_expects_items": true,
+    "proposes_jest_test_shape": true,
+    "test_asserts_items_field_present_in_buildCart_output": true,
+    "identifies_pool_exhaustion_risk_with_promise_all_for_47_skus": true,
+    "considers_average_vs_max_case": true,
+    "suggests_chunked_or_concurrency_limited_approach_e_g_p_limit_or_batched_promise_all": true,
+    "preserves_fast_path_for_typical_3_sku_case": true
+  },
+  "history": [
+    {
+      "attempt": 0,
+      "raw": "{\"asks_for_or_describes_immediate_diagnosis_steps\": true, \"mentions_correlating_with_recent_deploy\": true, \"suggests_rollback_or_isolate_consideration\": true, \"identifies_items_field_was_removed_from_returned_object\": true, \"names_downstream_consumer_expects_items\": true, \"proposes_jest_test_shape\": true, \"test_asserts_items_field_present_in_buildCart_output\": true, \"identifies_pool_exhaustion_risk_with_promise_all_for_47_skus\": true, \"considers_average_vs_max_case\": true, \"suggests_chunked_or_concurrency_limited_approach_e_g_p_limit_or_batched_promise_all\": true, \"preserves_fast_path_for_typical_3_sku_case\": true}"
+    }
+  ],
+  "ts": "2026-04-22T12:12:18.840455+00:00"
+}

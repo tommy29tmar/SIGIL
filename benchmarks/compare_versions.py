@@ -76,6 +76,39 @@ def comparison_table(track: str, prompts: list[str]) -> str:
     return "\n".join(out)
 
 
+def quality_compare_t4_transcript() -> str:
+    p = BENCH / "snapshots" / "judgments_T4_transcript.json"
+    if not p.exists():
+        return ""
+    j = json.loads(p.read_text())
+    arms_order = ["baseline", "terse", "caveman_full",
+                  "hewn_full_v1", "hewn_full_v2", "hewn_full"]
+    rows: dict[str, list[float]] = {a: [] for a in arms_order}
+    for k, v in j.items():
+        arm = v.get("arm", "?")
+        if arm not in rows:
+            continue
+        cp = v.get("concepts_count_present"); ct = v.get("concepts_count_total")
+        if cp is not None and ct:
+            rows[arm].append(cp / ct)
+    out = ["### T4 transcript-aware concept coverage",
+           "",
+           "Fairer evaluator for multi-turn: judges the FULL conversation "
+           "not each turn in isolation, so the assistant is not penalized "
+           "for NOT restating concepts it already established.",
+           "",
+           "| arm | transcript coverage | n |",
+           "|---|---:|---:|"]
+    for arm in arms_order:
+        xs = rows.get(arm, [])
+        if not xs:
+            out.append(f"| {arm} | — | 0 |")
+        else:
+            out.append(f"| {arm} | {statistics.mean(xs):.0%} | {len(xs)} |")
+    out.append("")
+    return "\n".join(out)
+
+
 def quality_compare(track: str) -> str:
     j = json.loads((BENCH / "snapshots" / f"judgments_{track}.json").read_text())
     arms_order = ["baseline", "terse", "caveman_full",
@@ -152,6 +185,7 @@ def main() -> None:
     parts.append("")
     for track in ["T1b", "T2", "T3", "T5", "T4"]:
         parts.append(quality_compare(track))
+    parts.append(quality_compare_t4_transcript())
     OUT.write_text("\n".join(parts))
     print(f"Wrote {OUT}")
 
