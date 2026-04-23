@@ -389,13 +389,18 @@ def report_observational(track: str, name: str, n_runs: int) -> str:
            "| Prompt | baseline | terse | caveman_full | caveman+ultra | hewn_prompt_only | hewn_full |",
            "|---|---:|---:|---:|---:|---:|---:|"]
     for pid in pids:
-        cells = [str(int(medians[a].get(pid, 0))) for a in arms]
+        cells = []
+        for a in arms:
+            v = medians[a].get(pid)
+            cells.append("—" if v is None else str(int(v)))
         out.append(f"| `{pid}` | " + " | ".join(cells) + " |")
-    avgs = [statistics.mean([medians[a][p] for p in pids
-                             if p in medians[a]])
-            for a in arms]
+    avgs = []
+    for a in arms:
+        xs = [medians[a][p] for p in pids if p in medians[a]]
+        avgs.append(statistics.mean(xs) if xs else None)
     out.append(f"| **mean** | " +
-               " | ".join(f"**{int(round(v))}**" for v in avgs) + " |")
+               " | ".join("**—**" if v is None else f"**{int(round(v))}**"
+                          for v in avgs) + " |")
 
     # Hewn-vs-baseline (causal — same exposure)
     out.append("")
@@ -428,7 +433,7 @@ def report_observational(track: str, name: str, n_runs: int) -> str:
         for a in arms:
             xs = [r.get("duration_ms", 0) for r in snaps.get(a, [])
                   if r.get("prompt_id") == pid]
-            cells.append(str(int(median_int(xs))))
+            cells.append("—" if not xs else str(int(median_int(xs))))
         out.append(f"| `{pid}` | " + " | ".join(cells) + " |")
 
     out.append("")
@@ -545,7 +550,12 @@ def report_quality() -> str:
             continue
         per_arm: dict[str, dict[str, list]] = {}
         for key, entry in j.items():
-            arm = entry.get("arm", "?")
+            # Skip judge sentinels (empty_response, empty_responses,
+            # known_model_timeout, etc.) — they have no `arm` field
+            # and would otherwise pollute the quality summary under "?".
+            if entry.get("skipped") or "arm" not in entry:
+                continue
+            arm = entry["arm"]
             per_arm.setdefault(arm, {"covered": [], "literals": [],
                                      "ir_valid": [], "filler100": [],
                                      "concept_failures": 0,
