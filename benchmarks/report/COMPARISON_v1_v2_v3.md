@@ -114,7 +114,7 @@ Caveman/baseline/terse arms unchanged — shown for reference.
 | baseline | 100% | 20 |
 | terse | 95% | 20 |
 | caveman_full | 98% | 20 |
-| caveman_full_plus_ultra_directive | — | 0 |
+| caveman_full_plus_ultra_directive | 95% | 20 |
 | hewn_full_v1 | 100% | 20 |
 | hewn_full_v2 | 85% | 20 |
 | hewn_full | 82% | 20 |

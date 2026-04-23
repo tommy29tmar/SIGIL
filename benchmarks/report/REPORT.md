@@ -69,10 +69,10 @@ balanced strict prose-caveman, v4 = current, with `(a) vague → ask,
 
 ---
 
-_Generated: 2026-04-22T12:31:45.576896+00:00_
+_Generated: 2026-04-23T07:39:30.074168+00:00_
 _Model: `claude-opus-4-7`_
-_Claude CLI: 2.1.117 (Claude Code)_
-_Hewn repo commit: c869a0963512e6941884942d19aa82c5e7fadf80_
+_Claude CLI: 2.1.118 (Claude Code)_
+_Hewn repo commit: 387d9dfa335c92fb90c29e7b4f7dc31bb0ff6921_
 _Caveman repo commit pinned: 84cc3c14fa1e10182adaced856e003406ccd250d_
 _Caveman SKILL.md sha256: `1762eb9ab0b566d70f51b040dbfd77d1f5be89cfa70da874564bda38c111be7c`_
 _Random seed: `hewn-bench-v1`_
@@ -442,6 +442,7 @@ OK — no session_id collision across distinct (arm, seq, run) tuples.
 |---|---:|---:|---:|---:|---:|---:|
 | baseline | 100% | — | 0% | 0.4 | 0 | — |
 | caveman_full | 98% | — | 0% | 0.1 | 0 | — |
+| caveman_full_plus_ultra_directive | 95% | — | 0% | 0.1 | 0 | — |
 | hewn_full | 82% | — | 20% | 0.0 | 0 | — |
 | hewn_full_v1 | 100% | — | 20% | 0.1 | 0 | — |
 | hewn_full_v2 | 85% | — | 20% | 0.1 | 0 | — |
