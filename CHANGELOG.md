@@ -1,5 +1,60 @@
 # Changelog
 
+## 0.9.1 — 2026-04-23
+
+### Public launch — benchmarks, docs, hero image
+
+First public release. Wrapper code unchanged from 0.9.0; this release
+ships the evidence and the launch presentation.
+
+Added:
+- `benchmarks/` — full benchmark suite (538 `claude -p` calls under
+  OAuth, no API billing) comparing Hewn vs Verbose Claude vs Caveman
+  Full vs Caveman Ultra-style across 7 tracks (T0 calibration, T1a/T1b
+  short Q&A, T2 vibe non-tech, T3 long-context, T4 multi-turn 5-turn
+  sequences, T5 expansive prose). Caveman SKILL.md vendored verbatim
+  with sha256 attribution.
+- `benchmarks/report/REPORT.md` — full per-prompt breakdown with
+  honesty box (where Hewn does NOT win: T5 expansive prose, T2 vibe
+  prompts, single-prompt long generation).
+- `benchmarks/RUNBOOK.md` — exact reproduction steps (4 Hewn iterations
+  v1→v4 documented with commit hashes, transcript-aware judge
+  rationale, final reference numbers with ±25% tolerance).
+- `benchmarks/codex-review-iterations/` — 8 rounds of cross-model plan
+  review with Codex (preserved as launch transparency artefact).
+- `assets/hero-benchmark.png` — 3-KPI dashboard image (tokens /
+  information density / time) for the README hero.
+- `examples/atlas-xff-review.md` — long-context security review
+  example (Verbose / Caveman Ultra-style / Hewn side-by-side).
+- `.github/ISSUE_TEMPLATE/bug_report.yml` and `feature_request.yml`.
+- Hewn classifier hook iterations v2 → v3 → v4 (`prose-caveman`
+  strict mode, then two-flavor micro-prose for vague vs concrete error
+  prompts).
+
+Headline numbers (T4 multi-turn, mean across 2 sequences × 2 runs,
+Claude Opus 4.7, transcript-aware LLM-as-judge):
+
+| arm                        | tokens | latency | concepts retained |
+| Verbose Claude             |  7,196 | 124.8s  | 100%              |
+| Caveman Full               |  4,226 |  83.0s  | 100%              |
+| Caveman Full + Ultra-dir.  |  3,901 |  79.3s  | 100%              |
+| Hewn                       |  2,837 |  65.2s  | 100%              |
+
+Hewn vs Verbose: −61% tokens, −48% latency, 4.6× higher information
+density (concepts kept per 100 tokens). Hewn vs Caveman Ultra-style:
+−27% tokens, −18% latency, 1.5× higher density.
+
+(Reminder: `caveman_full_plus_ultra_directive` is OUR directive-based
+approximation — NOT Caveman's official `/caveman ultra` skill, which
+needs the skill runtime unavailable under `--system-prompt`.)
+
+Changed:
+- `README.md` rewritten for launch (242 → 167 lines): badges, hero
+  image, install above the fold, "Beyond the headline" with 4 quality
+  findings, "Where Hewn doesn't win" honesty box, examples link.
+
+Repo flipped from private to public.
+
 ## 0.9.0 — 2026-04-21
 
 ### Hard rename Flint → Hewn; wrapper-only repo

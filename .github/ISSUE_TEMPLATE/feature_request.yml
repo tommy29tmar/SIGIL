@@ -1,0 +1,40 @@
+name: Feature request
+description: Suggest a new route, classifier rule, locale, or wrapper capability.
+title: "[Feature] "
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Hewn stays small on purpose. Features that make the wrapper bigger
+        without measurable token/quality benefit are likely declined — but
+        please open the issue anyway so the trade-off is on record.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve
+      description: Concrete user-visible problem with current Hewn.
+      placeholder: e.g. "Long technical Q&A in German doesn't classify correctly."
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: What you'd like Hewn to do differently.
+    validations:
+      required: true
+  - type: textarea
+    id: alternative
+    attributes:
+      label: Alternatives considered
+      description: What you tried, what didn't work, why a workaround isn't enough.
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: |
+        For classifier/route changes: 3-5 real prompts that misbehave today,
+        with the route they currently get and the route you'd expect. For
+        new locales: at least one PR-ready regex stack from real-prompt
+        history.

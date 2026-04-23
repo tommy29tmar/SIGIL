@@ -1,0 +1,56 @@
+name: Bug report
+description: Hewn doesn't behave as expected — wrong route, hook crash, install issue, etc.
+title: "[Bug] "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. Before opening, please run `hewn -p "test"` once
+        to confirm the wrapper is reachable. Logs help a lot.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: Concrete description of the misbehavior.
+      placeholder: e.g. "Q&A prompt got routed to IR but I expected prose-caveman."
+    validations:
+      required: true
+  - type: textarea
+    id: prompt
+    attributes:
+      label: Prompt that triggered it
+      description: Paste the exact user prompt.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: response
+    attributes:
+      label: Hewn's response (the part that's wrong)
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected instead
+    validations:
+      required: true
+  - type: input
+    id: locale
+    attributes:
+      label: Locale stack
+      description: Output of `echo "$HEWN_LOCALE | $LANG"`
+      placeholder: e.g. "en | it_IT.UTF-8"
+  - type: input
+    id: claude-version
+    attributes:
+      label: Claude Code CLI version
+      description: Output of `claude --version`
+      placeholder: e.g. "2.1.117"
+  - type: input
+    id: hewn-commit
+    attributes:
+      label: Hewn version / commit
+      description: Output of `cat ~/.local/bin/hewn | head -1` or git commit if installed from source
