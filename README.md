@@ -9,9 +9,10 @@
 >
 > *Less output burn. Less drift. Faster long sessions.*
 
-Claude Code is best when you stay in one session and keep pushing. It
-is also where it hurts most: repeated context, long answers, and output
-burn exactly when the budget starts to matter.
+Claude Code users tend to stay in one long session — it's the practical
+path: no lost context, no re-loading files, no re-doing setup. But
+that's also where the cost hits hardest: repeated context, long
+answers, and output burn exactly when the budget starts to matter.
 
 Hewn is built for that failure mode. It keeps Claude Code tighter over
 long sessions by routing each turn into a compact answer shape and then
